@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rosmaster_x3">
+
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+
+    <xacro:arg name="robot_name" default="benzene"/>
+    <xacro:arg name="prefix" default=""/>
+    <xacro:arg name="use_gazebo" default="false"/>
+
+    <xacro:include filename="$(find benzene_description)/urdf/mech/base.urdf.xacro"/>
+    <xacro:include filename="$(find benzene_description)/urdf/mech/wheel.urdf.xacro"/>
+    <!-- <xacro:include filename="$(find benzene_description)/urdf/sensors/rgbd_camera.urdf.xacro"/> -->
+    <xacro:include filename="$(find benzene_description)/urdf/sensors/lidar.urdf.xacro"/>
+    <xacro:include filename="$(find benzene_description)/urdf/sensors/imu.urdf.xacro"/>
+
+    <xacro:base prefix="$(arg prefix)"/>
+
+    <xacro:wheel
+      prefix="$(arg prefix)"
+      side="left"
+      x_reflect="1"
+      y_reflect="1"/>
+
+    <xacro:wheel
+      prefix="$(arg prefix)"
+      side="right"
+      x_reflect="1"
+      y_reflect="-1"/>
+
+    <xacro:lidar_sensor
+      prefix="$(arg prefix)"
+      parent="base_link"
+      frame_id="laser_frame"
+      xyz_offset="0 0 0.0825"
+      rpy_offset="0 0 0"
+      mesh_xyz_offset="0 0 0"
+      mesh_rpy_offset="${-M_PI/2} 0 0"
+      topic_name="scan"/>
+
+    <xacro:imu_sensor
+      prefix="$(arg prefix)"
+      parent="base_link"
+      frame_id="imu"
+      xyz_offset="0 0 0.006"
+      rpy_offset="0 0 0"
+      update_rate="15.0"
+      topic_name="imu/data"/>
+
+</robot>
