@@ -1,49 +1,334 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rosmaster_x3">
 
-    <xacro:property name="M_PI" value="3.1415926535897931" />
+<robot
+  xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="benzene">
 
-    <xacro:arg name="robot_name" default="benzene"/>
-    <xacro:arg name="prefix" default=""/>
-    <xacro:arg name="use_gazebo" default="false"/>
+  <!-- =========================================================
+       CONSTANTS
+       ========================================================= -->
 
-    <xacro:include filename="$(find benzene_description)/urdf/mech/base.urdf.xacro"/>
-    <xacro:include filename="$(find benzene_description)/urdf/mech/wheel.urdf.xacro"/>
-    <!-- <xacro:include filename="$(find benzene_description)/urdf/sensors/rgbd_camera.urdf.xacro"/> -->
-    <xacro:include filename="$(find benzene_description)/urdf/sensors/lidar.urdf.xacro"/>
-    <xacro:include filename="$(find benzene_description)/urdf/sensors/imu.urdf.xacro"/>
+  <xacro:property
+    name="M_PI"
+    value="3.1415926535897931"/>
 
-    <xacro:base prefix="$(arg prefix)"/>
 
-    <xacro:wheel
-      prefix="$(arg prefix)"
-      side="left"
-      x_reflect="1"
-      y_reflect="1"/>
+  <!-- =========================================================
+       ARGUMENTS
+       ========================================================= -->
 
-    <xacro:wheel
-      prefix="$(arg prefix)"
-      side="right"
-      x_reflect="1"
-      y_reflect="-1"/>
+  <xacro:arg
+    name="robot_name"
+    default="benzene"/>
 
-    <xacro:lidar_sensor
-      prefix="$(arg prefix)"
-      parent="base_link"
-      frame_id="laser_frame"
-      xyz_offset="0 0 0.0825"
-      rpy_offset="0 0 0"
-      mesh_xyz_offset="0 0 0"
-      mesh_rpy_offset="${-M_PI/2} 0 0"
-      topic_name="scan"/>
+  <xacro:arg
+    name="prefix"
+    default=""/>
 
-    <xacro:imu_sensor
-      prefix="$(arg prefix)"
-      parent="base_link"
-      frame_id="imu"
-      xyz_offset="0 0 0.006"
-      rpy_offset="0 0 0"
-      update_rate="15.0"
-      topic_name="imu/data"/>
+  <xacro:arg
+    name="use_gazebo"
+    default="false"/>
+
+
+  <!-- =========================================================
+       MECHANICAL COMPONENTS
+       ========================================================= -->
+
+  <xacro:include
+    filename="$(find benzene_description)/urdf/mech/base.urdf.xacro"/>
+
+  <xacro:include
+    filename="$(find benzene_description)/urdf/mech/wheel.urdf.xacro"/>
+
+
+  <!-- =========================================================
+       SENSORS
+       ========================================================= -->
+
+  <!-- Camera disabled for now -->
+  <!--
+  <xacro:include
+    filename="$(find benzene_description)/urdf/sensors/camera.urdf.xacro"/>
+  -->
+
+  <xacro:include
+    filename="$(find benzene_description)/urdf/sensors/lidar.urdf.xacro"/>
+
+  <xacro:include
+    filename="$(find benzene_description)/urdf/sensors/imu.urdf.xacro"/>
+
+
+  <!-- =========================================================
+       BASE
+       ========================================================= -->
+
+  <xacro:base
+    prefix="$(arg prefix)"/>
+
+
+  <!-- =========================================================
+       LEFT DRIVE WHEEL
+       ========================================================= -->
+
+  <xacro:wheel
+    prefix="$(arg prefix)"
+    side="left"
+    x_reflect="1"
+    y_reflect="1"/>
+
+
+  <!-- =========================================================
+       RIGHT DRIVE WHEEL
+       ========================================================= -->
+
+  <xacro:wheel
+    prefix="$(arg prefix)"
+    side="right"
+    x_reflect="1"
+    y_reflect="-1"/>
+
+
+  <!-- =========================================================
+       LIDAR
+       ========================================================= -->
+
+  <xacro:lidar_sensor
+    prefix="$(arg prefix)"
+    parent="base_link"
+    frame_id="laser_frame"
+    xyz_offset="-0.06 0 0.096"
+    rpy_offset="0 0 0"
+    mesh_xyz_offset="0 0 0"
+    mesh_rpy_offset="0 0 0"
+    topic_name="scan"/>
+
+
+  <!-- =========================================================
+       IMU
+       ========================================================= -->
+
+  <xacro:imu_sensor
+    prefix="$(arg prefix)"
+    parent="base_link"
+    frame_id="imu"
+    xyz_offset="0 0 0.006"
+    rpy_offset="0 0 0"
+    update_rate="15.0"
+    topic_name="imu/data"/>
+
+
+  <!-- =========================================================
+       FRONT CASTER WHEEL
+       ========================================================= -->
+
+  <joint
+    name="$(arg prefix)front_caster_wheel_joint"
+    type="fixed">
+
+    <parent link="$(arg prefix)base_link"/>
+
+    <child link="$(arg prefix)front_caster_wheel"/>
+
+    <!-- Same position as original articubot_two -->
+
+    <origin
+      xyz="0.12 0 0"
+      rpy="0 0 0"/>
+
+  </joint>
+
+
+  <link name="$(arg prefix)front_caster_wheel">
+
+    <!-- VISUAL -->
+
+    <visual>
+
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+
+        <sphere
+          radius="0.01495"/>
+
+      </geometry>
+
+      <material name="caster_black">
+
+        <color
+          rgba="0 0 0 1"/>
+
+      </material>
+
+    </visual>
+
+
+    <!-- COLLISION -->
+
+    <collision>
+
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+
+        <sphere
+          radius="0.01495"/>
+
+      </geometry>
+
+    </collision>
+
+
+    <!-- INERTIAL -->
+
+    <inertial>
+
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0"/>
+
+      <mass
+        value="0.1"/>
+
+      <inertia
+        ixx="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"
+        ixy="0"
+        ixz="0"
+        iyy="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"
+        iyz="0"
+        izz="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"/>
+
+    </inertial>
+
+  </link>
+
+
+  <!-- GAZEBO -->
+
+  <gazebo
+    reference="$(arg prefix)front_caster_wheel">
+
+    <material>
+      <ambient>0 0 0 1</ambient>
+      <diffuse>0 0 0 1</diffuse>
+      <specular>0 0 0 1</specular>
+    </material>
+
+    <mu1>0.0001</mu1>
+    <mu2>0.0001</mu2>
+
+  </gazebo>
+
+
+  <!-- =========================================================
+       REAR CASTER WHEEL
+       ========================================================= -->
+
+  <joint
+    name="$(arg prefix)back_caster_wheel_joint"
+    type="fixed">
+
+    <parent link="$(arg prefix)base_link"/>
+
+    <child link="$(arg prefix)back_caster_wheel"/>
+
+    <!-- Same position as original articubot_two -->
+
+    <origin
+      xyz="-0.12 0 0"
+      rpy="0 0 0"/>
+
+  </joint>
+
+
+  <link name="$(arg prefix)back_caster_wheel">
+
+    <!-- VISUAL -->
+
+    <visual>
+
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+
+        <sphere
+          radius="0.01495"/>
+
+      </geometry>
+
+      <material name="caster_black">
+
+        <color
+          rgba="0 0 0 1"/>
+
+      </material>
+
+    </visual>
+
+
+    <!-- COLLISION -->
+
+    <collision>
+
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+
+        <sphere
+          radius="0.01495"/>
+
+      </geometry>
+
+    </collision>
+
+
+    <!-- INERTIAL -->
+
+    <inertial>
+
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0"/>
+
+      <mass
+        value="0.1"/>
+
+      <inertia
+        ixx="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"
+        ixy="0"
+        ixz="0"
+        iyy="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"
+        iyz="0"
+        izz="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"/>
+
+    </inertial>
+
+  </link>
+
+
+  <!-- GAZEBO -->
+
+  <gazebo
+    reference="$(arg prefix)back_caster_wheel">
+
+    <material>
+      <ambient>0 0 0 1</ambient>
+      <diffuse>0 0 0 1</diffuse>
+      <specular>0 0 0 1</specular>
+    </material>
+
+    <mu1>0.0001</mu1>
+    <mu2>0.0001</mu2>
+
+  </gazebo>
+
 
 </robot>

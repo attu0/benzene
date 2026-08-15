@@ -1,67 +1,181 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:property name="wheel_radius" value="0.035" />
-  <xacro:property name="wheel_separation" value="0.207" />
-  <xacro:property name="wheel_width" value="0.02666" />
-  <xacro:property name="wheel_mass" value="9.1" />
-  <xacro:property name="wheel_xoff" value="0.08" />
-  <xacro:property name="wheel_yoff" value="-0.01" />
+    <!-- =========================================================
+         WHEEL PARAMETERS
+         ========================================================= -->
 
-  <xacro:macro name="wheel" params="prefix side x_reflect y_reflect">
-    <link name="${prefix}${side}_wheel_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
-        <geometry>
-          <mesh filename="file://$(find benzene_description)/meshes/benzene/visual/${side}_wheel.stl"/>
-        </geometry>
-        <material name="dark_gray">
-          <color rgba="0.2 0.2 0.2 1.0"/>
-        </material>
-      </visual>
+    <!-- Wheel physical dimensions -->
+    <xacro:property name="wheel_radius" value="0.035"/>
+    <xacro:property name="wheel_width" value="0.020"/>
 
-      <collision>
-        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
-        <geometry>
-          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
-        </geometry>
-      </collision>
+    <!-- Distance between left and right wheel centers -->
+    <xacro:property name="wheel_separation" value="0.180"/>
 
-      <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="${wheel_mass}"/>
-        <inertia
-          ixx="${(wheel_mass/12.0) * (3*wheel_radius*wheel_radius + wheel_width*wheel_width)}" ixy="0" ixz="0"
-          iyy="${(wheel_mass/2.0) * (wheel_radius*wheel_radius)}" iyz="0"
-          izz="${(wheel_mass/12.0) * (3*wheel_radius*wheel_radius + wheel_width*wheel_width)}"/>
-      </inertial>
-    </link>
+    <!-- Wheel position relative to base_link -->
+    <xacro:property name="wheel_x_offset" value="0.0"/>
+    <xacro:property name="wheel_z_offset" value="0.020"/>
 
-    <joint name="${prefix}${side}_wheel_joint" type="continuous">
-      <axis xyz="0 1 0"/>
-      <parent link="${prefix}base_link"/>
-      <child link="${prefix}${side}_wheel_link"/>
-      <origin xyz="${x_reflect*wheel_xoff} ${y_reflect*(wheel_separation/2+wheel_yoff)} ${-wheel_radius}" rpy="0 0 0"/>
-    </joint>
+    <!-- Wheel mass -->
+    <xacro:property name="wheel_mass" value="0.2"/>
 
-    <gazebo reference="${prefix}${side}_wheel_link">
-      <surface>
-        <friction>
-          <ode>
-              <mu>1.0</mu>
-              <mu2>0.0</mu2>
-          </ode>
-        </friction>
-      </surface>
-      <visual>
-          <material>
-              <ambient>0.2 0.2 0.2 1.0</ambient>
-              <diffuse>0.2 0.2 0.2 1.0</diffuse>
-              <specular>0.2 0.2 0.2 1.0</specular>
-              <emissive>0.0 0.0 0.0 0.0</emissive>
-          </material>
-      </visual>
-  </gazebo>
 
-  </xacro:macro>
+    <!-- =========================================================
+         WHEEL MACRO
+         ========================================================= -->
+
+    <xacro:macro name="wheel"
+                 params="prefix side x_reflect y_reflect">
+
+        <!-- =====================================================
+             LEFT / RIGHT WHEEL LINK
+             ===================================================== -->
+
+        <link name="${prefix}${side}_wheel_link">
+
+            <!-- =================================================
+                 VISUAL
+                 ================================================= -->
+
+            <visual>
+
+                <origin
+                    xyz="0 0 0"
+                    rpy="${-y_reflect * pi/2} 0 0"/>
+
+                <geometry>
+
+                    <mesh
+                        filename="file://$(find benzene_description)/meshes/benzene/visual/${side}_wheel.stl"
+                        scale="0.001 0.001 0.001"/>
+
+                </geometry>
+
+                <material name="blue">
+
+                    <color rgba="0 0 1 1"/>
+
+                </material>
+
+            </visual>
+
+
+            <!-- =================================================
+                 COLLISION
+                 ================================================= -->
+
+            <collision>
+
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+
+                <geometry>
+
+                    <cylinder
+                        radius="${wheel_radius}"
+                        length="${wheel_width}"/>
+
+                </geometry>
+
+            </collision>
+
+
+            <!-- =================================================
+                 INERTIAL
+                 ================================================= -->
+
+            <inertial>
+
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+
+                <mass value="${wheel_mass}"/>
+
+                <inertia
+                    ixx="${(wheel_mass / 12.0) * (3.0 * wheel_radius * wheel_radius + wheel_width * wheel_width)}"
+                    ixy="0.0"
+                    ixz="0.0"
+                    iyy="${(wheel_mass / 2.0) * wheel_radius * wheel_radius}"
+                    iyz="0.0"
+                    izz="${(wheel_mass / 12.0) * (3.0 * wheel_radius * wheel_radius + wheel_width * wheel_width)}"/>
+
+            </inertial>
+
+        </link>
+
+
+        <!-- =====================================================
+             LEFT / RIGHT WHEEL JOINT
+             ===================================================== -->
+
+        <joint
+            name="${prefix}${side}_wheel_joint"
+            type="continuous">
+
+            <parent link="${prefix}base_link"/>
+
+            <child link="${prefix}${side}_wheel_link"/>
+
+            <!--
+                LEFT:
+                    X = 0
+                    Y = +0.09
+                    Z = +0.02
+
+                RIGHT:
+                    X = 0
+                    Y = -0.09
+                    Z = +0.02
+            -->
+
+            <origin
+                xyz="${x_reflect * wheel_x_offset}
+                      ${y_reflect * (wheel_separation / 2.0)}
+                      ${wheel_z_offset}"
+                rpy="0 0 0"/>
+
+            <!-- Same wheel rotation axis as the original model -->
+            <axis xyz="0 1 0"/>
+
+        </joint>
+
+
+        <!-- =====================================================
+             GAZEBO PARAMETERS
+             ===================================================== -->
+
+        <gazebo reference="${prefix}${side}_wheel_link">
+
+            <surface>
+
+                <friction>
+
+                    <ode>
+                        <mu>1.0</mu>
+                        <mu2>1.0</mu2>
+                    </ode>
+
+                </friction>
+
+            </surface>
+
+            <visual>
+
+                <material>
+
+                    <ambient>0 0 1 1</ambient>
+                    <diffuse>0 0 1 1</diffuse>
+                    <specular>0 0 1 1</specular>
+                    <emissive>0 0 0 0</emissive>
+
+                </material>
+
+            </visual>
+
+        </gazebo>
+
+    </xacro:macro>
+
 </robot>
