@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find benzene_description)/urdf/mech/inertial_macros.xacro" />
 
   <!-- =========================
        BASE DIMENSIONS
@@ -41,8 +42,9 @@
 
       <collision>
         <geometry>
-          <box
-            size="${base_length} ${base_width} ${base_height}"/>
+          <mesh
+            filename="file://$(find benzene_description)/meshes/benzene/visual/chassis.stl"
+            scale="0.001 0.001 0.001"/>
         </geometry>
 
         <origin
@@ -50,22 +52,9 @@
           rpy="0 0 0"/>
       </collision>
 
-      <inertial>
-
-        <origin
-          xyz="0 0 0"
-          rpy="0 0 0"/>
-
-        <mass value="${base_mass}"/>
-
-        <inertia
-          ixx="${(1/12) * base_mass * (base_width*base_width + base_height*base_height)}"
-          ixy="0"
-          ixz="0"
-          iyy="${(1/12) * base_mass * (base_length*base_length + base_height*base_height)}"
-          iyz="0"
-          izz="${(1/12) * base_mass * (base_length*base_length + base_width*base_width)}"/>
-      </inertial>
+      <xacro:inertial_box mass="1.0" x="0.24" y="0.18" z="0.04">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
 
     </link>
 

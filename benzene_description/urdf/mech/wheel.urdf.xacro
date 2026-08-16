@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <xacro:include filename="$(find benzene_description)/urdf/mech/inertial_macros.xacro" />
+
     <!-- =========================================================
          WHEEL PARAMETERS
          ========================================================= -->
@@ -68,14 +70,13 @@
 
                 <origin
                     xyz="0 0 0"
-                    rpy="0 0 0"/>
+                    rpy="${-y_reflect * pi/2} 0 0"/>
 
                 <geometry>
 
-                    <cylinder
-                        radius="${wheel_radius}"
-                        length="${wheel_width}"/>
-
+                    <mesh
+                        filename="file://$(find benzene_description)/meshes/benzene/visual/${side}_wheel.stl"
+                        scale="0.001 0.001 0.001"/>
                 </geometry>
 
             </collision>
@@ -85,23 +86,9 @@
                  INERTIAL
                  ================================================= -->
 
-            <inertial>
-
-                <origin
-                    xyz="0 0 0"
-                    rpy="0 0 0"/>
-
-                <mass value="${wheel_mass}"/>
-
-                <inertia
-                    ixx="${(wheel_mass / 12.0) * (3.0 * wheel_radius * wheel_radius + wheel_width * wheel_width)}"
-                    ixy="0.0"
-                    ixz="0.0"
-                    iyy="${(wheel_mass / 2.0) * wheel_radius * wheel_radius}"
-                    iyz="0.0"
-                    izz="${(wheel_mass / 12.0) * (3.0 * wheel_radius * wheel_radius + wheel_width * wheel_width)}"/>
-
-            </inertial>
+            <xacro:inertial_cylinder mass="0.2" radius="0.07" length="0.02">
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+            </xacro:inertial_cylinder>
 
         </link>
 

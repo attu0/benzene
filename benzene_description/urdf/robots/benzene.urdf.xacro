@@ -185,24 +185,9 @@
 
     <!-- INERTIAL -->
 
-    <inertial>
-
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0"/>
-
-      <mass
-        value="0.1"/>
-
-      <inertia
-        ixx="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"
-        ixy="0"
-        ixz="0"
-        iyy="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"
-        iyz="0"
-        izz="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"/>
-
-    </inertial>
+    <xacro:inertial_sphere mass="0.1" radius="0.01495">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_sphere>
 
   </link>
 
@@ -292,24 +277,9 @@
 
     <!-- INERTIAL -->
 
-    <inertial>
-
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0"/>
-
-      <mass
-        value="0.1"/>
-
-      <inertia
-        ixx="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"
-        ixy="0"
-        ixz="0"
-        iyy="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"
-        iyz="0"
-        izz="${(2.0/5.0) * 0.1 * 0.01495 * 0.01495}"/>
-
-    </inertial>
+    <xacro:inertial_sphere mass="0.1" radius="0.01495">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:inertial_sphere>
 
   </link>
 
