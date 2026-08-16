@@ -30,7 +30,7 @@ public:
     {
         // Create publisher for velocity commands
         publisher_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(
-            "/mecanum_drive_controller/cmd_vel", 10);
+            "/diff_drive_controller/cmd_vel", 10);
 
         // Create timer that calls our control function every 200ms
         timer_ = this->create_wall_timer(
