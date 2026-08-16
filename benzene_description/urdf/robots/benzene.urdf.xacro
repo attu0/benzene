@@ -300,5 +300,33 @@
 
   </gazebo>
 
+  <!-- =========================================================
+       ROS2 CONTROL
+       ========================================================= -->
+  <xacro:include
+    filename="$(find benzene_description)/urdf/control/benzene_control.urdf.xacro"/>
+
+  <xacro:benzene_ros2_control
+    prefix="$(arg prefix)"
+    use_gazebo="$(arg use_gazebo)"/>
+
+  <!-- =========================================================
+       GAZEBO SIM ROS2 CONTROL PLUGIN
+       ========================================================= -->
+  <xacro:include
+    filename="$(find benzene_description)/urdf/control/gazebo_sim_ros2_control.urdf.xacro"/>
+
+  <xacro:load_gazebo_sim_ros2_control_plugin
+    robot_name="benzene"
+    use_gazebo="$(arg use_gazebo)"/>
+
+  <!-- =========================================================
+       GAZEBO VELOCITY CONTROL PLUGIN
+       ========================================================= -->
+  <xacro:include
+    filename="$(find benzene_description)/urdf/control/velocity_control_plugin.urdf.xacro"/>
+
+  <xacro:load_velocity_control_plugin
+    use_gazebo="$(arg use_gazebo)"/>
 
 </robot>

@@ -22,7 +22,7 @@ find_package(xacro REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-install(DIRECTORY launch models worlds
+install(DIRECTORY launch models worlds config rviz
   DESTINATION share/${PROJECT_NAME}
 )
 

@@ -38,16 +38,16 @@ def generate_launch_description():
         LaunchDescription: A complete launch description for the simulation
     """
     # Constants for paths to different files and folders
-    package_name_gazebo = 'yahboom_rosmaster_gazebo'
-    package_name_description = 'yahboom_rosmaster_description'
-    package_name_bringup = 'yahboom_rosmaster_bringup'
+    package_name_gazebo = 'benzene_gazebo'
+    package_name_description = 'benzene_description'
+    package_name_bringup = 'benzene_bringup'
 
-    default_robot_name = 'rosmaster_x3'
+    default_robot_name = 'benzene'
     gazebo_models_path = 'models'
     default_world_file = 'empty.world'
     gazebo_worlds_path = 'worlds'
     ros_gz_bridge_config_file_path = 'config/ros_gz_bridge.yaml'
-    rviz_config_filename = 'yahboom_rosmaster_gazebo_sim.rviz'
+    rviz_config_filename = 'benzene_gazebo_sim.rviz'
 
     # Set the path to different files and folders
     pkg_ros_gz_sim = FindPackageShare(package='ros_gz_sim').find('ros_gz_sim')

@@ -199,7 +199,7 @@ def generate_launch_description():
     ld = LaunchDescription(ARGUMENTS)
 
     # Process the controller configuration before starting nodes
-    #ld.add_action(OpaqueFunction(function=process_ros2_controllers_config))
+    ld.add_action(OpaqueFunction(function=process_ros2_controllers_config))
 
     # Declare the launch options
     ld.add_action(declare_jsp_gui_cmd)

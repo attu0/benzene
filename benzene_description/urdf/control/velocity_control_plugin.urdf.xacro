@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!--
+      Diff-drive is controlled through ros2_control + diff_drive_controller.
+      The old Gazebo VelocityControl plugin is intentionally removed.
+    -->
+
+    <xacro:macro name="load_velocity_control_plugin" params="use_gazebo">
+        <!-- No Gazebo VelocityControl plugin is required for diff_drive_controller. -->
+    </xacro:macro>
+
+</robot>
