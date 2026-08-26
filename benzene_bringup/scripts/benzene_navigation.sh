@@ -11,12 +11,12 @@ cleanup() {
 # Set up cleanup trap
 trap 'cleanup' SIGINT SIGTERM
 
-# Check if SLAM argument is provided
-# if [ "$1" = "slam" ]; then
-#     SLAM_ARG="slam:=True"
-# else
-#     SLAM_ARG="slam:=False"
-# fi
+#Check if SLAM argument is provided
+if [ "$1" = "slam" ]; then
+    SLAM_ARG="slam:=True"
+else
+    SLAM_ARG="slam:=False"
+fi
 
 # For cafe.world -> z:=0.20
 # For house.world -> z:=0.05
@@ -36,9 +36,9 @@ ros2 launch benzene_bringup benzene_navigation.launch.py \
     z:=0.20 \
     roll:=0.0 \
     pitch:=0.0 \
-    yaw:=0.0 & #\
-    #"$SLAM_ARG" \
-    #map:=/home/ubuntu/ros2_ws/src/benzene/benzene_navigation/maps/cafe_world_map.yaml &
+    yaw:=0.0 \
+    "$SLAM_ARG" \
+    map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/cafe_world_map.yaml &
 
 echo "Waiting 25 seconds for simulation to initialize..."
 sleep 25

@@ -16,7 +16,17 @@ find_package(slam_toolbox REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 
-install(DIRECTORY launch map rviz
+add_executable(cmd_vel_relay src/cmd_vel_relay_node.cpp)
+ament_target_dependencies(cmd_vel_relay
+  rclcpp
+  geometry_msgs
+)
+
+install(TARGETS cmd_vel_relay
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY launch map rviz config
   DESTINATION share/${PROJECT_NAME}/
 )
 

@@ -259,12 +259,12 @@ def generate_launch_description():
     #     }.items()
     # )
 
-    start_assisted_teleop_cmd = Node(
-        package='benzene_navigation',
-        executable='assisted_teleoperation.py',
-        output='screen',
-        parameters=[{'use_sim_time': use_sim_time}]
-    )
+    # start_assisted_teleop_cmd = Node(
+    #     package='benzene_navigation',
+    #     executable='assisted_teleoperation.py',
+    #     output='screen',
+    #     parameters=[{'use_sim_time': use_sim_time}]
+    # )
 
     # Start the node that relays /cmd_vel to /mecanum_drive_controller/cmd_vel
     start_cmd_vel_relay_cmd = Node(
@@ -309,12 +309,12 @@ def generate_launch_description():
     )
 
     # Start the node that receives goal poses and sends the robot there
-    start_nav_to_pose_cmd = Node(
-        package='benzene_navigation',
-        executable='nav_to_pose.py',
-        output='screen',
-        parameters=[{'use_sim_time': use_sim_time}]
-    )
+    # start_nav_to_pose_cmd = Node(
+    #     package='benzene_navigation',
+    #     executable='nav_to_pose.py',
+    #     output='screen',
+    #     parameters=[{'use_sim_time': use_sim_time}]
+    # )
 
     # Launch the ROS 2 Navigation Stack
     start_ros2_navigation_cmd = IncludeLaunchDescription(
@@ -338,20 +338,20 @@ def generate_launch_description():
 
     # Add all launch arguments
     # Config and launch files
-    # ld.add_action(declare_autostart_cmd)
-    # ld.add_action(declare_camera_namespace_cmd)
+    ld.add_action(declare_autostart_cmd)
+    ld.add_action(declare_camera_namespace_cmd)
     ld.add_action(declare_enable_odom_tf_cmd)
     ld.add_action(declare_ekf_config_file_cmd)
     ld.add_action(declare_ekf_launch_file_cmd)
     ld.add_action(declare_gazebo_launch_file_cmd)
-    # ld.add_action(declare_map_yaml_cmd)
-    # ld.add_action(declare_namespace_cmd)
-    # ld.add_action(declare_nav2_params_file_cmd)
+    ld.add_action(declare_map_yaml_cmd)
+    ld.add_action(declare_namespace_cmd)
+    ld.add_action(declare_nav2_params_file_cmd)
     ld.add_action(declare_rviz_config_file_cmd)
-    # ld.add_action(declare_slam_cmd)
-    # ld.add_action(declare_use_composition_cmd)
-    # ld.add_action(declare_use_namespace_cmd)
-    # ld.add_action(declare_use_respawn_cmd)
+    ld.add_action(declare_slam_cmd)
+    ld.add_action(declare_use_composition_cmd)
+    ld.add_action(declare_use_namespace_cmd)
+    ld.add_action(declare_use_respawn_cmd)
 
     # Robot configuration
     ld.add_action(declare_robot_name_cmd)
@@ -379,10 +379,10 @@ def generate_launch_description():
     # Add any actions
     # ld.add_action(start_apriltag_dock_cmd)
     # ld.add_action(start_assisted_teleop_cmd)
-    # ld.add_action(start_cmd_vel_relay_cmd)
+    ld.add_action(start_cmd_vel_relay_cmd)
     ld.add_action(start_ekf_cmd)
     ld.add_action(start_gazebo_cmd)
     # ld.add_action(start_nav_to_pose_cmd)
-    # ld.add_action(start_ros2_navigation_cmd)
+    ld.add_action(start_ros2_navigation_cmd)
 
     return ld
