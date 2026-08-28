@@ -1,21 +1,23 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>benzene</name>
+  <name>benzene_docking</name>
   <version>0.0.0</version>
-  <description>Meta package for benzene bot</description>
+  <description>contains core files related to docking using april tags and nav2</description>
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <exec_depend>benzene_bringup</exec_depend>
-  <exec_depend>benzene_description</exec_depend>
-  <exec_depend>benzene_gazebo</exec_depend>
-  <exec_depend>benzene_system_tests</exec_depend>
-  <exec_depend>benzene_navigation</exec_depend>
-  <exec_depend>benzene_localization</exec_depend>
-  <exec_depend>benzene_docking</exec_depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_py</depend>
+  <depend>apriltag_ros</depend>
+  <depend>apriltag_msgs</depend>
+  <depend>image_proc</depend>
+  <depend>image_view</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav2_simple_commander</depend>
+  <depend>tf2_ros</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
