@@ -39,8 +39,8 @@ def generate_launch_description():
     rviz_config_file_path = 'rviz/nav2_default_view.rviz'
 
     # Set the path to different packages
-    # pkg_share_docking = FindPackageShare(
-    #     package=package_name_docking).find(package_name_docking)
+    pkg_share_docking = FindPackageShare(
+        package=package_name_docking).find(package_name_docking)
     pkg_share_gazebo = FindPackageShare(package=package_name_gazebo).find(package_name_gazebo)
     pkg_share_localization = FindPackageShare(
         package=package_name_localization).find(package_name_localization)
@@ -48,8 +48,8 @@ def generate_launch_description():
         package=package_name_navigation).find(package_name_navigation)
 
     # Set default paths
-    # default_apriltag_launch_path = PathJoinSubstitution(
-    #     [pkg_share_docking, apriltag_launch_file_path])
+    default_apriltag_launch_path = PathJoinSubstitution(
+        [pkg_share_docking, apriltag_launch_file_path])
     default_gazebo_launch_path = PathJoinSubstitution([pkg_share_gazebo, gazebo_launch_file_path])
     default_ekf_launch_path = PathJoinSubstitution([pkg_share_localization, ekf_launch_file_path])
     default_ekf_config_path = PathJoinSubstitution([pkg_share_localization, ekf_config_file_path])
@@ -251,13 +251,13 @@ def generate_launch_description():
         description='Use simulation (Gazebo) clock if true')
 
     # Specify the actions
-    # start_apriltag_dock_cmd = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource([default_apriltag_launch_path]),
-    #     launch_arguments={
-    #         'use_sim_time': use_sim_time,
-    #         'camera_namespace': camera_namespace
-    #     }.items()
-    # )
+    start_apriltag_dock_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([default_apriltag_launch_path]),
+        launch_arguments={
+            'use_sim_time': use_sim_time,
+            'camera_namespace': camera_namespace
+        }.items()
+    )
 
     start_assisted_teleop_cmd = Node(
         package='benzene_navigation',
@@ -377,7 +377,7 @@ def generate_launch_description():
     ld.add_action(declare_use_sim_time_cmd)
 
     # Add any actions
-    # ld.add_action(start_apriltag_dock_cmd)
+    ld.add_action(start_apriltag_dock_cmd)
     ld.add_action(start_assisted_teleop_cmd)
     ld.add_action(start_cmd_vel_relay_cmd)
     ld.add_action(start_ekf_cmd)

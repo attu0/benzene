@@ -127,17 +127,17 @@ def generate_launch_description():
     )
 
    # Create the detected dock pose publisher node
-    # start_detected_dock_pose_publisher = Node(
-    #     package='benzene_docking',
-    #     executable='detected_dock_pose_publisher',
-    #     parameters=[{
-    #         'use_sim_time': use_sim_time,
-    #         'parent_frame': [camera_namespace, TextSubstitution(text=''), camera_frame_type],
-    #         'child_frame': [tag_family, TextSubstitution(text=':'), tag_id],
-    #         'publish_rate': 10.0
-    #     }],
-    #     output='screen'
-    # )
+    start_detected_dock_pose_publisher = Node(
+        package='benzene_docking',
+        executable='detected_dock_pose_publisher',
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            'parent_frame': [camera_namespace, TextSubstitution(text=''), camera_frame_type],
+            'child_frame': [tag_family, TextSubstitution(text=':'), tag_id],
+            'publish_rate': 10.0
+        }],
+        output='screen'
+    )
 
     # Create and populate the launch description
     ld = LaunchDescription()
@@ -152,6 +152,6 @@ def generate_launch_description():
 
     # Add the container
     ld.add_action(start_apriltag_dock_pose_publisher)
-    # ld.add_action(start_detected_dock_pose_publisher)
+    ld.add_action(start_detected_dock_pose_publisher)
 
     return ld

@@ -424,8 +424,8 @@ docking_server:
     dock_prestaging_tolerance: 0.5
 
     # Types of docks
-    dock_plugins: ['rosmaster_x3_dock']
-    rosmaster_x3_dock:
+    dock_plugins: ['benzene_dock']
+    benzene_dock:
       plugin: 'opennav_docking::SimpleChargingDock'
       docking_threshold: 0.02
       staging_x_offset: 0.75
@@ -446,7 +446,7 @@ docking_server:
       filter_coef: 0.1
 
     # Dock instances
-    #dock_database: $(find-pkg-share benzene_docking)/config/dock_database.yaml
+    dock_database: $(find-pkg-share benzene_docking)/config/dock_database.yaml
 
     controller:
       k_phi: 3.0
