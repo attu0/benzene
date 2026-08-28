@@ -1,10 +1,18 @@
-# RGBD Camera topics
-# - ros_topic_name: "cam_1/color/camera_info"
-#   gz_topic_name: "cam_1/camera_info"
-#   ros_type_name: "sensor_msgs/msg/CameraInfo"
-#   gz_type_name: "gz.msgs.CameraInfo"
-#   direction: GZ_TO_ROS
-#   lazy: true # Determines whether connections are created immediately at startup (when false) or only when data is actually requested by a subscriber (when true), helping to conserve system resources at the cost of potential initial delays in data flow.
+# RGB Camera Image
+- ros_topic_name: "cam_1/color/image_raw"
+  gz_topic_name: "cam_1/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+  lazy: true
+
+# RGB Camera Info
+- ros_topic_name: "cam_1/color/camera_info"
+  gz_topic_name: "cam_1/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+  lazy: true
 
 # - ros_topic_name: "cam_1/depth/color/points"
 #   gz_topic_name: "cam_1/points"

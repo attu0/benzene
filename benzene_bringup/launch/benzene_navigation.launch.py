@@ -259,12 +259,12 @@ def generate_launch_description():
     #     }.items()
     # )
 
-    # start_assisted_teleop_cmd = Node(
-    #     package='benzene_navigation',
-    #     executable='assisted_teleoperation.py',
-    #     output='screen',
-    #     parameters=[{'use_sim_time': use_sim_time}]
-    # )
+    start_assisted_teleop_cmd = Node(
+        package='benzene_navigation',
+        executable='assisted_teleoperation.py',
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time}]
+    )
 
     # Start the node that relays /cmd_vel to /mecanum_drive_controller/cmd_vel
     start_cmd_vel_relay_cmd = Node(
@@ -309,12 +309,12 @@ def generate_launch_description():
     )
 
     # Start the node that receives goal poses and sends the robot there
-    # start_nav_to_pose_cmd = Node(
-    #     package='benzene_navigation',
-    #     executable='nav_to_pose.py',
-    #     output='screen',
-    #     parameters=[{'use_sim_time': use_sim_time}]
-    # )
+    start_nav_to_pose_cmd = Node(
+        package='benzene_navigation',
+        executable='nav_to_pose.py',
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time}]
+    )
 
     # Launch the ROS 2 Navigation Stack
     start_ros2_navigation_cmd = IncludeLaunchDescription(
@@ -378,11 +378,11 @@ def generate_launch_description():
 
     # Add any actions
     # ld.add_action(start_apriltag_dock_cmd)
-    # ld.add_action(start_assisted_teleop_cmd)
+    ld.add_action(start_assisted_teleop_cmd)
     ld.add_action(start_cmd_vel_relay_cmd)
     ld.add_action(start_ekf_cmd)
     ld.add_action(start_gazebo_cmd)
-    # ld.add_action(start_nav_to_pose_cmd)
+    ld.add_action(start_nav_to_pose_cmd)
     ld.add_action(start_ros2_navigation_cmd)
 
     return ld

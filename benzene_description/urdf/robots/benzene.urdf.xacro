@@ -46,10 +46,10 @@
        ========================================================= -->
 
   <!-- Camera disabled for now -->
-  <!--
+
   <xacro:include
     filename="$(find benzene_description)/urdf/sensors/camera.urdf.xacro"/>
-  -->
+
 
   <xacro:include
     filename="$(find benzene_description)/urdf/sensors/lidar.urdf.xacro"/>
@@ -115,6 +115,24 @@
     rpy_offset="0 0 0"
     update_rate="15.0"
     topic_name="imu/data"/>
+
+  <!-- =========================================================
+       CAMERA
+       ========================================================= -->
+
+  <xacro:rgb_camera
+    camera_name="camera"
+    parent="base_link"
+    xyz_offset="0.15 0 0.08"
+    rpy_offset="0 0 0"
+    image_width="640"
+    image_height="480"
+    horizontal_fov="1.089"
+    update_rate="10"
+    clip_near="0.05"
+    clip_far="8.0"
+    topic="cam_1/image_raw"
+    camera_info_topic="cam_1/camera_info"/>
 
 
   <!-- =========================================================

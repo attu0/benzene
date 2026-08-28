@@ -30,6 +30,15 @@ install(DIRECTORY launch maps rviz config
   DESTINATION share/${PROJECT_NAME}/
 )
 
+ament_python_install_package(${PROJECT_NAME})
+
+install(PROGRAMS
+  scripts/assisted_teleoperation.py
+  scripts/nav_to_pose.py
+  scripts/test_nav_to_pose.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights

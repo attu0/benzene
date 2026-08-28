@@ -19,7 +19,7 @@ diff_drive_controller:
     wheel_radius: 0.035
     odom_frame_id: odom
     base_frame_id: base_footprint
-    enable_odom_tf: false
+    enable_odom_tf: true
     use_stamped_vel: false
 
     linear.x.has_velocity_limits: false
