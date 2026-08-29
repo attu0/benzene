@@ -26,7 +26,7 @@ install(TARGETS cmd_vel_relay
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY launch maps rviz config
+install(DIRECTORY maps rviz config
   DESTINATION share/${PROJECT_NAME}/
 )
 

@@ -18,11 +18,6 @@ find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(benzene_msgs REQUIRED)
 
-install (
-  DIRECTORY config launch
-  DESTINATION share/${PROJECT_NAME}
-)
-
 # Add the square mecanum controller executable
 add_executable(square_mecanum_controller
   src/square_mecanum_controller.cpp
