@@ -51,12 +51,6 @@ source $ROS_WS/install/setup.bash
 # Source the .bashrc file to ensure all environment variables are up to date
 source /root/.bashrc
 
-# Change to the ROS 2 workspace directory
-cd $ROS_WS
-
-# Build the ROS 2 workspace using colcon
-colcon build
-
 # Change back to the root directory
 cd
 

@@ -38,6 +38,10 @@ RUN rosdep update && \
     grep -F "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" /root/.bashrc || echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> /root/.bashrc
 
 # Install additional ROS 2 packages
+# rviz2 + joint-state-publisher-gui + xacro for visualizing benzene_description
+# Gazebo Harmonic + ros_gz for benzene_gazebo simulation
+# nav2 for benzene_navigation
+# robot_localization for benzene_localization (EKF sensor fusion)
 RUN apt-get update && \
     apt-get install -y \
     ros-${ROS_DISTRO}-joint-state-publisher-gui \
@@ -45,22 +49,32 @@ RUN apt-get update && \
     ros-${ROS_DISTRO}-demo-nodes-cpp \
     ros-${ROS_DISTRO}-demo-nodes-py \
     ros-${ROS_DISTRO}-rviz2 \
-    ros-${ROS_DISTRO}-rqt-reconfigure
+    ros-${ROS_DISTRO}-rqt-reconfigure \
+    ros-${ROS_DISTRO}-ros-gz \
+    ros-${ROS_DISTRO}-gz-ros2-control \
+    ros-${ROS_DISTRO}-navigation2 \
+    ros-${ROS_DISTRO}-nav2-bringup \
+    ros-${ROS_DISTRO}-robot-localization \
+    ros-${ROS_DISTRO}-ros2-control \
+    ros-${ROS_DISTRO}-ros2-controllers
 
 # Install Mesa graphics drivers
 # Mesa is an open-source implementation of OpenGL and other graphics APIs
-# It's crucial for 3D rendering in many applications, including RViz in ROS
+# It's crucial for 3D rendering in many applications, including RViz/Gazebo in ROS
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:kisak/kisak-mesa
 
 # Create necessary directories
 RUN mkdir -p /etc/udev/rules.d && \
-    mkdir -p /root/ros2_ws/src/mycobot_ros2
+    mkdir -p /root/ros2_ws/src/benzene
 
 # Copy the entire project into the container
-# Since we're using the parent directory as context, we can copy everything
-COPY . /root/ros2_ws/src/mycobot_ros2
+# Since we're using the parent (repo root) directory as context, this pulls in
+# all the benzene_* packages (bringup, control, description, docking, gazebo,
+# localization, msgs, navigation, system_tests, arduino) as ROS 2 packages
+# under src/benzene, which colcon will discover recursively.
+COPY . /root/ros2_ws/src/benzene
 
 # Copy configuration files from docker directory
 # Note the docker/ prefix since we're in the parent context
@@ -75,12 +89,12 @@ RUN chmod +x /root/workspace.sh /root/entrypoint.sh
 RUN cat /root/.bashrc_aliases >> /root/.bashrc
 
 # Run the workspace setup script
-# This typically installs workspace dependencies and builds the ROS 2 packages
+# This installs workspace dependencies and builds the ROS 2 packages
 WORKDIR /root
 RUN ./workspace.sh
 
 # Ensure the ROS 2 workspace is sourced in every new shell
-RUN echo "source /root/ros2_ws/install/setup.bash" >> /root/.bashrc
+# RUN echo "source /root/ros2_ws/install/setup.bash" >> /root/.bashrc
 
 # Set the entrypoint for the container
 # This script will be run every time the container starts
