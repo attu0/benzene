@@ -86,7 +86,12 @@ COPY docker/bash_aliases.txt /root/.bashrc_aliases
 RUN chmod +x /root/workspace.sh /root/entrypoint.sh
 
 # Add custom bash aliases
-RUN cat /root/.bashrc_aliases >> /root/.bashrc
+# The trailing `echo ""` guarantees a newline separator after the appended
+# content, regardless of whether bash_aliases.txt itself ends in a newline.
+# Without this, anything entrypoint.sh later appends to .bashrc (like the
+# ROS_DOMAIN_ID export) can get concatenated onto the last alias line and
+# corrupt it (e.g. "...setup.bashexport ROS_DOMAIN_ID=0").
+RUN cat /root/.bashrc_aliases >> /root/.bashrc && echo "" >> /root/.bashrc
 
 # Run the workspace setup script
 # This installs workspace dependencies and builds the ROS 2 packages

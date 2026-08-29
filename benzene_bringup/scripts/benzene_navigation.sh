@@ -37,8 +37,7 @@ ros2 launch benzene_bringup benzene_navigation.launch.py \
     roll:=0.0 \
     pitch:=0.0 \
     yaw:=0.0 \
-    "$SLAM_ARG" \
-    map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/cafe_world_map.yaml &
+    "$SLAM_ARG" &
 
 echo "Waiting 25 seconds for simulation to initialize..."
 sleep 25
