@@ -1,4 +1,4 @@
-<library path="diffdrive_arduino">
+<library path="benzene_hardware">
   <class name="diffdrive_arduino/DiffDriveArduinoHardware"
          type="diffdrive_arduino::DiffDriveArduinoHardware"
          base_class_type="hardware_interface::SystemInterface">
