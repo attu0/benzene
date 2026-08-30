@@ -34,7 +34,7 @@ def generate_launch_description():
     gazebo_launch_file_path = 'launch/benzene.gazebo.launch.py'
     ekf_launch_file_path = 'launch/ekf_gazebo.launch.py'
     ekf_config_file_path = 'config/ekf.yaml'
-    map_file_path = 'maps/cafe_world_map.yaml'
+    map_file_path = 'maps/warehouse_world_map.yaml'
     nav2_params_path = 'config/benzene_nav2_default_params.yaml'
     rviz_config_file_path = 'rviz/nav2_default_view.rviz'
 
