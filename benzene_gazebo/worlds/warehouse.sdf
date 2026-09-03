@@ -228,7 +228,7 @@
       <name>fchair1</name>
       <pose>-14 6.5 0 0 -0 1.9</pose>
     </include>
-    
+
     <!-- Table -->
 
     <include>

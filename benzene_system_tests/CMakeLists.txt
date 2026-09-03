@@ -17,10 +17,17 @@ find_package(rcl_interfaces REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(benzene_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2 REQUIRED)
 
 # Add the square mecanum controller executable
-add_executable(square_mecanum_controller
-  src/square_mecanum_controller.cpp
+add_executable(square_movemet_test
+  src/square_movemet_test.cpp
+)
+
+install(PROGRAMS
+  src/square_controller.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 # Add the mecanum parameters node executable
@@ -44,10 +51,12 @@ add_executable(set_cleaning_state_service
 )
 
 # Specify dependencies for the target
-ament_target_dependencies(square_mecanum_controller
+ament_target_dependencies(square_movemet_test
   rclcpp
   geometry_msgs
   std_msgs
+  nav_msgs
+  tf2
 )
 
 # Specify dependencies for the mecanum parameters node
@@ -82,7 +91,7 @@ ament_target_dependencies(set_cleaning_state_service
 
 # Install the executables
 install(TARGETS
-  square_mecanum_controller
+  square_movemet_test
   mecanum_parameters_node
   timed_rotation_action_server
   timed_rotation_action_client

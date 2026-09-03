@@ -18,7 +18,7 @@ ros2 launch benzene_gazebo benzene.gazebo.launch.py \
     enable_odom_tf:=true \
     headless:=False \
     load_controllers:=true \
-    world_file:=cafe.world \
+    world_file:=warehouse.sdf \
     use_rviz:=true \
     use_robot_state_pub:=true \
     use_sim_time:=true \

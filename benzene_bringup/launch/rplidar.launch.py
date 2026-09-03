@@ -13,7 +13,7 @@ def generate_launch_description():
             name='rplidar',
             output='screen',
             parameters=[{
-                'serial_port': '/dev/ttyUSB0',
+                'serial_port': '/dev/ttyUSB1',
                 'serial_baudrate': 115200,
                 'frame_id': 'laser_frame',
                 'angle_compensate': False,
