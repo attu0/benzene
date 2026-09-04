@@ -5,7 +5,7 @@ Bring up the real (non-Gazebo) benzene robot.
 This launch file sets up the physical robot: robot state publisher, the
 ros2_control controller_manager talking to the Arduino over serial via
 benzene_hardware, the diff drive + joint state broadcaster controllers,
-and (optionally) the RPLIDAR and camera drivers.
+and (optionally) the RPLIDAR, camera, and joystick teleop.
 """
 
 import os
@@ -53,6 +53,7 @@ def generate_launch_description():
     jsp_gui = LaunchConfiguration('jsp_gui')
     prefix = LaunchConfiguration('prefix')
     robot_name = LaunchConfiguration('robot_name')
+    use_joy = LaunchConfiguration('use_joy')
     use_rviz = LaunchConfiguration('use_rviz')
     use_sim_time = LaunchConfiguration('use_sim_time')
 
@@ -83,6 +84,11 @@ def generate_launch_description():
         name='robot_name',
         default_value=default_robot_name,
         description='The name for the robot')
+
+    declare_use_joy_cmd = DeclareLaunchArgument(
+        name='use_joy',
+        default_value='false',
+        description='Whether to launch joystick teleop')
 
     declare_use_rviz_cmd = DeclareLaunchArgument(
         name='use_rviz',
@@ -174,6 +180,15 @@ def generate_launch_description():
         condition=IfCondition(include_camera)
     )
 
+    # Include joystick teleop launch file if enabled
+    include_joystick_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(pkg_share_bringup, 'launch', 'joystick.launch.py')
+        ]),
+        launch_arguments={'use_sim_time': use_sim_time}.items(),
+        condition=IfCondition(use_joy)
+    )
+
     # Defer sensors launch to avoid overhead while robot_state_publisher
     # and controller_manager are setting up
     rplidar_timer = TimerAction(period=3.0, actions=[include_rplidar_cmd])
@@ -188,6 +203,7 @@ def generate_launch_description():
     ld.add_action(declare_jsp_gui_cmd)
     ld.add_action(declare_prefix_cmd)
     ld.add_action(declare_robot_name_cmd)
+    ld.add_action(declare_use_joy_cmd)
     ld.add_action(declare_use_rviz_cmd)
     ld.add_action(declare_use_sim_time_cmd)
 
@@ -198,5 +214,6 @@ def generate_launch_description():
     ld.add_action(delay_diff_drive_controller_spawner_after_joint_state_broadcaster_spawner)
     ld.add_action(rplidar_timer)
     ld.add_action(camera_timer)
+    ld.add_action(include_joystick_cmd)
 
     return ld
