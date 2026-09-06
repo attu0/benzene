@@ -11,11 +11,22 @@ cleanup() {
 # Set up cleanup trap
 trap 'cleanup' SIGINT SIGTERM
 
-#Check if SLAM argument is provided
+# SLAM
 if [ "$1" = "slam" ]; then
     SLAM_ARG="slam:=True"
+    WORLD="$2"
 else
     SLAM_ARG="slam:=False"
+    WORLD="$1"
+fi
+
+# World
+if [ "$WORLD" = "cafe" ]; then
+    WORLD_ARG="world_file:=cafe.world"
+    MAP_ARG="map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/cafe_world_map.yaml"
+else
+    WORLD_ARG="world_file:=warehouse.sdf"
+    MAP_ARG="map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/warehouse_world_map.yaml"
 fi
 
 # For cafe.world -> z:=0.20
@@ -27,7 +38,8 @@ ros2 launch benzene_bringup benzene_navigation.launch.py \
     enable_odom_tf:=false \
     headless:=False \
     load_controllers:=true \
-    world_file:=warehouse.sdf \
+    $WORLD_ARG \
+    $MAP_ARG \
     use_rviz:=true \
     use_robot_state_pub:=true \
     use_sim_time:=true \
@@ -37,8 +49,7 @@ ros2 launch benzene_bringup benzene_navigation.launch.py \
     roll:=0.0 \
     pitch:=0.0 \
     yaw:=0.0 \
-    "$SLAM_ARG" \
-    map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/warehouse_world_map.yaml &
+    "$SLAM_ARG" &
 
 echo "Waiting 25 seconds for simulation to initialize..."
 sleep 25
