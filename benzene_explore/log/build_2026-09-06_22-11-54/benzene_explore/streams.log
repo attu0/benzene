@@ -1,0 +1,57 @@
+[0.030s] Invoking command in '/home/atharv/ros2_ws/src/benzene/benzene_explore/build/benzene_explore': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/atharv/ros2_ws/install/benzene_imu:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/atharv/ros2_ws/src/benzene/benzene_explore -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/atharv/ros2_ws/src/benzene/benzene_explore/install/benzene_explore
+[0.183s] -- The C compiler identification is GNU 13.3.0
+[0.330s] -- The CXX compiler identification is GNU 13.3.0
+[0.368s] -- Detecting C compiler ABI info
+[0.567s] -- Detecting C compiler ABI info - done
+[0.583s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.583s] -- Detecting C compile features
+[0.584s] -- Detecting C compile features - done
+[0.601s] -- Detecting CXX compiler ABI info
+[0.764s] -- Detecting CXX compiler ABI info - done
+[0.781s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.781s] -- Detecting CXX compile features
+[0.782s] -- Detecting CXX compile features - done
+[0.783s] -- BuilD for ROS2: jazzy
+[0.793s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.116s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.313s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[1.462s] -- Found rclcpp: 28.1.21 (/opt/ros/jazzy/share/rclcpp/cmake)
+[1.614s] -- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[1.655s] -- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.701s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.749s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.925s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.934s] -- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[2.114s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[2.164s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[2.208s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.356s] -- Found std_msgs: 5.3.8 (/opt/ros/jazzy/share/std_msgs/cmake)
+[2.387s] -- Found sensor_msgs: 5.3.8 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[2.463s] -- Found tf2_ros: 0.36.21 (/opt/ros/jazzy/share/tf2_ros/cmake)
+[2.792s] -- Found tf2_geometry_msgs: 0.36.21 (/opt/ros/jazzy/share/tf2_geometry_msgs/cmake)
+[2.843s] -- Found eigen3_cmake_module: 0.3.1 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)
+[2.846s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.846s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[2.858s] -- Found nav2_msgs: 1.3.12 (/opt/ros/jazzy/share/nav2_msgs/cmake)
+[3.085s] -- Found map_msgs: 2.4.1 (/opt/ros/jazzy/share/map_msgs/cmake)
+[3.147s] -- Found visualization_msgs: 5.3.8 (/opt/ros/jazzy/share/visualization_msgs/cmake)
+[3.201s] -- Found nav2_costmap_2d: 1.3.12 (/opt/ros/jazzy/share/nav2_costmap_2d/cmake)
+[3.497s] [31mCMake Error at CMakeLists.txt:46 (find_package):
+[3.497s]   By not providing "Findbenzene_explore_msgs.cmake" in CMAKE_MODULE_PATH this
+[3.498s]   project has asked CMake to find a package configuration file provided by
+[3.498s]   "benzene_explore_msgs", but CMake did not find one.
+[3.498s] 
+[3.498s]   Could not find a package configuration file provided by
+[3.498s]   "benzene_explore_msgs" with any of the following names:
+[3.498s] 
+[3.498s]     benzene_explore_msgsConfig.cmake
+[3.498s]     benzene_explore_msgs-config.cmake
+[3.499s] 
+[3.499s]   Add the installation prefix of "benzene_explore_msgs" to CMAKE_PREFIX_PATH
+[3.499s]   or set "benzene_explore_msgs_DIR" to a directory containing one of the
+[3.499s]   above files.  If "benzene_explore_msgs" provides a separate development
+[3.499s]   package or SDK, be sure it has been installed.
+[3.499s] 
+[3.499s] [0m
+[3.500s] -- Configuring incomplete, errors occurred!
+[3.514s] Invoked command in '/home/atharv/ros2_ws/src/benzene/benzene_explore/build/benzene_explore' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/atharv/ros2_ws/install/benzene_imu:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/atharv/ros2_ws/src/benzene/benzene_explore -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/atharv/ros2_ws/src/benzene/benzene_explore/install/benzene_explore

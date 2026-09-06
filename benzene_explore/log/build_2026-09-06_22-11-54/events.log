@@ -1,0 +1,98 @@
+[0.000000] (-) TimerEvent: {}
+[0.001174] (benzene_explore) JobQueued: {'identifier': 'benzene_explore', 'dependencies': OrderedDict()}
+[0.001580] (benzene_explore) JobStarted: {'identifier': 'benzene_explore'}
+[0.024834] (benzene_explore) JobProgress: {'identifier': 'benzene_explore', 'progress': 'cmake'}
+[0.026116] (benzene_explore) Command: {'cmd': ['/usr/bin/cmake', '/home/atharv/ros2_ws/src/benzene/benzene_explore', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/atharv/ros2_ws/src/benzene/benzene_explore/install/benzene_explore'], 'cwd': '/home/atharv/ros2_ws/src/benzene/benzene_explore/build/benzene_explore', 'env': OrderedDict({'GZ_SIM_SYSTEM_PLUGIN_PATH': '/home/atharv/ros2_ws/install/ur_description/lib', 'PYTHON_BASIC_REPL': '1', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'LANGUAGE': 'en_IN:en', 'USER': 'atharv', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'XDG_SESSION_TYPE': 'wayland', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/home/atharv/ros2_ws/install/ur_description/lib:/home/atharv/ros2_ws/install/serial/lib:/home/atharv/ros2_ws/install/benzene_msgs/lib:/home/atharv/ros2_ws/install/benzene_hardware/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/atharv', 'CHROME_DESKTOP': 'code.desktop', 'OLDPWD': '/home/atharv/ros2_ws/src/benzene/benzene_explore/include/benzene_explore', 'TERM_PROGRAM_VERSION': '1.136.1', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'MANAGERPID': '1883', 'PYDEVD_DISABLE_FILE_VALIDATION': '1', 'SYSTEMD_EXEC_PID': '2349', 'BUNDLED_DEBUGPY_PATH': '/home/atharv/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64/bundled/libs/debugpy', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '100491', 'GNOME_KEYRING_CONTROL': '/run/user/1000/keyring', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/atharv/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'atharv', 'JOURNAL_STREAM': '10:12036', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.MediaKeys.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'atharv', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'FC_FONTATIONS': '1', 'PATH': '/home/atharv/.pixi/bin:/home/atharv/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/atharv/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/home/atharv/.pixi/bin:/home/atharv/.cargo/bin:/home/atharv/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/atharv/.platformio/penv/bin:/home/atharv/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64/bundled/scripts/noConfigScripts:/home/atharv/.platformio/penv/bin', 'SESSION_MANAGER': 'local/ATTU:@/tmp/.ICE-unix/2087,unix/ATTU:/tmp/.ICE-unix/2087', 'INVOCATION_ID': 'df9637fe80b0462aaa6296cfed26fb67', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'wayland', 'DISPLAY': ':0', 'VSCODE_DEBUGPY_ADAPTER_ENDPOINTS': '/home/atharv/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-6e68cf56fb27ed79.txt', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'PYTHONSTARTUP': '/home/atharv/.config/Code/User/workspaceStorage/f148939a378457a6a7b187f352a26285/ms-python.python/pythonrc.py', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.7307U3', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-b119c1b773.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/atharv/ros2_ws/install/ur_description:/home/atharv/ros2_ws/install/serial:/home/atharv/ros2_ws/install/eyantra_kepler_colony:/home/atharv/ros2_ws/install/ebot_description:/home/atharv/ros2_ws/install/benzene:/home/atharv/ros2_ws/install/benzene_system_tests:/home/atharv/ros2_ws/install/benzene_navigation:/home/atharv/ros2_ws/install/benzene_msgs:/home/atharv/ros2_ws/install/benzene_localization:/home/atharv/ros2_ws/install/benzene_bringup:/home/atharv/ros2_ws/install/benzene_imu:/home/atharv/ros2_ws/install/benzene_control:/home/atharv/ros2_ws/install/benzene_hardware:/home/atharv/ros2_ws/install/benzene_gazebo:/home/atharv/ros2_ws/install/benzene_docking:/home/atharv/ros2_ws/install/benzene_description:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:9de6386a-6c47-40c2-b668-96f72c6493a3', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/atharv/ros2_ws/src/benzene/benzene_explore/build/benzene_explore', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'COPILOT_DEBUG_NONCE': '3d481a82c6191f931f894e68ba3d0fde', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/atharv/ros2_ws/install/benzene_navigation/lib/python3.12/site-packages:/home/atharv/ros2_ws/install/benzene_msgs/lib/python3.12/site-packages:/home/atharv/ros2_ws/build/benzene_imu:/home/atharv/ros2_ws/install/benzene_imu/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/atharv/ros2_ws/install/ur_description:/home/atharv/ros2_ws/install/serial:/home/atharv/ros2_ws/install/eyantra_kepler_colony:/home/atharv/ros2_ws/install/ebot_description:/home/atharv/ros2_ws/install/benzene:/home/atharv/ros2_ws/install/benzene_system_tests:/home/atharv/ros2_ws/install/benzene_navigation:/home/atharv/ros2_ws/install/benzene_msgs:/home/atharv/ros2_ws/install/benzene_localization:/home/atharv/ros2_ws/install/benzene_bringup:/home/atharv/ros2_ws/install/benzene_control:/home/atharv/ros2_ws/install/benzene_hardware:/home/atharv/ros2_ws/install/benzene_gazebo:/home/atharv/ros2_ws/install/benzene_docking:/home/atharv/ros2_ws/install/benzene_description:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/atharv/ros2_ws/install/benzene_imu:/opt/ros/jazzy'}), 'shell': False}
+[0.099520] (-) TimerEvent: {}
+[0.184140] (benzene_explore) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.199661] (-) TimerEvent: {}
+[0.300188] (-) TimerEvent: {}
+[0.331735] (benzene_explore) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.369441] (benzene_explore) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.400335] (-) TimerEvent: {}
+[0.500793] (-) TimerEvent: {}
+[0.568182] (benzene_explore) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.584739] (benzene_explore) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.585084] (benzene_explore) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.586016] (benzene_explore) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.600923] (-) TimerEvent: {}
+[0.602983] (benzene_explore) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.701100] (-) TimerEvent: {}
+[0.765146] (benzene_explore) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.782269] (benzene_explore) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.782709] (benzene_explore) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.783663] (benzene_explore) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.784791] (benzene_explore) StdoutLine: {'line': b'-- BuilD for ROS2: jazzy\n'}
+[0.794482] (benzene_explore) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.801209] (-) TimerEvent: {}
+[0.901584] (-) TimerEvent: {}
+[1.001977] (-) TimerEvent: {}
+[1.102399] (-) TimerEvent: {}
+[1.117001] (benzene_explore) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.202613] (-) TimerEvent: {}
+[1.303178] (-) TimerEvent: {}
+[1.314272] (benzene_explore) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[1.403409] (-) TimerEvent: {}
+[1.463320] (benzene_explore) StdoutLine: {'line': b'-- Found rclcpp: 28.1.21 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[1.503556] (-) TimerEvent: {}
+[1.604037] (-) TimerEvent: {}
+[1.614948] (benzene_explore) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[1.656858] (benzene_explore) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[1.702486] (benzene_explore) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.704185] (-) TimerEvent: {}
+[1.750220] (benzene_explore) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.804486] (-) TimerEvent: {}
+[1.904967] (-) TimerEvent: {}
+[1.926073] (benzene_explore) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[1.935407] (benzene_explore) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[2.005080] (-) TimerEvent: {}
+[2.105440] (-) TimerEvent: {}
+[2.115902] (benzene_explore) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[2.165189] (benzene_explore) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[2.205565] (-) TimerEvent: {}
+[2.209513] (benzene_explore) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[2.305718] (-) TimerEvent: {}
+[2.357708] (benzene_explore) StdoutLine: {'line': b'-- Found std_msgs: 5.3.8 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[2.388341] (benzene_explore) StdoutLine: {'line': b'-- Found sensor_msgs: 5.3.8 (/opt/ros/jazzy/share/sensor_msgs/cmake)\n'}
+[2.405865] (-) TimerEvent: {}
+[2.464005] (benzene_explore) StdoutLine: {'line': b'-- Found tf2_ros: 0.36.21 (/opt/ros/jazzy/share/tf2_ros/cmake)\n'}
+[2.506157] (-) TimerEvent: {}
+[2.606735] (-) TimerEvent: {}
+[2.707165] (-) TimerEvent: {}
+[2.793889] (benzene_explore) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.36.21 (/opt/ros/jazzy/share/tf2_geometry_msgs/cmake)\n'}
+[2.807467] (-) TimerEvent: {}
+[2.844310] (benzene_explore) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.3.1 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)\n'}
+[2.847360] (benzene_explore) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[2.847693] (benzene_explore) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[2.859191] (benzene_explore) StdoutLine: {'line': b'-- Found nav2_msgs: 1.3.12 (/opt/ros/jazzy/share/nav2_msgs/cmake)\n'}
+[2.907589] (-) TimerEvent: {}
+[3.008066] (-) TimerEvent: {}
+[3.086279] (benzene_explore) StdoutLine: {'line': b'-- Found map_msgs: 2.4.1 (/opt/ros/jazzy/share/map_msgs/cmake)\n'}
+[3.108247] (-) TimerEvent: {}
+[3.148123] (benzene_explore) StdoutLine: {'line': b'-- Found visualization_msgs: 5.3.8 (/opt/ros/jazzy/share/visualization_msgs/cmake)\n'}
+[3.202700] (benzene_explore) StdoutLine: {'line': b'-- Found nav2_costmap_2d: 1.3.12 (/opt/ros/jazzy/share/nav2_costmap_2d/cmake)\n'}
+[3.208416] (-) TimerEvent: {}
+[3.308803] (-) TimerEvent: {}
+[3.409208] (-) TimerEvent: {}
+[3.498624] (benzene_explore) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:46 (find_package):\n'}
+[3.498995] (benzene_explore) StderrLine: {'line': b'  By not providing "Findbenzene_explore_msgs.cmake" in CMAKE_MODULE_PATH this\n'}
+[3.499181] (benzene_explore) StderrLine: {'line': b'  project has asked CMake to find a package configuration file provided by\n'}
+[3.499336] (benzene_explore) StderrLine: {'line': b'  "benzene_explore_msgs", but CMake did not find one.\n'}
+[3.499468] (benzene_explore) StderrLine: {'line': b'\n'}
+[3.499597] (benzene_explore) StderrLine: {'line': b'  Could not find a package configuration file provided by\n'}
+[3.499725] (benzene_explore) StderrLine: {'line': b'  "benzene_explore_msgs" with any of the following names:\n'}
+[3.499851] (benzene_explore) StderrLine: {'line': b'\n'}
+[3.499975] (benzene_explore) StderrLine: {'line': b'    benzene_explore_msgsConfig.cmake\n'}
+[3.500101] (benzene_explore) StderrLine: {'line': b'    benzene_explore_msgs-config.cmake\n'}
+[3.500227] (benzene_explore) StderrLine: {'line': b'\n'}
+[3.500510] (benzene_explore) StderrLine: {'line': b'  Add the installation prefix of "benzene_explore_msgs" to CMAKE_PREFIX_PATH\n'}
+[3.500666] (benzene_explore) StderrLine: {'line': b'  or set "benzene_explore_msgs_DIR" to a directory containing one of the\n'}
+[3.500792] (benzene_explore) StderrLine: {'line': b'  above files.  If "benzene_explore_msgs" provides a separate development\n'}
+[3.500919] (benzene_explore) StderrLine: {'line': b'  package or SDK, be sure it has been installed.\n'}
+[3.501043] (benzene_explore) StderrLine: {'line': b'\n'}
+[3.501167] (benzene_explore) StderrLine: {'line': b'\x1b[0m\n'}
+[3.501302] (benzene_explore) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[3.509486] (-) TimerEvent: {}
+[3.515071] (benzene_explore) CommandEnded: {'returncode': 1}
+[3.546773] (benzene_explore) JobEnded: {'identifier': 'benzene_explore', 'rc': 1}
+[3.557596] (-) EventReactorShutdown: {}
