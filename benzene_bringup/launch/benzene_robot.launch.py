@@ -5,7 +5,7 @@ Bring up the real (non-Gazebo) benzene robot.
 This launch file sets up the physical robot: robot state publisher, the
 ros2_control controller_manager talking to the Arduino over serial via
 benzene_hardware, the diff drive + joint state broadcaster controllers,
-and (optionally) the RPLIDAR, camera, and joystick teleop.
+and (optionally) the RPLIDAR, camera, IMU, and joystick teleop.
 """
 
 import os
@@ -35,6 +35,7 @@ def generate_launch_description():
     # Constants for paths to different packages
     package_name_bringup = 'benzene_bringup'
     package_name_description = 'benzene_description'
+    package_name_imu = 'benzene_imu'
 
     default_robot_name = 'benzene'
     urdf_filename = 'benzene.urdf.xacro'
@@ -43,12 +44,14 @@ def generate_launch_description():
     pkg_share_bringup = FindPackageShare(package=package_name_bringup).find(package_name_bringup)
     pkg_share_description = FindPackageShare(
         package=package_name_description).find(package_name_description)
+    pkg_share_imu = FindPackageShare(package=package_name_imu).find(package_name_imu)
 
     default_urdf_model_path = PathJoinSubstitution(
         [pkg_share_description, 'urdf', 'robots', urdf_filename])
 
     # Launch configuration variables
     include_camera = LaunchConfiguration('include_camera')
+    include_imu = LaunchConfiguration('include_imu')
     include_rplidar = LaunchConfiguration('include_rplidar')
     jsp_gui = LaunchConfiguration('jsp_gui')
     prefix = LaunchConfiguration('prefix')
@@ -62,6 +65,11 @@ def generate_launch_description():
         name='include_camera',
         default_value='True',
         description='Whether to launch the camera driver')
+
+    declare_include_imu_cmd = DeclareLaunchArgument(
+        name='include_imu',
+        default_value='True',
+        description='Whether to launch the IMU driver and Madgwick filter')
 
     declare_include_rplidar_cmd = DeclareLaunchArgument(
         name='include_rplidar',
@@ -180,6 +188,14 @@ def generate_launch_description():
         condition=IfCondition(include_camera)
     )
 
+    # Include IMU launch file if enabled
+    include_imu_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(pkg_share_imu, 'launch', 'imu.launch.py')
+        ]),
+        condition=IfCondition(include_imu)
+    )
+
     # Include joystick teleop launch file if enabled
     include_joystick_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -193,12 +209,14 @@ def generate_launch_description():
     # and controller_manager are setting up
     rplidar_timer = TimerAction(period=3.0, actions=[include_rplidar_cmd])
     camera_timer = TimerAction(period=3.0, actions=[include_camera_cmd])
+    imu_timer = TimerAction(period=3.0, actions=[include_imu_cmd])
 
     # Create the launch description and populate
     ld = LaunchDescription()
 
     # Declare the launch options
     ld.add_action(declare_include_camera_cmd)
+    ld.add_action(declare_include_imu_cmd)
     ld.add_action(declare_include_rplidar_cmd)
     ld.add_action(declare_jsp_gui_cmd)
     ld.add_action(declare_prefix_cmd)
@@ -214,6 +232,7 @@ def generate_launch_description():
     ld.add_action(delay_diff_drive_controller_spawner_after_joint_state_broadcaster_spawner)
     ld.add_action(rplidar_timer)
     ld.add_action(camera_timer)
+    ld.add_action(imu_timer)
     ld.add_action(include_joystick_cmd)
 
     return ld
