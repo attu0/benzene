@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="caster_wheel" params="
+    prefix:=''
+    caster_name:='front_caster_wheel'
+    parent:='base_link'
+    xyz_offset:='0 0 0'
+    rpy_offset:='0 0 0'
+    mesh_file:='package://benzene_description/meshes/v3/visual/caster_link.stl'
+    mesh_scale:='0.001 0.001 0.001'
+    mesh_xyz_offset:='0 0 0'
+    mesh_rpy_offset:='0 0 0'
+    caster_radius:=0.025
+    caster_mass:=0.1
+    material_name:='black'
+    material_color:='0 0 0 1'
+    mu1:=0.0001
+    mu2:=0.0001
+  ">
+
+
+    <link name="${prefix}${caster_name}">
+      <visual>
+        <origin xyz="${mesh_xyz_offset}" rpy="${mesh_rpy_offset}"/>
+        <geometry>
+          <mesh filename="${mesh_file}" scale="${mesh_scale}"/>
+        </geometry>
+        <material name="${material_name}">
+          <color rgba="${material_color}"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${caster_radius}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${caster_mass}"/>
+        <inertia
+          ixx="${(2.0/5.0) * caster_mass * caster_radius * caster_radius}"
+          ixy="0.0"
+          ixz="0.0"
+          iyy="${(2.0/5.0) * caster_mass * caster_radius * caster_radius}"
+          iyz="0.0"
+          izz="${(2.0/5.0) * caster_mass * caster_radius * caster_radius}"/>
+      </inertial>
+    </link>
+    <joint name="${prefix}${caster_name}_joint" type="fixed">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}${caster_name}"/>
+      <origin xyz="${xyz_offset}" rpy="${rpy_offset}"/>
+    </joint>
+
+    <gazebo reference="${prefix}${caster_name}">
+      <material>
+        <ambient>0 0 0 1</ambient>
+        <diffuse>0 0 0 1</diffuse>
+        <specular>0 0 0 1</specular>
+      </material>
+      <mu1>${mu1}</mu1>
+      <mu2>${mu2}</mu2>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="wheel" params="
+    prefix:=''
+    wheel_name:='left_wheel'
+    parent:='base_link'
+    xyz_offset:='0 0.0925 0.020'
+    rpy_offset:='0 0 0'
+    axis:='0 1 0'
+    mesh_file:='package://benzene_description/meshes/v3/visual/wheel_link.stl'
+    mesh_scale:='0.001 0.001 0.001'
+    mesh_xyz_offset:='0 0 0'
+    mesh_rpy_offset:='0 0 ${pi/2}'
+    wheel_radius:=0.05
+    wheel_width:=0.03
+    wheel_mass:=0.5
+    material_name:='black'
+    material_color:='0 0 0 1'
+    damping:=0.05
+    friction:=0.05
+  ">
+
+    <joint name="${prefix}${wheel_name}_joint" type="continuous">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}${wheel_name}_link"/>
+      <origin xyz="${xyz_offset}" rpy="${rpy_offset}"/>
+      <axis xyz="${axis}"/>
+      <dynamics damping="${damping}" friction="${friction}"/>
+    </joint>
+
+    <link name="${prefix}${wheel_name}_link">
+      <visual>
+        <origin xyz="${mesh_xyz_offset}" rpy="${mesh_rpy_offset}"/>
+        <geometry>
+          <mesh filename="${mesh_file}" scale="${mesh_scale}"/>
+        </geometry>
+        <material name="${material_name}">
+          <color rgba="${material_color}"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="-${pi/2} 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${wheel_mass}"/>
+        <inertia
+          ixx="${(1.0/12.0) * wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width)}"
+          ixy="0.0"
+          ixz="0.0"
+          iyy="${(1.0/12.0) * wheel_mass * (3*wheel_radius*wheel_radius + wheel_width*wheel_width)}"
+          iyz="0.0"
+          izz="${0.5 * wheel_mass * wheel_radius*wheel_radius}"/>
+      </inertial>
+    </link>
+
+    <gazebo reference="${prefix}${wheel_name}_link">
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

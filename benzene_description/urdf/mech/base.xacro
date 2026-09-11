@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="base" params="
+    prefix:=''
+    base_name:='base'
+    parent:='base_footprint'
+    xyz_offset:='0 0 0'
+    rpy_offset:='0 0 0'
+    mesh_file:='package://benzene_description/meshes/v3/visual/base_link.stl'
+    mesh_scale:='0.001 0.001 0.001'
+    mesh_xyz_offset:='0 0 0'
+    mesh_rpy_offset:='1.5708 0 ${pi/2}'
+    base_length:=0.3
+    base_width:=0.2
+    base_height:=0.08
+    base_mass:=5.0
+    collision_xyz_offset:='0 0 0.04'
+    collision_rpy_offset:='0 0 0'
+    material_name:='white'
+    material_color:='1 1 1 1'
+  ">
+
+    <link name="${prefix}${parent}"/>
+    <joint name="${prefix}${base_name}_footprint_joint" type="fixed">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}${base_name}_link"/>
+      <origin xyz="${xyz_offset}" rpy="${rpy_offset}"/>
+    </joint>
+    
+    <link name="${prefix}${base_name}_link">
+      <visual>
+        <origin xyz="${mesh_xyz_offset}" rpy="${mesh_rpy_offset}"/>
+        <geometry>
+          <mesh filename="${mesh_file}" scale="${mesh_scale}"/>
+        </geometry>
+        <material name="${material_name}">
+          <color rgba="${material_color}"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="${collision_xyz_offset}" rpy="${collision_rpy_offset}"/>
+        <geometry>
+          <box size="${base_length} ${base_width} ${base_height}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="${base_mass}"/>
+        <inertia
+          ixx="${(1.0/12.0) * base_mass * (base_width*base_width + base_height*base_height)}"
+          ixy="0.0"
+          ixz="0.0"
+          iyy="${(1.0/12.0) * base_mass * (base_length*base_length + base_height*base_height)}"
+          iyz="0.0"
+          izz="${(1.0/12.0) * base_mass * (base_length*base_length + base_width*base_width)}"/>
+      </inertial>
+    </link>
+
+  </xacro:macro>
+
+</robot>

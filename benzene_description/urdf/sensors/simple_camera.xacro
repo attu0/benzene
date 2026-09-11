@@ -7,127 +7,76 @@
     prefix:=''
     camera_name:='camera'
     parent:='base_link'
-
     xyz_offset:='0 0 0'
     rpy_offset:='0 0 0'
-
     cam_width:=0.025
     cam_height:=0.024
     cam_depth:=0.009
-
     material_name:='black'
     material_color:='0.05 0.05 0.05 1'
-
     horizontal_fov:=1.089
     image_width:=640
     image_height:=480
-
     clip_near:=0.05
     clip_far:=8.0
-
     update_rate:=30
     always_on:=true
     visualize:=true
-
     topic:='camera/image_raw'
     camera_info_topic:='camera/camera_info'
   ">
 
-    <!-- Camera Body -->
     <link name="${prefix}${camera_name}_link">
-
       <visual>
-        <origin
-          xyz="0 0 0"
-          rpy="0 0 0"/>
-
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <box
-            size="${cam_depth} ${cam_width} ${cam_height}"/>
+          <box size="${cam_depth} ${cam_width} ${cam_height}"/>
         </geometry>
-
         <material name="${material_name}">
           <color rgba="${material_color}"/>
         </material>
       </visual>
-
     </link>
 
-
-    <!-- Camera Mount Joint -->
-    <joint
-      name="${prefix}${camera_name}_joint"
-      type="fixed">
-
+    <joint name="${prefix}${camera_name}_joint" type="fixed">
       <parent link="${prefix}${parent}"/>
       <child link="${prefix}${camera_name}_link"/>
-
-      <origin
-        xyz="${xyz_offset}"
-        rpy="${rpy_offset}"/>
-
+      <origin xyz="${xyz_offset}" rpy="${rpy_offset}"/>
     </joint>
 
-
-    <!-- Optical Frame -->
     <link name="${prefix}${camera_name}_optical"/>
 
-    <joint
-      name="${prefix}${camera_name}_optical_joint"
-      type="fixed">
-
+    <joint name="${prefix}${camera_name}_optical_joint" type="fixed">
       <parent link="${prefix}${camera_name}_link"/>
       <child link="${prefix}${camera_name}_optical"/>
-
-      <origin
-        xyz="0 0 0"
-        rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
-
+      <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
 
-
-    <!-- Gazebo Simple RGB Camera -->
     <gazebo reference="${prefix}${camera_name}_link">
-
       <material>Gazebo/Black</material>
-
-      <sensor
-        name="${prefix}${camera_name}"
-        type="camera">
-
+      <sensor name="${prefix}${camera_name}" type="camera">
         <pose>0 0 0 0 0 0</pose>
-
         <always_on>${always_on}</always_on>
         <visualize>${visualize}</visualize>
         <update_rate>${update_rate}</update_rate>
-
         <camera>
-
           <horizontal_fov>${horizontal_fov}</horizontal_fov>
-
           <image>
             <format>R8G8B8</format>
             <width>${image_width}</width>
             <height>${image_height}</height>
           </image>
-
           <clip>
             <near>${clip_near}</near>
             <far>${clip_far}</far>
           </clip>
-
         </camera>
-
         <topic>${topic}</topic>
-
         <gz_frame_id>
           ${prefix}${camera_name}_optical
         </gz_frame_id>
-
       </sensor>
-
     </gazebo>
-
   </xacro:macro>
 
 </robot>

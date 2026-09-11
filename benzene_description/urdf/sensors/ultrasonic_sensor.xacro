@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="ultrasonic_sensor" params="
+    prefix:=''
+    sensor_name:='ultrasonic'
+    parent:='base_link'
+    xyz_offset:='0 0 0'
+    rpy_offset:='0 0 0'
+    sensor_radius:=0.01
+    sensor_length:=0.02
+    material_name:='black'
+    material_color:='0 0 0 1'
+    topic_name:='ultrasonic/data'
+  ">
+
+    <link name="${prefix}${sensor_name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </visual>
+    </link>
+
+    <joint name="${prefix}${sensor_name}_joint" type="fixed">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}${sensor_name}"/>
+      <origin xyz="${xyz_offset}" rpy="${rpy_offset}"/>
+    </joint>
+
+    <gazebo reference="${prefix}${sensor_name}">
+      <sensor name="${prefix}${sensor_name}" type="ray">
+        <pose> 0 0 0 0 0 0 </pose>
+        <visualize>true</visualize>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.02</min>
+            <max>4.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <topic>${topic_name}</topic>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>
