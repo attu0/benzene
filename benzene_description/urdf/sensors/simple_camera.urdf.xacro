@@ -3,24 +3,20 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931"/>
 
-  <xacro:macro name="rgb_camera" params="
+  <xacro:macro name="simple_camera" params="
     prefix:=''
     camera_name:='camera'
     parent:='base_link'
 
-    xyz_offset:='0.015 0 0.08'
+    xyz_offset:='0 0 0'
     rpy_offset:='0 0 0'
 
-    mesh_file:=''
-    mesh_xyz_offset:='0 0 0'
-    mesh_rpy_offset:='0 0 0'
-
-    cam_width:=0.03
-    cam_height:=0.03
+    cam_width:=0.025
+    cam_height:=0.024
     cam_depth:=0.009
 
-    material_name:='red'
-    material_color:='1 0 0 1'
+    material_name:='black'
+    material_color:='0.05 0.05 0.05 1'
 
     horizontal_fov:=1.089
     image_width:=640
@@ -29,57 +25,41 @@
     clip_near:=0.05
     clip_far:=8.0
 
-    update_rate:=10
+    update_rate:=30
     always_on:=true
     visualize:=true
-    topic:='cam_1/image_raw'
-    camera_info_topic:='cam_1/camera_info'
+
+    topic:='camera/image_raw'
+    camera_info_topic:='camera/camera_info'
   ">
 
-    <!-- ========================= -->
     <!-- Camera Body -->
-    <!-- ========================= -->
-
     <link name="${prefix}${camera_name}_link">
 
       <visual>
-
         <origin
-          xyz="${mesh_xyz_offset}"
-          rpy="${mesh_rpy_offset}"/>
+          xyz="0 0 0"
+          rpy="0 0 0"/>
 
-        <xacro:if value="${mesh_file != ''}">
-          <geometry>
-            <mesh filename="${mesh_file}"/>
-          </geometry>
-        </xacro:if>
-
-        <xacro:unless value="${mesh_file != ''}">
-          <geometry>
-            <box
-              size="${cam_depth} ${cam_width} ${cam_height}"/>
-          </geometry>
-        </xacro:unless>
+        <geometry>
+          <box
+            size="${cam_depth} ${cam_width} ${cam_height}"/>
+        </geometry>
 
         <material name="${material_name}">
           <color rgba="${material_color}"/>
         </material>
-
       </visual>
 
     </link>
 
 
-    <!-- ========================= -->
     <!-- Camera Mount Joint -->
-    <!-- ========================= -->
-
     <joint
       name="${prefix}${camera_name}_joint"
       type="fixed">
 
       <parent link="${prefix}${parent}"/>
-
       <child link="${prefix}${camera_name}_link"/>
 
       <origin
@@ -89,16 +69,14 @@
     </joint>
 
 
-    <!-- ========================= -->
     <!-- Optical Frame -->
-    <!-- ========================= -->
+    <link name="${prefix}${camera_name}_optical"/>
 
     <joint
       name="${prefix}${camera_name}_optical_joint"
       type="fixed">
 
       <parent link="${prefix}${camera_name}_link"/>
-
       <child link="${prefix}${camera_name}_optical"/>
 
       <origin
@@ -107,16 +85,11 @@
 
     </joint>
 
-    <link name="${prefix}${camera_name}_optical"/>
 
-
-    <!-- ========================= -->
-    <!-- Gazebo RGB Camera -->
-    <!-- ========================= -->
-
+    <!-- Gazebo Simple RGB Camera -->
     <gazebo reference="${prefix}${camera_name}_link">
 
-      <material>Gazebo/Red</material>
+      <material>Gazebo/Black</material>
 
       <sensor
         name="${prefix}${camera_name}"
@@ -125,33 +98,22 @@
         <pose>0 0 0 0 0 0</pose>
 
         <always_on>${always_on}</always_on>
-
         <visualize>${visualize}</visualize>
-
         <update_rate>${update_rate}</update_rate>
 
         <camera>
 
-          <camera_info_topic>${camera_info_topic}</camera_info_topic>
-
           <horizontal_fov>${horizontal_fov}</horizontal_fov>
 
           <image>
-
             <format>R8G8B8</format>
-
             <width>${image_width}</width>
-
             <height>${image_height}</height>
-
           </image>
 
           <clip>
-
             <near>${clip_near}</near>
-
             <far>${clip_far}</far>
-
           </clip>
 
         </camera>

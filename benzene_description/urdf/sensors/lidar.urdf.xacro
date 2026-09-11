@@ -24,11 +24,11 @@
 
       mesh_file:='file://$(find benzene_description)/meshes/rplidar/lidar.stl'
 
-      xyz_offset:='-0.06 0 0.096'
+      xyz_offset:='0 0 0'
       rpy_offset:='0 0 0'
 
       mesh_xyz_offset:='0 0 0'
-      mesh_rpy_offset:='-1.5707963267948966 0 0'
+      mesh_rpy_offset:='0 0 0'
 
       mesh_scale:='0.001 0.001 0.001'
 

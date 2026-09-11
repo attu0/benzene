@@ -11,9 +11,9 @@
         inertial_xyz_offset:='0 0 0'
         inertial_rpy_offset:='0 0 0'
         mass:=0.031
-        length:=0.03899
-        width:=0.03785
-        height:=0.01338
+        length:=0.0164
+        width:=0.0212
+        height:=0.0033
         material_name:='imu_black'
         material_color:='0.1 0.1 0.1 1'
         gazebo_material_ambient:='0.1 0.1 0.1 1'
