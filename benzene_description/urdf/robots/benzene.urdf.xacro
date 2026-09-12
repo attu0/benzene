@@ -58,7 +58,7 @@
     topic_name="imu/data"/>
 
   <xacro:simple_camera
-    camera_name="camera"
+    camera_name="cam_1"
     parent="base_link"
     xyz_offset="0.17 0 0.03"
     rpy_offset="0 0 0"
@@ -66,8 +66,8 @@
     image_height="480"
     horizontal_fov="1.089"
     update_rate="30"
-    topic="camera/image_raw"
-    camera_info_topic="camera/camera_info"/>
+    topic="cam_1/image_raw"
+    camera_info_topic="cam_1/camera_info"/>
 
   <xacro:caster_wheel
     prefix="$(arg prefix)"

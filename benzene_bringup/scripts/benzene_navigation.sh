@@ -1,16 +1,12 @@
 #!/bin/bash
-# Single script to launch the Yahboom ROSMASTERX3 with Gazebo, Nav2 and ROS 2 Controllers
-
 cleanup() {
     echo "Cleaning up..."
     sleep 5.0
     pkill -9 -f "ros2|gazebo|gz|nav2|amcl|bt_navigator|nav_to_pose|rviz2|assisted_teleop|cmd_vel_relay|robot_state_publisher|joint_state_publisher|move_to_free|mqtt|autodock|cliff_detection|moveit|move_group|basic_navigator"
 
 }
-
 # Set up cleanup trap
 trap 'cleanup' SIGINT SIGTERM
-
 # SLAM
 if [ "$1" = "slam" ]; then
     SLAM_ARG="slam:=True"
@@ -19,7 +15,6 @@ else
     SLAM_ARG="slam:=False"
     WORLD="$1"
 fi
-
 # World
 if [ "$WORLD" = "cafe" ]; then
     WORLD_ARG="world_file:=cafe.world"
@@ -28,11 +23,7 @@ else
     WORLD_ARG="world_file:=warehouse.sdf"
     MAP_ARG="map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/warehouse_world_map.yaml"
 fi
-
-# For cafe.world -> z:=0.20
-# For house.world -> z:=0.05
-# To change Gazebo camera pose: gz service -s /gui/move_to/pose --reqtype gz.msgs.GUICamera --reptype gz.msgs.Boolean --timeout 2000 --req "pose: {position: {x: 0.0, y: -2.0, z: 2.0} orientation: {x: -0.2706, y: 0.2706, z: 0.6533, w: 0.6533}}"
-
+export GZ_SIM_RESOURCE_PATH=~/ros2_ws/install/benzene_description/share/
 echo "Launching Gazebo simulation with Nav2..."
 ros2 launch benzene_bringup benzene_navigation.launch.py \
     enable_odom_tf:=false \
@@ -53,9 +44,6 @@ ros2 launch benzene_bringup benzene_navigation.launch.py \
 
 echo "Waiting 25 seconds for simulation to initialize..."
 sleep 25
-
 echo "Adjusting camera position..."
 gz service -s /gui/move_to/pose --reqtype gz.msgs.GUICamera --reptype gz.msgs.Boolean --timeout 2000 --req "pose: {position: {x: 0.0, y: -2.0, z: 2.0} orientation: {x: -0.2706, y: 0.2706, z: 0.6533, w: 0.6533}}"
-
-# Keep the script running until Ctrl+C
 wait
