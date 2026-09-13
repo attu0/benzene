@@ -12,7 +12,7 @@
     <xacro:property name="wheel_width" value="0.020"/>
 
     <!-- Distance between left and right wheel centers -->
-    <xacro:property name="wheel_separation" value="0.180"/>
+    <xacro:property name="wheel_separation" value="0.185"/>
 
     <!-- Wheel position relative to base_link -->
     <xacro:property name="wheel_x_offset" value="0.0"/>

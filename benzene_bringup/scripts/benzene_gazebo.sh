@@ -14,7 +14,7 @@ fi
 export GZ_SIM_RESOURCE_PATH=~/ros2_ws/install/benzene_description/share/
 echo "Launching Gazebo simulation..."
 ros2 launch benzene_gazebo benzene.gazebo.launch.py \
-    enable_odom_tf:=true \
+    enable_odom_tf:=false \
     headless:=False \
     load_controllers:=true \
     $WORLD_ARG \

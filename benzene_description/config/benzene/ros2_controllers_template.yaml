@@ -11,6 +11,9 @@ controller_manager:
 diff_drive_controller:
   ros__parameters:
 
+    pose_covariance_diagonal:  [0.001, 0.001, 0.0, 0.0, 0.0, 0.02]
+    twist_covariance_diagonal: [0.001, 0.0,   0.0, 0.0, 0.0, 0.02]
+
     publish_rate: 50.0
     left_wheel_names: ['left_wheel_joint']
     right_wheel_names: ['right_wheel_joint']

@@ -205,6 +205,21 @@ def generate_launch_description():
         condition=IfCondition(load_controllers)
     )
 
+    # Include EKF launch file to fuse wheel odom + IMU and own the
+    # odom -> base_footprint TF. Required whenever enable_odom_tf is false,
+    # since diff_drive_controller no longer broadcasts that transform itself.
+    pkg_share_localization = FindPackageShare(
+        package='benzene_localization').find('benzene_localization')
+
+    start_ekf_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(pkg_share_localization, 'launch', 'ekf_gazebo.launch.py')
+        ]),
+        launch_arguments={
+            'use_sim_time': use_sim_time
+        }.items()
+    )
+
     # Set Gazebo model path
     set_env_vars_resources = AppendEnvironmentVariable(
         'GZ_SIM_RESOURCE_PATH',
@@ -288,6 +303,7 @@ def generate_launch_description():
     ld.add_action(set_env_vars_resources)
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(load_controllers_cmd)
+    ld.add_action(start_ekf_cmd)
     ld.add_action(start_gazebo_server_cmd)
     ld.add_action(start_gazebo_client_cmd)
 

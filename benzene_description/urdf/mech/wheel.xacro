@@ -12,7 +12,7 @@
     mesh_scale:='0.001 0.001 0.001'
     mesh_xyz_offset:='0 0 0'
     mesh_rpy_offset:='0 0 ${pi/2}'
-    wheel_radius:=0.05
+    wheel_radius:=0.035
     wheel_width:=0.03
     wheel_mass:=0.5
     material_name:='black'
