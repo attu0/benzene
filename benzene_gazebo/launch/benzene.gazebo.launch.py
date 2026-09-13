@@ -116,6 +116,15 @@ def generate_launch_description():
         default_value='true',
         description='Flag to enable loading of ROS 2 controllers')
 
+    declare_launch_ekf_cmd = DeclareLaunchArgument(
+        name='launch_ekf',
+        default_value='true',
+        choices=['true', 'false'],
+        description='Whether this launch file should start its own EKF node. '
+                     'Set to false when a parent launch file (e.g. '
+                     'benzene_navigation.launch.py) already starts its own EKF, '
+                     'to avoid launching two ekf_filter_node instances.')
+
     declare_use_robot_state_pub_cmd = DeclareLaunchArgument(
         name='use_robot_state_pub',
         default_value='true',
@@ -217,7 +226,8 @@ def generate_launch_description():
         ]),
         launch_arguments={
             'use_sim_time': use_sim_time
-        }.items()
+        }.items(),
+        condition=IfCondition(LaunchConfiguration('launch_ekf'))
     )
 
     # Set Gazebo model path
@@ -285,6 +295,7 @@ def generate_launch_description():
     ld.add_action(declare_rviz_config_file_cmd)
     ld.add_action(declare_jsp_gui_cmd)
     ld.add_action(declare_load_controllers_cmd)
+    ld.add_action(declare_launch_ekf_cmd)
     ld.add_action(declare_use_rviz_cmd)
     ld.add_action(declare_use_gazebo_cmd)
     ld.add_action(declare_use_robot_state_pub_cmd)

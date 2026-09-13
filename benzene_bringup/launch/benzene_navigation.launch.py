@@ -275,7 +275,10 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}]
     )
 
-    # Start Extended Kalman Filter node from the robot_localization ROS 2 package
+    # Start Extended Kalman Filter node from the robot_localization ROS 2 package.
+    # This is the ONLY EKF instance for this launch file — the nested Gazebo
+    # launch (start_gazebo_cmd below) has its own EKF disabled via
+    # 'launch_ekf': 'false' to avoid a duplicate ekf_filter_node.
     start_ekf_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ekf_launch_file]),
         launch_arguments={
@@ -291,6 +294,7 @@ def generate_launch_description():
             'enable_odom_tf': enable_odom_tf,
             'headless': headless,
             'jsp_gui': jsp_gui,
+            'launch_ekf': 'false',
             'load_controllers': load_controllers,
             'robot_name': robot_name,
             'rviz_config_file': rviz_config_file,
