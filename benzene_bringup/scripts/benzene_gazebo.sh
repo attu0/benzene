@@ -8,6 +8,8 @@ cleanup() {
 trap 'cleanup' SIGINT SIGTERM
 if [ "$1" = "cafe" ]; then
     WORLD_ARG="world_file:=cafe.world"
+elif [ "$1" = "office" ]; then
+    WORLD_ARG="world_file:=husarion_office.sdf"
 else
     WORLD_ARG="world_file:=warehouse.sdf"
 fi
