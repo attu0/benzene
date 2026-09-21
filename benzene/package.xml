@@ -20,6 +20,7 @@
   <exec_depend>benzene_imu</exec_depend>
   <exec_depend>benzene_msgs</exec_depend>
   <exec_depend>benzene_control</exec_depend>
+  <exec_depend>benzene_dagger</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
