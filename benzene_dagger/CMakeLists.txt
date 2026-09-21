@@ -10,6 +10,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Widgets)
+find_package(sensor_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
 add_executable(teleop_keyboard
   src/teleop_keyboard.cpp
@@ -32,9 +34,24 @@ install(
   DESTINATION lib/${PROJECT_NAME}
 )
 
+add_executable(scan_marker src/scan_marker.cpp)
+
+ament_target_dependencies(
+  scan_marker
+  rclcpp
+  sensor_msgs
+  visualization_msgs
+  geometry_msgs
+)
+
+install(
+  TARGETS scan_marker
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 install(
   DIRECTORY
-    launch
+    launch rviz
   DESTINATION share/${PROJECT_NAME}
 )
 

@@ -41,6 +41,16 @@ def generate_launch_description():
         'benzene.gazebo.launch.py'
     )
 
+    benzene_dagger_dir = get_package_share_directory(
+        'benzene_dagger'
+    )
+
+    rviz_config_file = os.path.join(
+        benzene_dagger_dir  ,
+        'rviz',
+        'dagger.rviz'
+    )
+
     return LaunchDescription([
 
         # Make Benzene description resources available to Gazebo
@@ -59,6 +69,7 @@ def generate_launch_description():
                 'robot_name': 'benzene',
                 'use_sim_time': 'true',
                 'use_rviz': 'true',
+                'rviz_config_file': rviz_config_file,
                 'load_controllers': 'true',
                 'use_robot_state_pub': 'true',
                 'launch_ekf': 'true',
