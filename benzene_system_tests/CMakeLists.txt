@@ -5,11 +5,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
 
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
@@ -20,7 +16,6 @@ find_package(benzene_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 
-# Add the square mecanum controller executable
 add_executable(square_movemet_test
   src/square_movemet_test.cpp
 )
@@ -30,27 +25,22 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# Add the mecanum parameters node executable
 add_executable(mecanum_parameters_node
   src/mecanum_parameters_node.cpp
 )
 
-# Add the timed rotation action server executable
 add_executable(timed_rotation_action_server
   src/timed_rotation_action_server.cpp
 )
 
-# Add the timed rotation action client executable
 add_executable(timed_rotation_action_client
   src/timed_rotation_action_client.cpp
 )
 
-#Add a service server
 add_executable(set_cleaning_state_service
   src/set_cleaning_state_service.cpp
 )
 
-# Specify dependencies for the target
 ament_target_dependencies(square_movemet_test
   rclcpp
   geometry_msgs
@@ -59,7 +49,6 @@ ament_target_dependencies(square_movemet_test
   tf2
 )
 
-# Specify dependencies for the mecanum parameters node
 ament_target_dependencies(mecanum_parameters_node
   rclcpp
   geometry_msgs
@@ -67,7 +56,6 @@ ament_target_dependencies(mecanum_parameters_node
   rcl_interfaces
 )
 
-# Specify dependencies for the timed rotation action server
 ament_target_dependencies(timed_rotation_action_server
   rclcpp
   rclcpp_action
@@ -75,7 +63,6 @@ ament_target_dependencies(timed_rotation_action_server
   benzene_msgs
 )
 
-# Specify dependencies for the timed rotation action client
 ament_target_dependencies(timed_rotation_action_client
   rclcpp
   rclcpp_action
@@ -83,13 +70,11 @@ ament_target_dependencies(timed_rotation_action_client
   std_msgs
 )
 
-# Specify dependencies for the service server
 ament_target_dependencies(set_cleaning_state_service
   rclcpp
   benzene_msgs
 )
 
-# Install the executables
 install(TARGETS
   square_movemet_test
   mecanum_parameters_node
@@ -101,12 +86,7 @@ install(TARGETS
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
   set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()

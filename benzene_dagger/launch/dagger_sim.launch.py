@@ -10,6 +10,7 @@ from launch.actions import (
     SetEnvironmentVariable
 )
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_ros.actions import Node
 
 
 def generate_launch_description():
@@ -51,6 +52,14 @@ def generate_launch_description():
         'dagger.rviz'
     )
 
+    scan_marker_cmd = Node(
+        package='benzene_dagger',
+        executable='scan_marker',
+        name='lidar_visualizer_node',
+        output='screen',
+        parameters=[{'use_sim_time': True}]
+    )
+
     return LaunchDescription([
 
         # Make Benzene description resources available to Gazebo
@@ -58,6 +67,7 @@ def generate_launch_description():
             name='GZ_SIM_RESOURCE_PATH',
             value=benzene_description_share
         ),
+        scan_marker_cmd,
 
         # Launch the existing Benzene Gazebo simulation
         IncludeLaunchDescription(
@@ -73,6 +83,7 @@ def generate_launch_description():
                 'load_controllers': 'true',
                 'use_robot_state_pub': 'true',
                 'launch_ekf': 'true',
+                'enable_odom_tf': 'false',   # <-- add this
                 'x': '-5.35',
                 'y': '0.0',
                 'z': '0.05',
