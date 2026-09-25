@@ -84,7 +84,7 @@ def generate_launch_description():
                 'use_robot_state_pub': 'true',
                 'launch_ekf': 'true',
                 'enable_odom_tf': 'false',   # <-- add this
-                'x': '-5.35',
+                'x': '-5.4',
                 'y': '0.0',
                 'z': '0.05',
                 'roll': '0.0',

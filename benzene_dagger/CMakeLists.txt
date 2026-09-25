@@ -51,7 +51,7 @@ install(
 
 install(
   DIRECTORY
-    launch rviz
+    launch rviz controllers
   DESTINATION share/${PROJECT_NAME}
 )
 
