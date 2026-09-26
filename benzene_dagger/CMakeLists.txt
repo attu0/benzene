@@ -2,9 +2,21 @@ cmake_minimum_required(VERSION 3.8)
 
 project(benzene_dagger)
 
+# =============================================================================
+# Compiler Options
+# =============================================================================
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(
+    -Wall
+    -Wextra
+    -Wpedantic
+  )
 endif()
+
+# =============================================================================
+# Dependencies
+# =============================================================================
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -13,7 +25,12 @@ find_package(Qt5 REQUIRED COMPONENTS Widgets)
 find_package(sensor_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 
-add_executable(teleop_keyboard
+# =============================================================================
+# Teleoperation
+# =============================================================================
+
+add_executable(
+  teleop_keyboard
   src/teleop_keyboard.cpp
 )
 
@@ -31,10 +48,18 @@ target_link_libraries(
 install(
   TARGETS
     teleop_keyboard
-  DESTINATION lib/${PROJECT_NAME}
+  DESTINATION
+    lib/${PROJECT_NAME}
 )
 
-add_executable(scan_marker src/scan_marker.cpp)
+# =============================================================================
+# Scan Marker
+# =============================================================================
+
+add_executable(
+  scan_marker
+  src/scan_marker.cpp
+)
 
 ament_target_dependencies(
   scan_marker
@@ -45,14 +70,27 @@ ament_target_dependencies(
 )
 
 install(
-  TARGETS scan_marker
-  DESTINATION lib/${PROJECT_NAME}
+  TARGETS
+    scan_marker
+  DESTINATION
+    lib/${PROJECT_NAME}
 )
+
+# =============================================================================
+# Install
+# =============================================================================
 
 install(
   DIRECTORY
-    launch rviz controllers
-  DESTINATION share/${PROJECT_NAME}
+    launch
+    rviz
+    controllers
+  DESTINATION
+    share/${PROJECT_NAME}
 )
+
+# =============================================================================
+# Package
+# =============================================================================
 
 ament_package()

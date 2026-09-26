@@ -1,12 +1,33 @@
 cmake_minimum_required(VERSION 3.5)
+
 project(benzene_explore_msgs)
+
+# =============================================================================
+# Dependencies
+# =============================================================================
 
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
-rosidl_generate_interfaces(${PROJECT_NAME}
+# =============================================================================
+# ROS 2 Interfaces
+# =============================================================================
+
+rosidl_generate_interfaces(
+  ${PROJECT_NAME}
   "msg/ExploreStatus.msg"
 )
 
-ament_export_dependencies(rosidl_default_runtime)
+# =============================================================================
+# Export
+# =============================================================================
+
+ament_export_dependencies(
+  rosidl_default_runtime
+)
+
+# =============================================================================
+# Package
+# =============================================================================
+
 ament_package()

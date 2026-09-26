@@ -1,14 +1,36 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!--
+*****************************************************************************************
+*
+*                           =========================
+*                           benzene_system_tests
+*                           =========================
+*
+*  Integration and system tests for the Benzene robot.
+*
+*****************************************************************************************
+-->
+
 <package format="3">
+
+  <!-- Package Information -->
   <name>benzene_system_tests</name>
   <version>0.0.0</version>
-  <description>Integration tests for Benzene robots</description>
+  <description>Integration tests for the Benzene robot</description>
+
+  <!-- Maintainer Information -->
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
+
+  <!-- License -->
   <license>TODO: License declaration</license>
 
+  <!-- Build Dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <!-- Package Dependencies -->
   <depend>rclcpp</depend>
   <depend>rclcpp_action</depend>
   <depend>rcl_interfaces</depend>
@@ -18,10 +40,13 @@
   <depend>nav_msgs</depend>
   <depend>tf2</depend>
 
+  <!-- Testing Dependencies -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
+  <!-- Build Type -->
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
 </package>

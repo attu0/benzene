@@ -1,14 +1,36 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!--
+*****************************************************************************************
+*
+*                           =========================
+*                              benzene
+*                           =========================
+*
+*  ROS 2 meta package for the Benzene robot.
+*
+*****************************************************************************************
+-->
+
 <package format="3">
+
+  <!-- Package Information -->
   <name>benzene</name>
   <version>0.0.0</version>
   <description>Meta package for benzene bot</description>
+
+  <!-- Maintainer Information -->
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
+
+  <!-- License -->
   <license>TODO: License declaration</license>
 
+  <!-- Build Dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <!-- Benzene Package Dependencies -->
   <exec_depend>benzene_bringup</exec_depend>
   <exec_depend>benzene_description</exec_depend>
   <exec_depend>benzene_gazebo</exec_depend>
@@ -22,10 +44,13 @@
   <exec_depend>benzene_control</exec_depend>
   <exec_depend>benzene_dagger</exec_depend>
 
+  <!-- Testing Dependencies -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
+  <!-- Build Type -->
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
 </package>

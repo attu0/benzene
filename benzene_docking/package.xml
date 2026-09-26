@@ -1,14 +1,38 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!--
+*****************************************************************************************
+*
+*                           =========================
+*                              benzene_docking
+*                           =========================
+*
+*  Core docking functionality using AprilTags and Nav2.
+*
+*****************************************************************************************
+-->
+
 <package format="3">
+
+  <!-- Package Information -->
   <name>benzene_docking</name>
   <version>0.0.0</version>
-  <description>contains core files related to docking using april tags and nav2</description>
+  <description>
+    Core docking functionality using AprilTags and Nav2.
+  </description>
+
+  <!-- Maintainer Information -->
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
+
+  <!-- License -->
   <license>TODO: License declaration</license>
 
+  <!-- Build Dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <!-- Package Dependencies -->
   <depend>rclcpp</depend>
   <depend>apriltag_ros</depend>
   <depend>apriltag_msgs</depend>
@@ -18,10 +42,13 @@
   <depend>nav2_simple_commander</depend>
   <depend>tf2_ros</depend>
 
+  <!-- Testing Dependencies -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
+  <!-- Build Type -->
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
 </package>

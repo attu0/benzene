@@ -1,14 +1,37 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!--
+*****************************************************************************************
+*
+*                           =========================
+*                              benzene_gazebo
+*                           =========================
+*
+*  Gazebo simulation support for the Benzene robot, including models,
+*  worlds, configuration, RViz, and launch files.
+*
+*****************************************************************************************
+-->
+
 <package format="3">
+
+  <!-- Package Information -->
   <name>benzene_gazebo</name>
   <version>0.0.0</version>
-  <description>Gazebo simulation support for Benzene robots including models, worlds, and launch files</description>
+  <description>
+    Gazebo simulation support for Benzene robots including models, worlds,
+    and launch files.
+  </description>
+
+  <!-- Maintainer Information -->
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
+
+  <!-- License -->
   <license>TODO: License declaration</license>
 
-  <buildtool_depend>ament_cmake</buildtool_depend>
-
+  <!-- Package Dependencies -->
   <depend>controller_manager</depend>
   <depend>gz_ros2_control</depend>
   <depend>python3-numpy</depend>
@@ -21,14 +44,19 @@
   <depend>ros2_controllers</depend>
   <depend>trajectory_msgs</depend>
   <depend>xacro</depend>
+
+  <!-- Runtime Dependencies -->
   <exec_depend>gz_ros2_control_demos</exec_depend>
   <exec_depend>rqt_robot_steering</exec_depend>
   <exec_depend>rviz_imu_plugin</exec_depend>
 
+  <!-- Testing Dependencies -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
+  <!-- Build Type -->
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
 </package>

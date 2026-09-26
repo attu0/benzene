@@ -1,9 +1,22 @@
 cmake_minimum_required(VERSION 3.8)
+
 project(benzene_navigation)
 
+# =============================================================================
+# Compiler Options
+# =============================================================================
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(
+    -Wall
+    -Wextra
+    -Wpedantic
+  )
 endif()
+
+# =============================================================================
+# Dependencies
+# =============================================================================
 
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
@@ -16,34 +29,76 @@ find_package(slam_toolbox REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 
-add_executable(cmd_vel_relay src/cmd_vel_relay_node.cpp)
-ament_target_dependencies(cmd_vel_relay
+# =============================================================================
+# Command Velocity Relay
+# =============================================================================
+
+add_executable(
+  cmd_vel_relay
+  src/cmd_vel_relay_node.cpp
+)
+
+ament_target_dependencies(
+  cmd_vel_relay
   rclcpp
   geometry_msgs
 )
 
-install(TARGETS cmd_vel_relay
-  DESTINATION lib/${PROJECT_NAME}
+install(
+  TARGETS
+    cmd_vel_relay
+  DESTINATION
+    lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY maps rviz config
-  DESTINATION share/${PROJECT_NAME}/
+# =============================================================================
+# Navigation Resources
+# =============================================================================
+
+install(
+  DIRECTORY
+    maps
+    rviz
+    config
+  DESTINATION
+    share/${PROJECT_NAME}
 )
+
+# =============================================================================
+# Python Package
+# =============================================================================
 
 ament_python_install_package(${PROJECT_NAME})
 
-install(PROGRAMS
-  scripts/assisted_teleoperation.py
-  scripts/nav_to_pose.py
-  scripts/test_nav_to_pose.py
-  DESTINATION lib/${PROJECT_NAME}
+# =============================================================================
+# Python Scripts
+# =============================================================================
+
+install(
+  PROGRAMS
+    scripts/assisted_teleoperation.py
+    scripts/nav_to_pose.py
+    scripts/test_nav_to_pose.py
+  DESTINATION
+    lib/${PROJECT_NAME}
 )
+
+# =============================================================================
+# Testing
+# =============================================================================
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
+
+  # Disable checks that are not applicable to this package.
   set(ament_cmake_copyright_FOUND TRUE)
   set(ament_cmake_cpplint_FOUND TRUE)
+
   ament_lint_auto_find_test_dependencies()
 endif()
+
+# =============================================================================
+# Package
+# =============================================================================
 
 ament_package()

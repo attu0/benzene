@@ -1,15 +1,39 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!--
+*****************************************************************************************
+*
+*                           =========================
+*                              benzene_navigation
+*                           =========================
+*
+*  Navigation stack configuration and utilities for the Benzene robot.
+*
+*****************************************************************************************
+-->
+
 <package format="3">
+
+  <!-- Package Information -->
   <name>benzene_navigation</name>
   <version>0.0.0</version>
-  <description>Navigation pkg for the benzene robot contians code for the navigation stack</description>
+  <description>
+    Navigation stack configuration and utilities for the Benzene robot.
+  </description>
+
+  <!-- Maintainer Information -->
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
+
+  <!-- License -->
   <license>TODO: License declaration</license>
 
+  <!-- Build Dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
 
+  <!-- Package Dependencies -->
   <depend>rclpy</depend>
   <depend>nav2_common</depend>
   <depend>builtin_interfaces</depend>
@@ -22,10 +46,13 @@
   <depend>tf2_ros</depend>
   <depend>tf_transformations</depend>
 
+  <!-- Testing Dependencies -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
+  <!-- Build Type -->
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
 </package>

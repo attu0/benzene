@@ -1,23 +1,49 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!--
+*****************************************************************************************
+*
+*                           =========================
+*                              benzene_msgs
+*                           =========================
+*
+*  Custom ROS 2 messages, services, and actions for the Benzene robot.
+*
+*****************************************************************************************
+-->
+
 <package format="3">
+
+  <!-- Package Information -->
   <name>benzene_msgs</name>
   <version>0.0.0</version>
-  <description>Custom messages for the benzene package service and actions</description>
+  <description>Custom messages, services, and actions for the Benzene robot</description>
+
+  <!-- Maintainer Information -->
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
+
+  <!-- License -->
   <license>TODO: License declaration</license>
 
+  <!-- Build Dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <build_depend>rosidl_default_generators</build_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
 
+  <!-- Runtime Dependencies -->
   <exec_depend>rosidl_default_runtime</exec_depend>
 
+  <!-- Interface Package -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <!-- Testing Dependencies -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
-  <member_of_group>rosidl_interface_packages</member_of_group>
-
+  <!-- Build Type -->
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
 </package>

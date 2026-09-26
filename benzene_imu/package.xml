@@ -1,24 +1,51 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+             schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!--
+*****************************************************************************************
+*
+*                           =========================
+*                              benzene_imu
+*                           =========================
+*
+*  MPU6050 I2C IMU driver for the Benzene robot.
+*
+*****************************************************************************************
+-->
+
 <package format="3">
+
+  <!-- Package Information -->
   <name>benzene_imu</name>
   <version>0.0.0</version>
-  <description>MPU6050 I2C IMU driver for the benzene robot</description>
+  <description>MPU6050 I2C IMU driver for the Benzene robot.</description>
+
+  <!-- Maintainer Information -->
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
+
+  <!-- License -->
   <license>TODO: License declaration</license>
 
+  <!-- Build Dependencies -->
   <buildtool_depend>ament_python</buildtool_depend>
 
+  <!-- Runtime Dependencies -->
   <exec_depend>rclpy</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
+
+  <!-- System Dependencies -->
   <exec_depend>python3-smbus2</exec_depend>
 
+  <!-- Testing Dependencies -->
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
 
+  <!-- Build Type -->
   <export>
     <build_type>ament_python</build_type>
   </export>
+
 </package>
