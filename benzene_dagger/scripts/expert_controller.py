@@ -7,7 +7,7 @@ import time
 import rclpy
 from rclpy.node import Node
 
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, TwistStamped
 from std_msgs.msg import Float32
 
 
@@ -72,12 +72,20 @@ class ExpertController(Node):
         )
 
         # ---------------------------------------------------------
-        # Publisher
+        # Publishers
         # ---------------------------------------------------------
 
         self.cmd_pub = self.create_publisher(
             Twist,
             '/diff_drive_controller/cmd_vel',
+            10,
+        )
+
+        # Stamped label topic, always the expert's action, used by
+        # data_collector.py for image/action synchronization.
+        self.label_pub = self.create_publisher(
+            TwistStamped,
+            '/expert/cmd_vel',
             10,
         )
 
@@ -196,6 +204,18 @@ class ExpertController(Node):
         cmd.angular.z = angular_velocity
 
         self.cmd_pub.publish(cmd)
+
+        # ---------------------------------------------------------
+        # Publish stamped label (always the expert's opinion,
+        # regardless of who is actually driving the robot).
+        # ---------------------------------------------------------
+
+        label_msg = TwistStamped()
+        label_msg.header.stamp = self.get_clock().now().to_msg()
+        label_msg.header.frame_id = 'base_link'
+        label_msg.twist = cmd
+
+        self.label_pub.publish(label_msg)
 
         self.last_time = current_time
 

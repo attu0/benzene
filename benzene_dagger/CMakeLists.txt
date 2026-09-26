@@ -84,9 +84,18 @@ install(
   DIRECTORY
     launch
     rviz
-    controllers
+    scripts
   DESTINATION
     share/${PROJECT_NAME}
+)
+
+install(
+  PROGRAMS
+    scripts/expert_controller.py
+    scripts/line_detector.py
+    scripts/data_collector.py
+  DESTINATION
+   lib/${PROJECT_NAME}
 )
 
 # =============================================================================
