@@ -9,7 +9,8 @@
 *                              benzene_bringup
 *                           =========================
 *
-*  Launch files and basic startup configuration for the Benzene robot.
+*  Launch files, basic startup configuration, and teleoperation tools
+*  for the Benzene robot.
 *
 *****************************************************************************************
 -->
@@ -19,7 +20,10 @@
   <!-- Package Information -->
   <name>benzene_bringup</name>
   <version>0.0.0</version>
-  <description>Launch files for the Benzene robot and basic files</description>
+  <description>
+    Launch files, basic startup configuration, and teleoperation tools
+    for the Benzene robot
+  </description>
 
   <!-- Maintainer Information -->
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
@@ -29,6 +33,10 @@
 
   <!-- Build Dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Package Dependencies -->
+  <depend>rclcpp</depend>
+  <depend>geometry_msgs</depend>
 
   <!-- Runtime Dependencies -->
   <exec_depend>rplidar_ros</exec_depend>

@@ -21,36 +21,8 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(Qt5 REQUIRED COMPONENTS Widgets)
 find_package(sensor_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
-
-# =============================================================================
-# Teleoperation
-# =============================================================================
-
-add_executable(
-  teleop_keyboard
-  src/teleop_keyboard.cpp
-)
-
-ament_target_dependencies(
-  teleop_keyboard
-  rclcpp
-  geometry_msgs
-)
-
-target_link_libraries(
-  teleop_keyboard
-  Qt5::Widgets
-)
-
-install(
-  TARGETS
-    teleop_keyboard
-  DESTINATION
-    lib/${PROJECT_NAME}
-)
 
 # =============================================================================
 # Scan Marker
