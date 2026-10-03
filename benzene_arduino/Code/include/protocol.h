@@ -2,7 +2,9 @@
 #include <stdint.h>
 
 // ---------------------------------------------------------------------------
-// Serial protocol between the Uno and the host (benzene_bridge). Little-endian.
+// The Uno understands TWO things on the same serial port:
+//
+// 1) BINARY frames (for the ROS host node). Little-endian.
 //
 //   frame = 0xAA 0x55 | LEN | TYPE | payload... | CRC8
 //   LEN   = 1 (TYPE) + payload length
@@ -15,6 +17,13 @@
 //   uno -> host
 //     0x81 STATE      uint32 stamp_us, int32 ticks_l, int32 ticks_r,
 //                     int16 vel_l_tps, int16 vel_r_tps, uint8 flags
+//
+//   STATE frames are streamed at 50 Hz, but ONLY after the first valid binary
+//   frame arrives.
+//
+// 2) TEXT lines (for typing in a serial monitor), see console.h.
+//   Receiving a text line switches the STATE stream OFF so the monitor stays
+//   readable; the next binary frame switches it back ON.
 // ---------------------------------------------------------------------------
 namespace protocol {
 
@@ -37,10 +46,12 @@ struct Handlers {
   void (*onCmdVel)(int16_t left_tps, int16_t right_tps);
   void (*onResetEnc)();
   void (*onSetPid)(float kp, float ki, float kd);
+  void (*onTextLine)(char *line);     // one typed line, newline stripped
 };
 
 void init(const Handlers &h);
-void poll();                          // drain Serial, parse frames, fire callbacks
+void poll();                          // drain Serial, parse frames/lines, fire callbacks
+bool streaming();                     // true once a binary host has spoken (and no text since)
 void sendState(const StateMsg &s);
 
 }  // namespace protocol

@@ -8,8 +8,6 @@ void init() {
   const uint8_t pins[] = {cfg::L_EN, cfg::L_IN1, cfg::L_IN2,
                           cfg::R_EN, cfg::R_IN3, cfg::R_IN4};
   for (uint8_t p : pins) pinMode(p, OUTPUT);
-  // Timer1 (D9/D10) prescaler 8 -> ~3.9 kHz PWM, quieter than the 490 Hz default.
-  TCCR1B = (TCCR1B & 0xF8) | 0x02;
   stopAll();
 }
 

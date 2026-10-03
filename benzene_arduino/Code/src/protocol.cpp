@@ -6,10 +6,18 @@
 namespace protocol {
 namespace {
 
-Handlers g_h = {nullptr, nullptr, nullptr};
+Handlers g_h = {nullptr, nullptr, nullptr, nullptr};
+bool g_streaming = false;
 
+// ----- binary frame parser state -----
 constexpr uint8_t MAX_BODY = 20;           // TYPE + payload
 uint8_t g_state = 0, g_len = 0, g_idx = 0, g_buf[MAX_BODY + 1];  // +1 for CRC
+
+// ----- text line buffer -----
+constexpr uint8_t LINE_MAX = 40;
+char g_line[LINE_MAX + 1];
+uint8_t g_lineLen = 0;
+bool g_lineOverflow = false;
 
 uint8_t crc8(uint8_t crc, uint8_t b) {
   crc ^= b;
@@ -34,9 +42,30 @@ void dispatch(uint8_t type, const uint8_t *p, uint8_t n) {
   }
 }
 
+void endOfLine() {
+  if (!g_lineOverflow && g_lineLen > 0) {
+    g_line[g_lineLen] = '\0';
+    g_streaming = false;                    // typed text: stop the binary stream
+    if (g_h.onTextLine) g_h.onTextLine(g_line);
+  }
+  g_lineLen = 0;
+  g_lineOverflow = false;
+}
+
 void feed(uint8_t b) {
   switch (g_state) {
-    case 0: if (b == 0xAA) g_state = 1; break;
+    case 0:
+      if (b == 0xAA) {                      // start of a binary frame
+        g_state = 1;
+        g_lineLen = 0;
+        g_lineOverflow = false;
+      } else if (b == '\n' || b == '\r') {
+        endOfLine();
+      } else if (b >= 32 && b < 127) {      // printable: part of a typed line
+        if (g_lineLen < LINE_MAX) g_line[g_lineLen++] = (char)b;
+        else g_lineOverflow = true;
+      }
+      break;
     case 1: g_state = (b == 0x55) ? 2 : (b == 0xAA ? 1 : 0); break;
     case 2:
       if (b == 0 || b > MAX_BODY) { g_state = 0; break; }
@@ -47,7 +76,10 @@ void feed(uint8_t b) {
       if (g_idx == g_len + 1) {              // body + CRC received
         uint8_t c = crc8(0, g_len);
         for (uint8_t i = 0; i < g_len; i++) c = crc8(c, g_buf[i]);
-        if (c == g_buf[g_len]) dispatch(g_buf[0], g_buf + 1, g_len - 1);
+        if (c == g_buf[g_len]) {
+          g_streaming = true;                // a binary host is talking to us
+          dispatch(g_buf[0], g_buf + 1, g_len - 1);
+        }
         g_state = 0;
       }
       break;
@@ -64,6 +96,8 @@ void init(const Handlers &h) {
 void poll() {
   while (Serial.available()) feed((uint8_t)Serial.read());
 }
+
+bool streaming() { return g_streaming; }
 
 void sendState(const StateMsg &s) {
   uint8_t f[22];

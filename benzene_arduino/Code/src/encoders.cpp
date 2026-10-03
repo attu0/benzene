@@ -2,6 +2,11 @@
 #include <Arduino.h>
 #include "config.h"
 
+// Left  wheel: C1 = A4 (PC4), C2 = A5 (PC5)  -> PCINT1_vect
+// Right wheel: C1 = D3 (PD3), C2 = D2 (PD2)  -> PCINT2_vect
+// C1 is treated as channel A, C2 as channel B. If a wheel counts backwards,
+// flip its ENC_x_SIGN in config.h.
+
 namespace {
 volatile int32_t g_left = 0, g_right = 0;
 volatile uint8_t g_prevL = 0, g_prevR = 0;
@@ -9,31 +14,36 @@ volatile uint8_t g_prevL = 0, g_prevR = 0;
 // index = (previous 2-bit AB state << 2) | current state; value = tick delta
 const int8_t QEM[16] = {0, 1, -1, 0, -1, 0, 0, 1, 1, 0, 0, -1, 0, -1, 1, 0};
 
-constexpr uint8_t PORTD_MASK = 0b00111100;   // D2..D5
+constexpr uint8_t PORTC_MASK = 0b00110000;   // A4, A5
+constexpr uint8_t PORTD_MASK = 0b00001100;   // D2, D3
 
-inline uint8_t stateLeft(uint8_t p)  { return (((p >> 2) & 1) << 1) | ((p >> 4) & 1); }  // A=D2 B=D4
-inline uint8_t stateRight(uint8_t p) { return (((p >> 3) & 1) << 1) | ((p >> 5) & 1); }  // A=D3 B=D5
+inline uint8_t stateLeft(uint8_t pinc)  { return (((pinc >> 4) & 1) << 1) | ((pinc >> 5) & 1); }
+inline uint8_t stateRight(uint8_t pind) { return (((pind >> 3) & 1) << 1) | ((pind >> 2) & 1); }
 }  // namespace
 
-ISR(PCINT2_vect) {
-  uint8_t p = PIND;
-  uint8_t l = stateLeft(p);
-  uint8_t r = stateRight(p);
-  g_left  += cfg::ENC_L_SIGN * QEM[(g_prevL << 2) | l];
-  g_right += cfg::ENC_R_SIGN * QEM[(g_prevR << 2) | r];
-  g_prevL = l;
-  g_prevR = r;
+ISR(PCINT1_vect) {   // left wheel (PORTC)
+  uint8_t s = stateLeft(PINC);
+  g_left += cfg::ENC_L_SIGN * QEM[(g_prevL << 2) | s];
+  g_prevL = s;
+}
+
+ISR(PCINT2_vect) {   // right wheel (PORTD)
+  uint8_t s = stateRight(PIND);
+  g_right += cfg::ENC_R_SIGN * QEM[(g_prevR << 2) | s];
+  g_prevR = s;
 }
 
 namespace encoders {
 
 void init() {
-  DDRD  &= ~PORTD_MASK;   // inputs
-  PORTD |=  PORTD_MASK;   // pull-ups (harmless for push-pull encoders)
-  uint8_t p = PIND;
-  g_prevL = stateLeft(p);
-  g_prevR = stateRight(p);
-  PCICR  |= (1 << PCIE2);
+  DDRC  &= ~PORTC_MASK;   // inputs
+  PORTC |=  PORTC_MASK;   // pull-ups (harmless for push-pull encoders)
+  DDRD  &= ~PORTD_MASK;
+  PORTD |=  PORTD_MASK;
+  g_prevL = stateLeft(PINC);
+  g_prevR = stateRight(PIND);
+  PCICR  |= (1 << PCIE1) | (1 << PCIE2);
+  PCMSK1 |= PORTC_MASK;
   PCMSK2 |= PORTD_MASK;
 }
 
@@ -49,6 +59,11 @@ void reset() {
   g_left = 0;
   g_right = 0;
   interrupts();
+}
+
+uint8_t readChannel(uint8_t wheel, uint8_t channel) {
+  if (wheel == 0) return (PINC >> (channel ? 5 : 4)) & 1;   // A4 (C1) / A5 (C2)
+  return (PIND >> (channel ? 2 : 3)) & 1;                    // D3 (C1) / D2 (C2)
 }
 
 }  // namespace encoders
