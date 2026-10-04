@@ -82,6 +82,7 @@ void setup() {
   encoders::init();
   motors::init();
   g_lastLoopUs = micros();
+  Serial.println(F("benzene boot"));   // if you see this mid-session, the Uno RESET (power/USB glitch)
 }
 
 void loop() {

@@ -20,14 +20,21 @@ constexpr int8_t ENC_R_SIGN     = 1;
 constexpr bool   MOTOR_L_INVERT = false;
 constexpr bool   MOTOR_R_INVERT = false;
 
-// ----- L298N pins (from the wiring diagram) -----
-constexpr uint8_t L_EN = 5, L_IN1 = 11, L_IN2 = 10;    // ENA must be a PWM pin
-constexpr uint8_t R_EN = 6, R_IN3 = 8,  R_IN4 = 9;     // ENB must be a PWM pin
+// ----- L298N pins: SAME as the ros_arduino_bridge reference (known to run on this wiring) -----
+// Style used here: PWM on the IN pins, the two EN pins are simply held HIGH.
+// These must be PWM-capable pins (3, 5, 6, 9, 10, 11).
+constexpr bool    PWM_ON_INPUTS = true;
+constexpr uint8_t L_FWD = 10, L_BWD = 6, L_EN = 13;
+constexpr uint8_t R_FWD = 9,  R_BWD = 5, R_EN = 12;
+// Alternative (the first wiring diagram): PWM on ENA/ENB, plain direction on IN1..IN4:
+//   PWM_ON_INPUTS = false;  L_EN = 5, L_FWD = 11, L_BWD = 10;  R_EN = 6, R_FWD = 8, R_BWD = 9;
+// In that mode ENA/ENB carry the PWM, so the ENA/ENB jumper caps MUST be removed.
+// The Uno does not touch ANY motor pin until the first non-zero motor command.
 
-// ----- encoder pins (from the wiring diagram) -----
-// NOTE: fixed by encoders.cpp (pin-change interrupts, one ISR per wheel).
-//   Left  : C1 = A4, C2 = A5   (PORTC, PCINT1)
-//   Right : C1 = D3, C2 = D2   (PORTD, PCINT2)
+// ----- encoder pins: also the same as the reference -----
+// Fixed by encoders.cpp (pin-change interrupts, one ISR per wheel):
+//   Left  : A = D2, B = D3   (PORTD, PCINT2)
+//   Right : A = A4, B = A5   (PORTC, PCINT1)
 // Changing these means editing encoders.cpp too.
 // A4/A5 are the Uno's I2C pins; fine, because the IMU lives on the Pi.
 

@@ -9,7 +9,7 @@
 //   v                 read measured speed         -> "left right"  (ticks/s)
 //   r                 reset encoder ticks to 0    -> OK
 //   d <w> <c>         raw encoder pin level       -> 0 or 1
-//                       w: 0 = left, 1 = right   c: 0 = C1, 1 = C2
+//                       w: 0 = left (D2/D3), 1 = right (A4/A5)   c: 0 = A, 1 = B
 //   m <l> <r>         closed-loop speed targets, ticks/s            -> OK
 //   o <l> <r>         open-loop raw PWM, -255..255 (bypasses PID)   -> OK
 //   u <kp> <ki> <kd> [kff]   set PID gains                          -> OK

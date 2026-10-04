@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 
-// L298N driver: signed PWM per side.
+// L298N driver: signed PWM per side. Pins are untouched until the first non-zero command.
 enum class Side : uint8_t { Left, Right };
 
 namespace motors {

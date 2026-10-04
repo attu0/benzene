@@ -46,7 +46,7 @@ void help() {
   Serial.println(F("e            encoder ticks: left right"));
   Serial.println(F("v            speed ticks/s: left right"));
   Serial.println(F("r            reset encoders"));
-  Serial.println(F("d <w> <c>    raw pin: w 0=L 1=R, c 0=C1 1=C2"));
+  Serial.println(F("d <w> <c>    raw pin: w 0=L 1=R, c 0=A 1=B"));
   Serial.println(F("m <l> <r>    speed target ticks/s (closed loop)"));
   Serial.println(F("o <l> <r>    raw PWM -255..255 (open loop)"));
   Serial.println(F("u kp ki kd [kff]   PID gains"));

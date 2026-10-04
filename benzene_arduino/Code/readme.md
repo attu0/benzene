@@ -19,20 +19,19 @@ Don't use `pio device monitor`: the link is binary and one program owns the port
 Adding a new message: add a type constant + callback in `protocol.h`, parse it
 in `dispatch()` in `protocol.cpp`, and wire the callback in `main.cpp`.
 
-## Wiring (from the diagram)
+## Wiring (same pins as the ros_arduino_bridge reference)
 
 | Signal | Uno pin |
 |---|---|
-| ENA (left PWM) | D5 |
-| IN1 / IN2 (left dir) | D11 / D10 |
-| IN3 / IN4 (right dir) | D8 / D9 |
-| ENB (right PWM) | D6 |
-| Left encoder C1 / C2 | A4 / A5 |
-| Right encoder C1 / C2 | D3 / D2 |
+| Left encoder A / B | D2 / D3 |
+| Right encoder A / B | A4 / A5 |
+| Left motor: IN fwd / IN back / EN | D10 / D6 / D13 |
+| Right motor: IN fwd / IN back / EN | D9 / D5 / D12 |
 | Encoder VCC / GND | 5V / GND |
 
-Battery + -> L298N 12V terminal, battery - -> L298N GND and Uno GND (common ground).
-The Uno is powered over USB from the Pi.
+The IN pins get the PWM; the two EN pins are held HIGH. Motor pins are not touched
+until the first non-zero motor command. Common ground: battery -, L298N GND, Uno GND.
+The Uno is powered over USB. (Using the first diagram's pins instead: see `config.h`.)
 
 ## Testing
 
