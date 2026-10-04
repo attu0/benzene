@@ -1,14 +1,14 @@
 #ifndef DIFFDRIVE_ARDUINO_ARDUINO_COMMS_HPP
 #define DIFFDRIVE_ARDUINO_ARDUINO_COMMS_HPP
 
-// #include <cstring>
-#include <sstream>
-// #include <cstdlib>
-#include <libserial/SerialPort.h>
+#include <cstdint>
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <libserial/SerialPort.h>
 
 
-LibSerial::BaudRate convert_baud_rate(int baud_rate)
+inline LibSerial::BaudRate convert_baud_rate(int baud_rate)
 {
   // Just handle some common baud rates
   switch (baud_rate)
@@ -37,7 +37,7 @@ public:
   ArduinoComms() = default;
 
   void connect(const std::string &serial_device, int32_t baud_rate, int32_t timeout_ms)
-  {  
+  {
     timeout_ms_ = timeout_ms;
     serial_conn_.Open(serial_device);
     serial_conn_.SetBaudRate(convert_baud_rate(baud_rate));
@@ -84,18 +84,29 @@ public:
     std::string response = send_msg("\r");
   }
 
-  void read_encoder_values(int &val_1, int &val_2)
+  // Returns true only if the reply was "<left> <right>". On failure val_1 / val_2
+  // are left untouched, so the caller keeps its previous values.
+  bool read_encoder_values(int &val_1, int &val_2)
   {
     std::string response = send_msg("e\r");
+    if (response.empty())
+    {
+      return false;
+    }
 
-    std::string delimiter = " ";
-    size_t del_pos = response.find(delimiter);
-    std::string token_1 = response.substr(0, del_pos);
-    std::string token_2 = response.substr(del_pos + delimiter.length());
+    std::istringstream iss(response);   // also copes with the trailing \r\n
+    int a = 0;
+    int b = 0;
+    if (!(iss >> a >> b))
+    {
+      return false;
+    }
 
-    val_1 = std::atoi(token_1.c_str());
-    val_2 = std::atoi(token_2.c_str());
+    val_1 = a;
+    val_2 = b;
+    return true;
   }
+
   void set_motor_values(int val_1, int val_2)
   {
     std::stringstream ss;
@@ -112,7 +123,7 @@ public:
 
 private:
     LibSerial::SerialPort serial_conn_;
-    int timeout_ms_;
+    int timeout_ms_ = 1000;
 };
 
 #endif // DIFFDRIVE_ARDUINO_ARDUINO_COMMS_HPP

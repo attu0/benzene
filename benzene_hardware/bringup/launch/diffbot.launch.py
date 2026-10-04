@@ -13,42 +13,61 @@
 # limitations under the License.
 
 from launch import LaunchDescription
-from launch.actions import RegisterEventHandler
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler
 from launch.event_handlers import OnProcessExit
-from launch.substitutions import Command, FindExecutable, PathJoinSubstitution
+from launch.substitutions import (
+    Command,
+    FindExecutable,
+    LaunchConfiguration,
+    PathJoinSubstitution,
+)
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    # use_mock:=true  -> ros2_control mock hardware (no Uno needed, for the dev machine)
+    # use_mock:=false -> real DiffDriveArduinoHardware over serial (for the Pi)
+    use_mock_arg = DeclareLaunchArgument(
+        "use_mock",
+        default_value="false",
+        description="Use mock hardware instead of the Arduino serial interface.",
+    )
+    use_mock = LaunchConfiguration("use_mock")
+
     # Get URDF via xacro
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("diffdrive_arduino"), "urdf", "diffbot.urdf.xacro"]
+                [FindPackageShare("benzene_hardware"), "urdf", "diffbot.urdf.xacro"]
             ),
+            " use_mock:=",
+            use_mock,
         ]
     )
     robot_description = {"robot_description": robot_description_content}
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("diffdrive_arduino"),
+            FindPackageShare("benzene_hardware"),
             "config",
             "diffbot_controllers.yaml",
         ]
     )
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("diffdrive_arduino"), "rviz", "diffbot.rviz"]
+        [FindPackageShare("benzene_hardware"), "rviz", "diffbot.rviz"]
     )
 
     control_node = Node(
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_description, robot_controllers],
+        remappings=[
+            ("/diffbot_base_controller/cmd_vel", "/cmd_vel"),
+        ],
         output="both",
     )
     robot_state_pub_node = Node(
@@ -56,9 +75,6 @@ def generate_launch_description():
         executable="robot_state_publisher",
         output="both",
         parameters=[robot_description],
-        remappings=[
-            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
-        ],
     )
     rviz_node = Node(
         package="rviz2",
@@ -104,4 +120,4 @@ def generate_launch_description():
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
     ]
 
-    return LaunchDescription(nodes)
+    return LaunchDescription([use_mock_arg] + nodes)

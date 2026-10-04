@@ -18,6 +18,7 @@
 #include <cmath>
 #include <limits>
 #include <memory>
+#include <thread>
 #include <vector>
 
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
@@ -55,6 +56,14 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_init(
     RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "PID values not supplied, using defaults.");
   }
 
+  if (cfg_.enc_counts_per_rev <= 0 || cfg_.loop_rate <= 0.0f)
+  {
+    RCLCPP_FATAL(
+      rclcpp::get_logger("DiffDriveArduinoHardware"),
+      "enc_counts_per_rev (%d) and loop_rate (%.2f) must both be > 0.",
+      cfg_.enc_counts_per_rev, cfg_.loop_rate);
+    return hardware_interface::CallbackReturn::ERROR;
+  }
 
   wheel_l_.setup(cfg_.left_wheel_name, cfg_.enc_counts_per_rev);
   wheel_r_.setup(cfg_.right_wheel_name, cfg_.enc_counts_per_rev);
@@ -150,7 +159,22 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_configure(
   {
     comms_.disconnect();
   }
-  comms_.connect(cfg_.device, cfg_.baud_rate, cfg_.timeout_ms);
+
+  try
+  {
+    comms_.connect(cfg_.device, cfg_.baud_rate, cfg_.timeout_ms);
+  }
+  catch (const std::exception & e)
+  {
+    RCLCPP_FATAL(
+      rclcpp::get_logger("DiffDriveArduinoHardware"),
+      "Could not open serial device '%s': %s", cfg_.device.c_str(), e.what());
+    return hardware_interface::CallbackReturn::ERROR;
+  }
+
+  // The Uno resets when the serial port is opened; wait for the bootloader to finish
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Successfully configured!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
@@ -180,8 +204,20 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_activate(
   }
   if (cfg_.pid_p > 0)
   {
-    comms_.set_pid_values(cfg_.pid_p,cfg_.pid_d,cfg_.pid_i,cfg_.pid_o);
+    comms_.set_pid_values(cfg_.pid_p, cfg_.pid_d, cfg_.pid_i, cfg_.pid_o);
   }
+
+  // Start from a known state: no stale command, and the first read must not produce a spike
+  wheel_l_.cmd = 0.0;
+  wheel_r_.cmd = 0.0;
+  if (comms_.read_encoder_values(wheel_l_.enc, wheel_r_.enc))
+  {
+    wheel_l_.pos = wheel_l_.calc_enc_angle();
+    wheel_r_.pos = wheel_r_.calc_enc_angle();
+  }
+  wheel_l_.vel = 0.0;
+  wheel_r_.vel = 0.0;
+
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Successfully activated!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
@@ -191,6 +227,10 @@ hardware_interface::CallbackReturn DiffDriveArduinoHardware::on_deactivate(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Deactivating ...please wait...");
+  if (comms_.connected())
+  {
+    comms_.set_motor_values(0, 0);  // stop the wheels
+  }
   RCLCPP_INFO(rclcpp::get_logger("DiffDriveArduinoHardware"), "Successfully deactivated!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
@@ -204,9 +244,19 @@ hardware_interface::return_type DiffDriveArduinoHardware::read(
     return hardware_interface::return_type::ERROR;
   }
 
-  comms_.read_encoder_values(wheel_l_.enc, wheel_r_.enc);
+  // On a bad or missing reply, keep the previous pos/vel instead of jumping to 0
+  if (!comms_.read_encoder_values(wheel_l_.enc, wheel_r_.enc))
+  {
+    RCLCPP_WARN(
+      rclcpp::get_logger("DiffDriveArduinoHardware"), "Encoder read failed, skipping this cycle");
+    return hardware_interface::return_type::OK;
+  }
 
   double delta_seconds = period.seconds();
+  if (delta_seconds <= 0.0)
+  {
+    return hardware_interface::return_type::OK;
+  }
 
   double pos_prev = wheel_l_.pos;
   wheel_l_.pos = wheel_l_.calc_enc_angle();
@@ -219,7 +269,7 @@ hardware_interface::return_type DiffDriveArduinoHardware::read(
   return hardware_interface::return_type::OK;
 }
 
-hardware_interface::return_type diffdrive_arduino ::DiffDriveArduinoHardware::write(
+hardware_interface::return_type DiffDriveArduinoHardware::write(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
   if (!comms_.connected())
@@ -227,8 +277,11 @@ hardware_interface::return_type diffdrive_arduino ::DiffDriveArduinoHardware::wr
     return hardware_interface::return_type::ERROR;
   }
 
-  int motor_l_counts_per_loop = wheel_l_.cmd / wheel_l_.rads_per_count / cfg_.loop_rate;
-  int motor_r_counts_per_loop = wheel_r_.cmd / wheel_r_.rads_per_count / cfg_.loop_rate;
+  // The firmware's "frame" is its own PID period, so loop_rate must be the firmware's 30 Hz
+  int motor_l_counts_per_loop =
+    static_cast<int>(std::lround(wheel_l_.cmd / wheel_l_.rads_per_count / cfg_.loop_rate));
+  int motor_r_counts_per_loop =
+    static_cast<int>(std::lround(wheel_r_.cmd / wheel_r_.rads_per_count / cfg_.loop_rate));
   comms_.set_motor_values(motor_l_counts_per_loop, motor_r_counts_per_loop);
   return hardware_interface::return_type::OK;
 }
