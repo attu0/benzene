@@ -60,6 +60,7 @@ install(
     maps
     rviz
     config
+    waypoints
   DESTINATION
     share/${PROJECT_NAME}
 )
