@@ -268,6 +268,16 @@ def generate_launch_description():
             ('/cam_1/image', '/cam_1/color/image_raw')
         ])
 
+    # Convert the simulated ultrasonic LaserScan into a sensor_msgs/Range so
+    # the sim exposes the same /ultrasonic/range interface as the real HC-SR04
+    start_ultrasonic_relay_cmd = Node(
+        package='benzene_bringup',
+        executable='ultrasonic_scan_to_range.py',
+        name='ultrasonic_scan_to_range',
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time}],
+        condition=IfCondition(use_gazebo))
+
     # Spawn the robot
     start_gazebo_ros_spawner_cmd = Node(
         package='ros_gz_sim',
@@ -320,6 +330,7 @@ def generate_launch_description():
 
     ld.add_action(start_gazebo_ros_bridge_cmd)
     ld.add_action(start_gazebo_ros_image_bridge_cmd)
+    ld.add_action(start_ultrasonic_relay_cmd)
     ld.add_action(start_gazebo_ros_spawner_cmd)
 
     return ld

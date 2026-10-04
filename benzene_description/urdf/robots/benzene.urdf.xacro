@@ -111,11 +111,11 @@
 
   <xacro:ultrasonic_sensor
     prefix="$(arg prefix)"
-    sensor_name="ultrasonic_link"
+    sensor_name="ultrasonic"
     parent="base_link"
     xyz_offset="0.175 0 0.055"
     rpy_offset="0 0 0"
-    topic_name="ultrasonic_link/data"/>
+    topic_name="ultrasonic/scan"/>
 
   <xacro:include filename="$(find benzene_description)/urdf/control/gazebo_sim_ros2_control.urdf.xacro"/>
   <xacro:load_gazebo_sim_ros2_control_plugin robot_name="$(arg robot_name)" use_gazebo="$(arg use_gazebo)"/>
