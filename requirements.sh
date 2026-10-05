@@ -8,7 +8,6 @@
 
 set -euo pipefail
 
-# Note: Adjust these if you are targeting Humble on 22.04 or another configuration.
 ROS_DISTRO_REQUIRED="jazzy"
 UBUNTU_VERSION_REQUIRED="24.04"
 
@@ -154,15 +153,7 @@ apt_available() {
   [ -n "$candidate" ] && [ "$candidate" != "(none)" ]
 }
 
-section "ROS 2 Prerequisites"
-
-if [ -d "/opt/ros/$ROS_DISTRO_REQUIRED" ]; then
-  ok "/opt/ros/$ROS_DISTRO_REQUIRED exists"
-else
-  fail "/opt/ros/$ROS_DISTRO_REQUIRED does not exist -- ROS 2 $ROS_DISTRO_REQUIRED is not installed"
-  die "Please install ROS 2 $ROS_DISTRO_REQUIRED first."
-fi
-
+# --- Establish Sudo and Apt setup early so we can use it for ROS 2 repo installation ---
 APT_UPDATED=0
 SUDO=""
 if [ "$(id -u)" -ne 0 ]; then
@@ -187,6 +178,32 @@ fi
 
 TO_INSTALL=()
 UNAVAILABLE=()
+
+section "ROS 2 Prerequisites"
+
+if [ -d "/opt/ros/$ROS_DISTRO_REQUIRED" ]; then
+  ok "/opt/ros/$ROS_DISTRO_REQUIRED exists"
+else
+  missing "/opt/ros/$ROS_DISTRO_REQUIRED does not exist -- ROS 2 is not installed."
+
+  if [ "$CHECK_ONLY" -eq 0 ]; then
+    info "Automatically setting up the ROS 2 $ROS_DISTRO_REQUIRED repository..."
+
+    $SUDO apt-get install -y curl software-properties-common
+    $SUDO add-apt-repository universe -y
+    $SUDO curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $VERSION_CODENAME main" | $SUDO tee /etc/apt/sources.list.d/ros2.list > /dev/null
+
+    # Force an apt update so the new repository is read
+    APT_UPDATED=0
+    apt_update_once
+  else
+    info "Run without --check to automatically configure the ROS 2 repository."
+  fi
+
+  # Ensure the base ROS 2 package gets checked and installed below
+  ROS_PACKAGES_EXPECTED+=("ros-${ROS_DISTRO_REQUIRED}-ros-base")
+fi
 
 survey_group() {
   local label="$1"; shift
@@ -216,7 +233,7 @@ if [ "${#UNAVAILABLE[@]}" -gt 0 ]; then
   for pkg in "${UNAVAILABLE[@]}"; do
     info "  $pkg"
   done
-  die "Your apt lists may be stale. Try: sudo apt update and run this again."
+  die "Your apt lists may be stale or missing repositories. Try checking your sources."
 fi
 
 if [ "${#TO_INSTALL[@]}" -eq 0 ]; then
