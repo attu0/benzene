@@ -19,8 +19,8 @@
           <param name="timeout_ms">1000</param>
           <param name="enc_counts_per_rev">1559</param>
           <param name="pid_p">2</param>
-          <param name="pid_d">0</param>
-          <param name="pid_i">0</param>
+          <param name="pid_d">3</param>
+          <param name="pid_i">0.3</param>
           <param name="pid_o">50</param>
         </xacro:unless>
       </hardware>

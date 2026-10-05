@@ -42,8 +42,8 @@ SetPointInfo leftPID, rightPID;
 
 /* PID Parameters */
 int Kp = 2;
-int Kd = 0;
-int Ki = 0;
+int Kd = 3;
+int Ki = 0.3;
 int Ko = 50;
 
 unsigned char moving = 0; // is the base in motion?
