@@ -3,8 +3,8 @@ ultrasonic_hcsr04:
     trigger_pin: 23
     echo_pin: 24
     frame_id: ultrasonic
-    rate_hz: 10.0
+    rate_hz: 15.0
     min_range: 0.02
-    max_range: 4.0
-    field_of_view: 0.26
-    median_window: 5
+    max_range: 1.0
+    field_of_view: 0.53
+    median_window: 3
