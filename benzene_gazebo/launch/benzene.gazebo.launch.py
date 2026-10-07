@@ -271,9 +271,9 @@ def generate_launch_description():
     # Convert the simulated ultrasonic LaserScan into a sensor_msgs/Range so
     # the sim exposes the same /ultrasonic/range interface as the real HC-SR04
     start_ultrasonic_relay_cmd = Node(
-        package='benzene_bringup',
-        executable='ultrasonic_scan_to_range.py',
-        name='ultrasonic_scan_to_range',
+        package='benzene_ultrasonic',
+        executable='scan_to_range',
+        name='scan_to_range',
         output='screen',
         parameters=[{'use_sim_time': use_sim_time}],
         condition=IfCondition(use_gazebo))

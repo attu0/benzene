@@ -14,7 +14,7 @@
     topic_name:='ultrasonic/scan'
     update_rate:=10
     min_range:=0.02
-    max_range:=4.0
+    max_range:=1.0
   ">
 
   <link name="${prefix}${sensor_name}">

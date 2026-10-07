@@ -36,15 +36,20 @@ def generate_launch_description():
     package_name_bringup = 'benzene_bringup'
     package_name_description = 'benzene_description'
     package_name_imu = 'benzene_imu'
+    package_name_ultrasonic = 'benzene_ultrasonic'
 
     default_robot_name = 'benzene'
     urdf_filename = 'benzene.urdf.xacro'
 
     # Set the path to different packages
-    pkg_share_bringup = FindPackageShare(package=package_name_bringup).find(package_name_bringup)
+    pkg_share_bringup = FindPackageShare(
+        package=package_name_bringup).find(package_name_bringup)
     pkg_share_description = FindPackageShare(
         package=package_name_description).find(package_name_description)
-    pkg_share_imu = FindPackageShare(package=package_name_imu).find(package_name_imu)
+    pkg_share_imu = FindPackageShare(
+        package=package_name_imu).find(package_name_imu)
+    pkg_share_ultrasonic = FindPackageShare(
+        package=package_name_ultrasonic).find(package_name_ultrasonic)
 
     default_urdf_model_path = PathJoinSubstitution(
         [pkg_share_description, 'urdf', 'robots', urdf_filename])
@@ -53,6 +58,7 @@ def generate_launch_description():
     include_camera = LaunchConfiguration('include_camera')
     include_imu = LaunchConfiguration('include_imu')
     include_rplidar = LaunchConfiguration('include_rplidar')
+    include_ultrasonic = LaunchConfiguration('include_ultrasonic')
     jsp_gui = LaunchConfiguration('jsp_gui')
     prefix = LaunchConfiguration('prefix')
     robot_name = LaunchConfiguration('robot_name')
@@ -75,6 +81,11 @@ def generate_launch_description():
         name='include_rplidar',
         default_value='True',
         description='Whether to launch the RPLIDAR driver')
+
+    declare_include_ultrasonic_cmd = DeclareLaunchArgument(
+        name='include_ultrasonic',
+        default_value='True',
+        description='Whether to launch the HC-SR04 ultrasonic driver')
 
     declare_jsp_gui_cmd = DeclareLaunchArgument(
         name='jsp_gui',
@@ -196,6 +207,18 @@ def generate_launch_description():
         condition=IfCondition(include_imu)
     )
 
+    # Include ultrasonic (HC-SR04) launch file if enabled
+    include_ultrasonic_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(pkg_share_ultrasonic, 'launch', 'ultrasonic.launch.py')
+        ]),
+        launch_arguments={
+            'use_sim': 'false',
+            'use_sim_time': use_sim_time,
+        }.items(),
+        condition=IfCondition(include_ultrasonic)
+    )
+
     # Include joystick teleop launch file if enabled
     include_joystick_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -210,6 +233,7 @@ def generate_launch_description():
     rplidar_timer = TimerAction(period=3.0, actions=[include_rplidar_cmd])
     camera_timer = TimerAction(period=3.0, actions=[include_camera_cmd])
     imu_timer = TimerAction(period=3.0, actions=[include_imu_cmd])
+    ultrasonic_timer = TimerAction(period=3.0, actions=[include_ultrasonic_cmd])
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -224,6 +248,7 @@ def generate_launch_description():
     ld.add_action(declare_use_joy_cmd)
     ld.add_action(declare_use_rviz_cmd)
     ld.add_action(declare_use_sim_time_cmd)
+    ld.add_action(declare_include_ultrasonic_cmd)
 
     # Add the actions to the launch description
     ld.add_action(robot_state_publisher_cmd)
@@ -233,6 +258,7 @@ def generate_launch_description():
     ld.add_action(rplidar_timer)
     ld.add_action(camera_timer)
     ld.add_action(imu_timer)
+    ld.add_action(ultrasonic_timer)
     ld.add_action(include_joystick_cmd)
 
     return ld
