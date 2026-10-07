@@ -44,6 +44,7 @@
   <exec_depend>benzene_imu</exec_depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>benzene_camera</exec_depend>
 
   <!-- Testing Dependencies -->
   <test_depend>ament_lint_auto</test_depend>

@@ -42,6 +42,7 @@
   <exec_depend>benzene_imu</exec_depend>
   <exec_depend>benzene_msgs</exec_depend>
   <exec_depend>benzene_control</exec_depend>
+  <exec_depend>benzene_camera</exec_depend>
   <exec_depend>benzene_dagger</exec_depend>
 
   <!-- Testing Dependencies -->
