@@ -41,15 +41,15 @@ def generate_launch_description():
     # Set the path to different packages
     pkg_share_docking = FindPackageShare(
         package=package_name_docking).find(package_name_docking)
-    pkg_share_gazebo = FindPackageShare(package=package_name_gazebo).find(package_name_gazebo)
+    pkg_share_gazebo = FindPackageShare(
+        package=package_name_gazebo).find(package_name_gazebo)
     pkg_share_localization = FindPackageShare(
         package=package_name_localization).find(package_name_localization)
     pkg_share_navigation = FindPackageShare(
         package=package_name_navigation).find(package_name_navigation)
 
     # Set default paths
-    default_apriltag_launch_path = PathJoinSubstitution(
-        [pkg_share_docking, apriltag_launch_file_path])
+    default_apriltag_launch_path = PathJoinSubstitution([pkg_share_docking, apriltag_launch_file_path])
     default_gazebo_launch_path = PathJoinSubstitution([pkg_share_gazebo, gazebo_launch_file_path])
     default_ekf_launch_path = PathJoinSubstitution([pkg_share_localization, ekf_launch_file_path])
     default_ekf_config_path = PathJoinSubstitution([pkg_share_localization, ekf_config_file_path])
