@@ -1,425 +1,283 @@
 <div align="center">
 
-Benzene 🤖
+# 🤖 Benzene
+### An Autonomous Differential-Drive Mobile Robot
 
-An Autonomous Differential-Drive Mobile Robot
+**A ROS 2-based autonomous mobile robot developed at Rajarambapu Institute of Technology (RIT), with support from Taikisha Engineering India Ltd.**
 
-A final-year engineering project combining ROS 2, embedded systems, mechanical design, and autonomous navigation.
-
-<p align="center">
-  <img src="assets/images/benzene/benzene_final.jpeg" alt="Benzene" width="78%">
-</p>
+<img src="assets/images/benzene/benzene_final.jpeg" alt="Benzene Autonomous Mobile Robot" width="85%">
 
 <p>
-  <a href="https://github.com/attu0/benzene">GitHub Repository</a>
-  &nbsp;•&nbsp;
-  <a href="https://drive.google.com/file/d/1qdtDz3HJxDPnA_4TYmKJY9449RnS3Dy-/view?usp=sharing">Robot Demonstration Video</a>
+  <a href="https://github.com/attu0/benzene">📦 GitHub Repository</a> •
+  <a href="https://drive.google.com/file/d/1qdtDz3HJxDPnA_4TYmKJY9449RnS3Dy-/view?usp=sharing">🎥 Robot Demonstration</a>
 </p>
 
 </div>
 
-📌 Table of Contents
+---
 
-About Benzene
+## 📌 Table of Contents
 
-Key Features
+- [🤖 About the Project](#-about-the-project)
+- [✨ Key Features](#-key-features)
+- [🛠️ CAD Design and Physical Robot](#️-cad-design-and-physical-robot)
+- [🏗️ System Architecture](#️-system-architecture)
+- [🔌 Hardware Components](#-hardware-components)
+- [📐 Circuit and Deployment Diagrams](#-circuit-and-deployment-diagrams)
+- [💻 Software Stack](#-software-stack)
+- [📦 ROS 2 Packages](#-ros-2-packages)
+- [⚙️ Installation and Setup](#️-installation-and-setup)
+- [🔨 Build the Workspace](#-build-the-workspace)
+- [🌎 Run the Simulation](#-run-the-simulation)
+- [🗺️ SLAM and Autonomous Navigation](#️-slam-and-autonomous-navigation)
+- [🤖 Run on the Physical Robot](#-run-on-the-physical-robot)
+- [📁 Repository Structure](#-repository-structure)
+- [🚀 Future Improvements](#-future-improvements)
+- [👥 Team and Acknowledgements](#-team-and-acknowledgements)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
-Robot Design
+---
 
-System Architecture
+## 🤖 About the Project
 
-Hardware
+**Benzene** is an autonomous differential-drive mobile robot developed as a final-year engineering project at **Rajarambapu Institute of Technology (RIT), Rajaramnagar**, with support from **Taikisha Engineering India Ltd.**
 
-Circuit and Deployment Diagrams
+The project combines mechanical design, embedded systems, sensor integration, and robotics software to develop a mobile platform capable of navigating its environment.
 
-Software Stack
+The software architecture uses ROS 2 to connect robot hardware, sensor drivers, motion control, localisation, mapping, and navigation components. Gazebo and RViz2 support simulation, visualisation, and testing during development.
 
-Package Overview
+### 📋 Project Overview
 
-Requirements
+| Specification | Details |
+|---|---|
+| **Robot Type** | Differential-drive mobile robot |
+| **Robotics Middleware** | ROS 2 Jazzy |
+| **Operating System** | Ubuntu 24.04 LTS |
+| **Robot Modelling** | URDF / Xacro |
+| **Simulation** | Gazebo |
+| **Visualisation** | RViz2 |
+| **Mapping** | SLAM Toolbox |
+| **Navigation** | Nav2 |
+| **Repository** | [attu0/benzene](https://github.com/attu0/benzene) |
 
-Installation
+---
 
-Building the Workspace
+## ✨ Key Features
 
-Running the Simulation
+- **Differential-Drive Control** — Independent left and right wheel control for forward, reverse, and turning motion.
+- **ROS 2 Architecture** — Modular packages for robot description, control, hardware, sensors, and navigation.
+- **Robot Modelling** — URDF/Xacro-based robot description for visualisation and simulation.
+- **Gazebo Simulation** — Test robot behaviour in virtual environments.
+- **SLAM** — Map an environment while estimating the robot's position.
+- **Autonomous Navigation** — Nav2-based path planning and goal-directed navigation.
+- **Sensor Integration** — Interfaces for LiDAR, IMU, camera, and ultrasonic sensing, depending on the active configuration.
+- **Hardware Integration** — Communication between the onboard computer, embedded controller, and drive system.
 
-SLAM and Autonomous Navigation
+> **Note:** Feature availability depends on the hardware, packages, launch files, and configuration in the current repository branch.
 
-Physical Robot Setup
+---
 
-Project Structure
+## 🛠️ CAD Design and Physical Robot
 
-Future Development
+The robot chassis was designed to provide a compact platform for the drive system, onboard computer, sensors, and power electronics.
 
-Team and Acknowledgements
-
-Contributing
-
-License
-
-🤖 About Benzene
-
-Benzene is an autonomous differential-drive mobile robot developed by undergraduate students as a final-year engineering project at Rajarambapu Institute of Technology (RIT), Rajaramnagar, with support from Taikisha Engineering India Ltd.
-
-The project brings together mechanical design and fabrication, embedded control, sensor integration, and robotics software. Its modular ROS 2 architecture is designed to support development in simulation and testing on the physical robot.
-
-The long-term goal is to build a flexible mobile robotics platform that can perceive its surroundings, estimate its position, map an environment, and navigate toward target locations.
-
-ROS 2: Jazzy
-Primary OS: Ubuntu 24.04 LTS
-Robot Type: Differential drive
-Simulation: Gazebo
-Visualisation: RViz2
-Repository: attu0/benzene
-
-🚀 Key Features
-
-Differential-drive motion: Two driven wheels provide forward, reverse, and turning motion.
-
-Modular ROS 2 architecture: Separate packages for description, control, hardware, sensors, simulation, localisation, and navigation.
-
-Robot description: URDF/Xacro-based model resources for robot representation and visualisation.
-
-Gazebo simulation: Test robot behaviour in virtual environments before physical trials.
-
-SLAM: Build a map of an environment while estimating the robot's pose, using the configured SLAM Toolbox workflow.
-
-Autonomous navigation: Nav2-based navigation using a map, localisation, planning, and obstacle-aware control.
-
-Sensor integration: Interfaces for components such as LiDAR, IMU, camera, and ultrasonic sensors, depending on the active configuration.
-
-Hardware integration: Communication between the onboard computer, embedded controller, and drive system.
-
-Simulation-to-reality workflow: A shared ROS 2 software structure for simulation and physical-robot development.
-
-Feature availability depends on the packages, hardware, launch files, and configuration in the current branch. Check the relevant package before assuming a feature is enabled.
-
-🛠️ Robot Design
-
-The chassis was designed for a compact differential-drive mobile robot. The mechanical design and fabricated prototype provide the platform for integrating the onboard computer, motor controller, sensors, and power system.
+### 🧩 CAD Model
 
 <p align="center">
-  <img src="assets/images/benzene/fusion.png" alt="Benzene CAD model" width="78%">
+  <img src="assets/images/benzene/fusion.png" alt="Benzene CAD model designed in Fusion 360" width="85%">
 </p>
 
-CAD model designed in Fusion 360.
+<p align="center"><em>CAD model of the Benzene mobile robot.</em></p>
 
-Physical prototype
+### 🤖 Physical Prototype
 
 <p align="center">
-  <img src="assets/images//benzene/benzene_2_front.png" alt="Benzene rendered image" width="75%">
+  <img src="assets/images/benzene/benzene_2_front.png" alt="Benzene robot render" width="75%">
 </p>
 
-If the physical robot photograph is stored under a different filename, update the image path above to match the repository.
+<p align="center"><em>Rendered view of the Benzene mobile robot.</em></p>
 
-🏗️ System Architecture
+🎥 **[Watch the Robot Demonstration](https://drive.google.com/file/d/1qdtDz3HJxDPnA_4TYmKJY9449RnS3Dy-/view?usp=sharing)**
 
-Benzene uses ROS 2 as the communication layer between sensing, control, localisation, and navigation components.
+---
 
-                       ┌───────────────────────────┐
-                       │        ROS 2 Jazzy        │
-                       │    Robot Applications     │
-                       └─────────────┬─────────────┘
-                                     │
-                 ┌───────────────────┼───────────────────┐
-                 │                   │                   │
-                 ▼                   ▼                   ▼
-          ┌────────────┐      ┌──────────────┐    ┌────────────┐
-          │   Control  │      │ Localisation │    │ Navigation │
-          │ros2_control│      │   EKF / TF   │    │    Nav2    │
-          └─────┬──────┘      └──────▲───────┘    └─────┬──────┘
-                │                    │                  │
-                ▼                    │                  ▼
-          ┌──────────────────────────────────────────────────┐
-          │                   Robot Hardware                 │
-          │ Motors │ Encoders │ IMU │ LiDAR │ Other Sensors  │
-          └──────────────────────────────────────────────────┘
+## 🏗️ System Architecture
 
-The architecture supports two intended operating modes:
+The system architecture connects the sensing, control, localisation, and navigation components through ROS 2.
 
-Simulation: The robot model, sensors, and environment run in Gazebo.
+```text
+                 ┌───────────────────────────┐
+                 │         ROS 2 Jazzy       │
+                 │    Robotics Middleware    │
+                 └─────────────┬─────────────┘
+                               │
+              ┌────────────────┼────────────────┐
+              │                │                │
+              ▼                ▼                ▼
+       ┌─────────────┐  ┌─────────────┐  ┌─────────────┐
+       │   Control   │  │ Localisation│  │ Navigation  │
+       │ Motor Cmds  │  │  Odometry   │  │    Nav2     │
+       └──────┬──────┘  └──────▲──────┘  └──────┬──────┘
+              │                │                │
+              ▼                │                ▼
+       ┌─────────────────────────────────────────────┐
+       │                Robot Hardware               │
+       │ Motors │ Encoders │ IMU │ LiDAR │ Sensors  │
+       └─────────────────────────────────────────────┘
+```
 
-Physical robot: ROS 2 communicates with the robot hardware through the relevant hardware interface and embedded controller.
+### Operating Modes
 
-The diagram is conceptual; exact nodes, topics, transforms, and interfaces depend on the launch configuration.
+| Mode | Description |
+|---|---|
+| **Simulation** | Robot model and simulated environment run in Gazebo. |
+| **Physical Robot** | ROS 2 communicates with the robot hardware through the configured hardware interfaces. |
 
-🔌 Hardware
+> The architecture is a conceptual overview. Actual nodes, topics, transforms, and interfaces depend on the launch configuration.
 
-The physical platform is built around the following component categories:
+---
 
-Subsystem
+## 🔌 Hardware Components
 
-Component / role
+The robot integrates mechanical, electrical, and computing components to support mobile robotics development.
 
-Mobile base
+| Subsystem | Component |
+|---|---|
+| Mobile Base | Differential-drive chassis |
+| Main Computer | Raspberry Pi |
+| Microcontroller | Arduino Uno R3 |
+| Drive System | Geared DC motors |
+| Motor Control | Dual-channel motor driver |
+| Feedback | Wheel encoders, where configured |
+| Range Sensing | 2D LiDAR |
+| Inertial Sensing | IMU |
+| Proximity Sensing | Ultrasonic sensor |
+| Power System | Battery and regulated DC supply |
+| Mechanical Structure | Designed and fabricated chassis |
 
-Differential-drive chassis
+*Verify the actual component models, pin assignments, and electrical connections against the current hardware revision before assembly or operation.*
 
-Main computer
+---
 
-Raspberry Pi single-board computer
+## 📐 Circuit and Deployment Diagrams
 
-Microcontroller
-
-Arduino Uno R3
-
-Drive system
-
-Two geared DC motors
-
-Motor control
-
-Dual-channel motor driver
-
-Feedback
-
-Wheel encoders, where configured
-
-Range sensing
-
-2D LiDAR
-
-Inertial sensing
-
-IMU
-
-Proximity sensing
-
-Ultrasonic sensor
-
-Power
-
-Battery pack and regulated DC supply
-
-Mechanical structure
-
-Designed chassis and fabricated body panels
-
-The exact component models, pin assignments, and wiring should be checked against the current hardware build before assembly or testing.
-
-🔧 Circuit and Deployment Diagrams
-
-Electrical circuit / wiring diagram
+### 🔋 Electrical Circuit Diagram
 
 <p align="center">
-  <img src="docs/images/benzene_circuit_diagram.png" alt="Benzene electrical circuit and wiring diagram" width="95%">
+  <img src="assets/images/benzene/circuit.jpeg" alt="Benzene electrical circuit and wiring diagram" width="95%">
 </p>
 
-This diagram should show the electrical connections between the battery, voltage regulation, motor driver, microcontroller, onboard computer, and sensors. Verify that it matches the physical robot revision before using it for wiring.
+The circuit diagram illustrates the electrical connections between the power supply, voltage regulation, motor driver, microcontroller, onboard computer, and sensors.
 
-Hardware and software deployment diagram
+### 🖥️ Hardware Deployment Diagram
 
 <p align="center">
-  <img src="docs/images/benzene_deployment_diagram.png" alt="Benzene hardware and software deployment diagram" width="95%">
+  <img src="assets/images/benzene/benzene_top.jpeg" alt="Benzene hardware deployment diagram" width="95%">
 </p>
 
-The deployment diagram describes where the main ROS 2 components run and how sensor data and motor commands move between the onboard computer, embedded controller, and robot hardware.
-
-Image paths: The circuit and deployment images are expected at the paths shown above. If your committed images have different filenames or folders, update the src paths accordingly.
-
-💻 Software Stack
-
-Technology
-
-Purpose
-
-ROS 2 Jazzy
-
-Robotics middleware and package framework
-
-Ubuntu 24.04 LTS
-
-Primary development platform
-
-URDF / Xacro
-
-Robot model description
-
-Gazebo
-
-Simulation
-
-RViz2
-
-Visualisation of the robot, transforms, sensors, and maps
-
-ros2_control
-
-Robot control framework, where configured
-
-EKF
-
-Sensor fusion and state estimation, where configured
-
-SLAM Toolbox
-
-Mapping
-
-Nav2
-
-Autonomous navigation
-
-colcon
-
-Workspace build system
-
-rosdep
-
-Dependency management
-
-📦 Package Overview
-
-The repository is organised into modular ROS 2 packages.
-
-Package
-
-Purpose
-
-benzene_arduino
-
-Embedded controller code and hardware testing utilities
-
-benzene_bringup
-
-Launch files and scripts for starting robot components
-
-benzene_camera
-
-Camera integration
-
-benzene_control
-
-Controller configuration
-
-benzene_dagger
-
-Behavioural cloning and imitation-learning development
-
-benzene_description
-
-URDF/Xacro descriptions and model resources
-
-benzene_docking
-
-Docking-related functionality
-
-benzene_explore
-
-Autonomous exploration functionality
-
-benzene_explore_msgs
-
-Exploration-related custom interfaces
-
-benzene_gazebo
-
-Simulation launch files, worlds, models, and resources
-
-benzene_hardware
-
-Hardware interface
-
-benzene_imu
-
-IMU integration
-
-benzene_localization
-
-Localisation and sensor-fusion configuration
-
-benzene_msgs
-
-Custom ROS 2 interfaces
-
-benzene_navigation
-
-SLAM, Nav2 configuration, maps, and navigation launch files
-
-benzene_serial
-
-Serial communication support
-
-benzene_system_tests
-
-System-level testing utilities
-
-benzene_ultrasonic
-
-Ultrasonic sensor integration
-
-docker
-
-Docker configuration for supported workflows
-
-Package directories and optional components can change during development. Refer to the current repository for the complete list.
-
-🛠️ Requirements
-
-Software
-
-Ubuntu 24.04 LTS
-
-ROS 2 Jazzy
-
-colcon
-
-rosdep
-
-Git
-
-Gazebo and RViz2 for simulation and visualisation
-
-Nav2 and SLAM Toolbox for the configured navigation workflow
-
-Hardware
-
-For physical-robot operation, the platform may require:
-
-Differential-drive chassis and two geared DC motors
-
-Motor driver and embedded controller
-
-Onboard Linux computer
-
-Wheel encoders, if used for odometry
-
-IMU and LiDAR
-
-Battery and voltage regulation
-
-Additional sensors supported by the active configuration
-
-📥 Installation
-
-1. Create a workspace
-
+The deployment diagram provides a view of the robot's internal hardware layout and component placement.
+
+---
+
+## 💻 Software Stack
+
+| Technology | Purpose |
+|---|---|
+| **ROS 2 Jazzy** | Robotics middleware |
+| **Ubuntu 24.04 LTS** | Development operating system |
+| **URDF / Xacro** | Robot description |
+| **Gazebo** | Simulation |
+| **RViz2** | Robot and sensor visualisation |
+| **ros2_control** | Hardware and motion control, where configured |
+| **EKF** | Sensor fusion and state estimation, where configured |
+| **SLAM Toolbox** | Mapping |
+| **Nav2** | Autonomous navigation |
+| **colcon** | Workspace build system |
+| **rosdep** | Dependency management |
+
+---
+
+## 📦 ROS 2 Packages
+
+The repository follows a modular package structure.
+
+| Package | Purpose |
+|---|---|
+| `benzene_arduino` | Embedded controller code and hardware testing |
+| `benzene_bringup` | Robot launch files and startup configuration |
+| `benzene_camera` | Camera integration |
+| `benzene_control` | Controller configuration |
+| `benzene_dagger` | Behavioural cloning and imitation learning |
+| `benzene_description` | URDF/Xacro and robot model resources |
+| `benzene_docking` | Docking-related functionality |
+| `benzene_explore` | Autonomous exploration |
+| `benzene_explore_msgs` | Exploration-related interfaces |
+| `benzene_gazebo` | Simulation worlds, models, and launch files |
+| `benzene_hardware` | Hardware interfaces |
+| `benzene_imu` | IMU integration |
+| `benzene_localization` | Localisation and sensor fusion |
+| `benzene_msgs` | Custom ROS 2 interfaces |
+| `benzene_navigation` | SLAM, Nav2, maps, and navigation configuration |
+| `benzene_serial` | Serial communication |
+| `benzene_system_tests` | System-level testing |
+| `benzene_ultrasonic` | Ultrasonic sensor integration |
+| `docker` | Docker configuration |
+
+---
+
+## ⚙️ Installation and Setup
+
+### Requirements
+
+**Software**
+- Ubuntu 24.04 LTS
+- ROS 2 Jazzy
+- Git
+- `colcon`
+- `rosdep`
+- Gazebo and RViz2
+- Nav2 and SLAM Toolbox for the configured navigation workflow
+
+### 1. Create a Colcon Workspace
+
+```bash
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
+```
 
-2. Clone the repository
+### 2. Clone the Repository
 
+```bash
 git clone https://github.com/attu0/benzene.git
 cd benzene
+```
 
-3. Install build and dependency tools
+### 3. Install Build and Dependency Tools
 
-Ensure ROS 2 Jazzy is installed using the official ROS 2 installation guide.
+Install ROS 2 Jazzy by following the [official installation guide](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html).
 
+```bash
 sudo apt update
 sudo apt install python3-rosdep python3-colcon-common-extensions
+```
 
-Initialise rosdep if it has not already been initialised:
+Initialise `rosdep` if it has not already been initialised:
 
+```bash
 sudo rosdep init
 rosdep update
+```
 
-If rosdep is already initialised, run only:
+If `rosdep` is already initialised, run only:
 
+```bash
 rosdep update
+```
 
-4. Install repository dependencies
+### 4. Install Repository Dependencies
 
+```bash
 cd ~/ros2_ws
 source /opt/ros/jazzy/setup.bash
 
@@ -428,51 +286,76 @@ rosdep install \
   --ignore-src \
   --rosdistro jazzy \
   -r -y
+```
 
-The repository also contains a requirements.sh helper script. Review the script before running it, then follow its instructions if you prefer that setup workflow.
+---
 
-🔨 Building the Workspace
+## 🔨 Build the Workspace
 
-Build all packages:
+Navigate to the workspace root and build the packages:
 
+```bash
 cd ~/ros2_ws
 source /opt/ros/jazzy/setup.bash
 colcon build --symlink-install
+```
 
-Build a specific package and its dependencies:
+To build a specific package and its dependencies:
 
+```bash
 colcon build --symlink-install --packages-up-to benzene_bringup
+```
 
-Source the workspace:
+### Source the Workspace
 
+After a successful build:
+
+```bash
 source ~/ros2_ws/install/setup.bash
+```
 
-To source ROS 2 and the workspace automatically in new Bash terminals, add these lines to ~/.bashrc:
+### Automatically Source ROS 2 Using `.bashrc`
 
+To automatically source ROS 2 and your workspace in new terminals, add the following lines to `~/.bashrc`:
+
+```bash
+# ROS 2 Jazzy
 source /opt/ros/jazzy/setup.bash
+
+# Benzene workspace
 source ~/ros2_ws/install/setup.bash
+```
 
 Reload the configuration:
 
+```bash
 source ~/.bashrc
+```
 
-Verify that ROS 2 can discover the packages:
+Verify that the packages are discoverable:
 
+```bash
 ros2 pkg list | grep benzene
+```
 
-🌎 Running the Simulation
+---
 
-Benzene includes Gazebo simulation resources for testing robot behaviour in virtual environments.
+## 🌎 Run the Simulation
 
-1. Source the environment
+Benzene includes Gazebo simulation resources for testing the robot in virtual environments.
 
+### 1. Source the Environment
+
+```bash
 source /opt/ros/jazzy/setup.bash
 source ~/ros2_ws/install/setup.bash
+```
 
-2. Launch the Gazebo robot
+### 2. Launch Gazebo
 
-The repository includes a Gazebo launch file. The following example uses a warehouse world and enables RViz2:
+The following example launches the robot in a warehouse environment:
 
+```bash
 ros2 launch benzene_gazebo benzene.gazebo.launch.py \
   enable_odom_tf:=true \
   headless:=False \
@@ -483,15 +366,19 @@ ros2 launch benzene_gazebo benzene.gazebo.launch.py \
   use_sim_time:=true \
   x:=0.0 y:=0.0 z:=0.20 \
   roll:=0.0 pitch:=0.0 yaw:=0.0
+```
 
-Launch arguments and world filenames can change between branches. If this command does not match the current launch file, inspect its supported arguments first.
+> **Note:** Launch arguments and world filenames may vary between branches. Check the launch file's supported arguments if the command does not match your current setup.
 
-🗺️ SLAM and Autonomous Navigation
+---
 
-Benzene uses SLAM Toolbox and Nav2 in the configured mapping and navigation workflow.
+## 🗺️ SLAM and Autonomous Navigation
 
-Launch navigation in simulation
+Benzene uses **SLAM Toolbox** and **Nav2** in the configured mapping and navigation workflow.
 
+### Launch Navigation in Simulation
+
+```bash
 ros2 launch benzene_bringup benzene_navigation.launch.py \
   enable_odom_tf:=false \
   headless:=False \
@@ -504,90 +391,97 @@ ros2 launch benzene_bringup benzene_navigation.launch.py \
   roll:=0.0 pitch:=0.0 yaw:=0.0 \
   world_file:=cafe.world \
   sim:=true
+```
 
-Note: Confirm that the launch file supports these arguments and that the specified world file exists in the current branch. Launch argument names may vary.
+> **Note:** Confirm that the launch file supports these arguments and that the specified world file exists in your branch.
 
-Mapping a new environment
+### 🗺️ Create a Map
 
-Start the simulation or bring up the physical robot.
+1. Start the simulation or bring up the physical robot.
+2. Verify that LiDAR data is being published.
+3. Check odometry and the TF tree.
+4. Start SLAM Toolbox using the available launch configuration.
+5. Move the robot through the environment.
+6. Monitor the map in RViz2.
+7. Save the map.
 
-Confirm that LiDAR scan data is being published.
-
-Verify odometry and the TF tree.
-
-Start SLAM Toolbox using the available launch configuration.
-
-Move the robot through the environment.
-
-Monitor the map in RViz2.
-
-Save the map when mapping is complete.
-
+```bash
 ros2 run nav2_map_server map_saver_cli -f ~/benzene_map
+```
 
-This saves the map to files such as benzene_map.yaml and benzene_map.pgm.
+The command saves the map to files such as `benzene_map.yaml` and `benzene_map.pgm`.
 
-Navigate using a saved map
+### 🎯 Navigate Using a Saved Map
 
-Configure the navigation stack to load the saved map and start the appropriate localisation workflow. In RViz2, set the initial pose when required, send a navigation goal, and monitor the robot's progress.
+Configure the navigation stack to load the saved map and start localisation. In RViz2, set the initial pose when required, send a navigation goal, and monitor the robot's progress.
 
-🖥️ Helper Scripts
+---
 
-The repository provides helper scripts for common launch workflows.
+## 🖥️ Helper Scripts
 
-Make the scripts executable:
+The repository includes helper scripts for common launch workflows.
 
+### Make the Scripts Executable
+
+```bash
 chmod +x ~/ros2_ws/src/benzene/benzene_bringup/scripts/*
+```
 
-Launch the Gazebo simulation:
+### Launch Gazebo
 
+```bash
 ~/ros2_ws/src/benzene/benzene_bringup/scripts/benzene_gazebo.sh
+```
 
-Launch the navigation workflow:
+### Launch Navigation
 
+```bash
 ~/ros2_ws/src/benzene/benzene_bringup/scripts/benzene_navigation.sh
+```
 
-Check each script's argument-handling code before passing optional arguments such as a world name or SLAM mode.
+Check the scripts for supported arguments before passing optional parameters.
 
-🔌 Physical Robot Setup
+---
 
-The physical-robot workflow connects the motors, encoders, and sensors to ROS 2 through the relevant hardware interface and embedded controller.
+## 🤖 Run on the Physical Robot
 
-Secure the robot and keep the drive wheels clear of the floor for initial motor tests.
+Before enabling autonomous navigation, verify the electrical system, motor control, sensor data, and ROS 2 communication.
 
-Check battery voltage, regulator output, polarity, and common ground.
+1. Secure the robot and keep the drive wheels clear of the floor during initial motor tests.
+2. Check battery voltage, regulator output, polarity, and common ground.
+3. Verify the embedded firmware and motor-driver wiring.
+4. Configure the serial device and communication parameters.
+5. Start the hardware interface and sensor drivers.
+6. Verify odometry, IMU data, LiDAR data, and TF transforms.
+7. Start localisation and navigation after confirming the data is valid.
+8. Test at low speed in a clear area.
 
-Confirm the embedded firmware and motor-driver wiring.
+### 🔍 Diagnostic Commands
 
-Configure the serial device and communication parameters.
-
-Start the hardware interface and sensor drivers.
-
-Verify encoder odometry, IMU data, LiDAR data, and TF transforms.
-
-Start localisation and navigation only after the underlying data is valid.
-
-Test at low speed in a clear area before autonomous operation.
-
-Useful diagnostic commands:
-
+```bash
 ros2 topic list
 ros2 topic info /cmd_vel
 ros2 topic echo /odom
 ros2 topic echo /imu/data
 ros2 topic echo /scan
+```
 
-Topic names depend on the active configuration.
+> ⚠️ **Safety:** Verify motor direction, emergency-stop behaviour, wiring polarity, regulator voltage, and motor-driver current limits before operating the robot. Keep hands, clothing, and loose cables away from moving parts.
 
-Safety: Check motor direction, emergency-stop behaviour, wiring polarity, regulator voltage, and motor-driver current limits before operation. Keep hands, clothing, and loose cables away from wheels and moving parts.
+---
 
-📁 Project Structure
+## 📁 Repository Structure
 
+```text
 benzene/
 ├── assets/
 │   └── images/
 │       └── benzene/
-│           └── fusion.png
+│           ├── fusion.png
+│           ├── benzene_final.jpeg
+│           ├── benzene_2_front.png
+│           ├── circuit.jpeg
+│           └── benzene_top.jpeg
 ├── benzene_arduino/
 ├── benzene_bringup/
 │   ├── launch/
@@ -614,83 +508,75 @@ benzene/
 ├── benzene_serial/
 ├── benzene_system_tests/
 ├── benzene_ultrasonic/
-├── docs/
-│   └── images/
 ├── docker/
 └── README.md
+```
 
-This is a high-level overview; the repository may contain additional files and directories.
+---
 
-🔬 Future Development
+## 🚀 Future Improvements
 
 Potential areas for continued development include:
 
-Improving wheel odometry and sensor-fusion accuracy.
+- Improving wheel odometry and sensor-fusion accuracy.
+- Developing more robust autonomous exploration.
+- Improving obstacle detection and avoidance.
+- Adding camera-based perception and visual navigation.
+- Integrating battery monitoring and power management.
+- Developing automated docking and charging.
+- Extending imitation learning and behavioural cloning.
+- Exploring DAgger-based data collection and policy improvement.
+- Expanding simulation testing and hardware validation.
 
-More robust autonomous exploration.
+---
 
-Improved obstacle detection and avoidance.
+## 👥 Team and Acknowledgements
 
-Camera-based perception and visual navigation.
+Developed as a final-year B.Tech Mechatronics Engineering capstone project at **Rajarambapu Institute of Technology (RIT), Rajaramnagar**, with support from **Taikisha Engineering India Ltd.**
 
-Battery monitoring and power-management integration.
+| Team Member |
+|---|
+| Atharv Mahesh Mudse |
+| Riddhi Anirudha Wagh |
+| Abhay Ajit Potdar |
+| Tushar Kailash Jadhav |
 
-Automated docking and charging.
-
-Imitation learning and behavioural cloning.
-
-DAgger-based data collection and policy improvement.
-
-Expanded simulation testing and hardware validation.
-
-Improved system-level testing and deployment tools.
-
-👥 Team and Acknowledgements
-
-Developed as a final-year B.Tech Mechatronics Engineering capstone project at Rajarambapu Institute of Technology (RIT), Rajaramnagar, with support from Taikisha Engineering India Ltd.
-
-Team members
-
-Atharv Mahesh Mudse
-
-Riddhi Anirudha Wagh
-
-Abhay Ajit Potdar
-
-Tushar Kailash Jadhav
-
-Project guide: Prof. Shital A. Lavte
+**Project Guide:** Prof. Shital A. Lavte
 
 We acknowledge the support and guidance that helped us develop the mechanical prototype and robotics software.
 
-🤝 Contributing
+---
+
+## 🤝 Contributing
 
 Contributions, bug reports, and suggestions are welcome.
 
-Fork the repository.
+1. Fork the repository.
+2. Create a feature branch.
+3. Implement and test your changes.
+4. Build the affected ROS 2 packages.
+5. Submit a pull request describing your changes.
 
-Create a feature branch.
-
-Implement and test your changes.
-
-Build the affected ROS 2 packages.
-
-Submit a pull request describing your changes.
-
+```bash
 git clone https://github.com/attu0/benzene.git
 cd benzene
 git checkout -b feature/your-feature
+```
 
-📄 License
+---
 
-Refer to the LICENSE file for the project's licensing terms.
+## 📄 License
+
+Refer to the [`LICENSE`](./LICENSE) file for the project's licensing terms.
+
+---
 
 <div align="center">
 
-Benzene — Autonomous Differential-Drive Robotics Platform
+### 🤖 Benzene — Autonomous Mobile Robotics
 
-ROS 2 · SLAM · Nav2 · Gazebo · Sensor Fusion · Embedded Systems
+**ROS 2 · SLAM · Nav2 · Gazebo · Embedded Systems**
 
-Repository · Robot Demonstration Video
+[📦 GitHub Repository](https://github.com/attu0/benzene) • [🎥 Robot Demonstration](https://drive.google.com/file/d/1qdtDz3HJxDPnA_4TYmKJY9449RnS3Dy-/view?usp=sharing)
 
 </div>
