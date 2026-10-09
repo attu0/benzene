@@ -13,7 +13,8 @@ LIBCAMERA_LIB = '/usr/local/lib/aarch64-linux-gnu'
 def generate_launch_description():
     # Make sure camera_node loads the Raspberry Pi libcamera fork,
     # not any other libcamera on the system.
-    ld_path = LIBCAMERA_LIB + ':' + os.environ.get('LD_LIBRARY_PATH', '')
+    existing = os.environ.get('LD_LIBRARY_PATH', '')
+    ld_path = LIBCAMERA_LIB + (':' + existing if existing else '')
 
     return LaunchDescription([
         SetEnvironmentVariable('LD_LIBRARY_PATH', ld_path),

@@ -16,7 +16,7 @@ def generate_launch_description():
                 'serial_port': '/dev/benzene_rplidar',
                 'serial_baudrate': 115200,
                 'frame_id': 'laser_frame',
-                'angle_compensate': False,
+                'angle_compensate': True,
                 'scan_mode': 'Standard'
             }]
         )

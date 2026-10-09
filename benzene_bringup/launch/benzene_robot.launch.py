@@ -13,6 +13,7 @@ from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
     IncludeLaunchDescription,
+    LogInfo,
     RegisterEventHandler,
     TimerAction,
 )
@@ -160,25 +161,43 @@ def generate_launch_description():
 
     # spawner retries against controller_manager on its own — no fixed
     # delay to guess, unlike a raw ExecuteProcess/load_controller approach
+    # The Arduino resets when the serial port opens, so benzene_hardware can
+    # take a few seconds to come up; give the spawners a generous timeout.
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager'],
+        arguments=[
+            'joint_state_broadcaster',
+            '--controller-manager', '/controller_manager',
+            '--controller-manager-timeout', '30',
+        ],
     )
 
     diff_drive_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['diff_drive_controller', '--controller-manager', '/controller_manager'],
+        arguments=[
+            'diff_drive_controller',
+            '--controller-manager', '/controller_manager',
+            '--controller-manager-timeout', '30',
+        ],
     )
 
     # Start diff_drive_controller only once joint_state_broadcaster has
-    # finished spawning
+    # spawned successfully (exit code 0); otherwise log and do not start it
+    def _start_diff_drive_if_jsb_ok(event, context):
+        if event.returncode == 0:
+            return [diff_drive_controller_spawner]
+        return [LogInfo(msg='joint_state_broadcaster spawner failed '
+                            f'(exit code {event.returncode}); '
+                            'NOT starting diff_drive_controller. '
+                            'Check that benzene_hardware connected to the Arduino.')]
+
     delay_diff_drive_controller_spawner_after_joint_state_broadcaster_spawner = (
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=joint_state_broadcaster_spawner,
-                on_exit=[diff_drive_controller_spawner],
+                on_exit=_start_diff_drive_if_jsb_ok,
             )
         )
     )

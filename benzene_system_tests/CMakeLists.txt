@@ -117,7 +117,7 @@ install(
 
 install(
   PROGRAMS
-    src/square_controller.py
+    src/straight_1m_return.py
   DESTINATION
     lib/${PROJECT_NAME}
 )
