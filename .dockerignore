@@ -1,0 +1,14 @@
+.git
+build/
+install/
+log/
+**/.venv
+**/venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/node_modules
+*.bag
+*.db3
+*.mcap
+rosbag2_*

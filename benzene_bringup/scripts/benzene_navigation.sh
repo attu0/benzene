@@ -26,7 +26,7 @@ else
     WORLD_ARG="world_file:=warehouse.sdf"
     MAP_ARG="map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/warehouse_world_map.yaml"
 fi
-export GZ_SIM_RESOURCE_PATH=~/ros2_ws/install/benzene_description/share/
+export GZ_SIM_RESOURCE_PATH=$HOME/ros2_ws/install/benzene_description/share:$HOME/ros2_ws/src/benzene/benzene_gazebo/models:$HOME/ros2_ws/src/benzene/benzene_gazebo/worlds${GZ_SIM_RESOURCE_PATH:+:$GZ_SIM_RESOURCE_PATH}
 echo "Launching Gazebo simulation with Nav2..."
 ros2 launch benzene_bringup benzene_navigation.launch.py \
     enable_odom_tf:=false \

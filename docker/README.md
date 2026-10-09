@@ -1,3 +1,13 @@
 this is readme to guide for the docker
 
-by ./build.sh code builds for the docker container
+to build
+
+cd ~/ros2_ws/src/benzene/docker
+./build.sh
+
+to execute
+
+cd ~/ros2_ws/src/benzene/docker
+xhost +local:docker
+docker compose up -d
+docker exec -it benzene bash
