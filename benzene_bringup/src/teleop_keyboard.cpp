@@ -274,9 +274,8 @@ private:
 
         geometry_msgs::msg::TwistStamped msg;
 
-        msg.header.stamp =
-            node_->get_clock()->now();
-
+        // Stamp left at zero on purpose: diff_drive_controller then uses its own
+        // clock, so a laptop/Pi clock offset cannot make it reject the command.
         msg.header.frame_id = "base_link";
 
         msg.twist.linear.x = linear;
@@ -323,9 +322,8 @@ private:
     {
         geometry_msgs::msg::TwistStamped msg;
 
-        msg.header.stamp =
-            node_->get_clock()->now();
-
+        // Stamp left at zero on purpose: diff_drive_controller then uses its own
+        // clock, so a laptop/Pi clock offset cannot make it reject the command.
         msg.header.frame_id = "base_link";
 
         msg.twist.linear.x = 0.0;
