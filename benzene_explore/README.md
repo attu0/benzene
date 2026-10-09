@@ -1,0 +1,1 @@
+self explore for the benzene using explore_lite pkg 

@@ -13,7 +13,7 @@ elif [ "$1" = "office" ]; then
 else
     WORLD_ARG="world_file:=warehouse.sdf"
 fi
-export GZ_SIM_RESOURCE_PATH=~/ros2_ws/install/benzene_description/share/
+export GZ_SIM_RESOURCE_PATH=$HOME/ros2_ws/install/benzene_description/share:$HOME/ros2_ws/src/benzene/benzene_gazebo/models:$HOME/ros2_ws/src/benzene/benzene_gazebo/worlds${GZ_SIM_RESOURCE_PATH:+:$GZ_SIM_RESOURCE_PATH}
 echo "Launching Gazebo simulation..."
 ros2 launch benzene_gazebo benzene.gazebo.launch.py \
     enable_odom_tf:=false \
