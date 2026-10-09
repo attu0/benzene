@@ -24,26 +24,34 @@ typedef struct {
   * see http://brettbeauregard.com/blog/2011/04/improving-the-beginner%E2%80%99s-pid-derivative-kick/
   */
   int PrevInput;                // last input
-  //int PrevErr;                   // last error
 
   /*
   * Using integrated term (ITerm) instead of integrated error (Ierror),
   * to allow tuning changes,
   * see http://brettbeauregard.com/blog/2011/04/improving-the-beginner%E2%80%99s-pid-tuning-changes/
+  *
+  * long (not int): an int is only 16 bits on AVR and would overflow.
   */
-  //int Ierror;
-  int ITerm;                    //integrated term
+  long ITerm;                   // integrated term
 
-  long output;                    // last motor setting
+  /*
+  * Last motor setting, kept at higher resolution: this holds PWM * Ko.
+  * The real PWM is output / Ko (see updatePID). Keeping the extra
+  * resolution removes the dead zone that integer division by Ko used to
+  * create (an error smaller than Ko/Kp counts used to add nothing).
+  */
+  long output;
 }
 SetPointInfo;
 
 SetPointInfo leftPID, rightPID;
 
-/* PID Parameters */
-int Kp = 2;
-int Kd = 3;
-int Ki = 0.3;
+/* PID Parameters
+   Ko must stay > 0. Change gains (the `u` command) only while the robot
+   is stopped: `output` is scaled by Ko. */
+int Kp = 10;
+int Kd = 10;
+int Ki = 0;
 int Ko = 50;
 
 unsigned char moving = 0; // is the base in motion?
@@ -72,41 +80,37 @@ void resetPID(){
    rightPID.ITerm = 0;
 }
 
-/* PID routine to compute the next motor commands */
+/* PID routine to compute the next motor commands.
+   Velocity-form PID: every frame the correction is ADDED to the output.
+   p->output holds PWM * Ko, so no precision is lost to integer division. */
 void doPID(SetPointInfo * p) {
   long Perror;
-  long output;
+  long out;
   int input;
 
-  //Perror = p->TargetTicksPerFrame - (p->Encoder - p->PrevEnc);
   input = p->Encoder - p->PrevEnc;
   Perror = p->TargetTicksPerFrame - input;
-
+  p->PrevEnc = p->Encoder;
 
   /*
-  * Avoid derivative kick and allow tuning changes,
+  * Derivative on the measurement (no derivative kick) and an integrated
+  * term that allows tuning changes:
   * see http://brettbeauregard.com/blog/2011/04/improving-the-beginner%E2%80%99s-pid-derivative-kick/
   * see http://brettbeauregard.com/blog/2011/04/improving-the-beginner%E2%80%99s-pid-tuning-changes/
   */
-  //output = (Kp * Perror + Kd * (Perror - p->PrevErr) + Ki * p->Ierror) / Ko;
-  // p->PrevErr = Perror;
-  output = (Kp * Perror - Kd * (input - p->PrevInput) + p->ITerm) / Ko;
-  p->PrevEnc = p->Encoder;
+  out = p->output + ((long)Kp * Perror - (long)Kd * (input - p->PrevInput) + p->ITerm);
 
-  output += p->output;
   // Accumulate Integral error *or* Limit output.
   // Stop accumulating when output saturates
-  if (output >= MAX_PWM)
-    output = MAX_PWM;
-  else if (output <= -MAX_PWM)
-    output = -MAX_PWM;
+  long limit = (long)MAX_PWM * Ko;
+  if (out >= limit)
+    out = limit;
+  else if (out <= -limit)
+    out = -limit;
   else
-  /*
-  * allow turning changes, see http://brettbeauregard.com/blog/2011/04/improving-the-beginner%E2%80%99s-pid-tuning-changes/
-  */
-    p->ITerm += Ki * Perror;
+    p->ITerm += (long)Ki * Perror;
 
-  p->output = output;
+  p->output = out;
   p->PrevInput = input;
 }
 
@@ -132,8 +136,8 @@ void updatePID() {
   doPID(&rightPID);
   doPID(&leftPID);
 
-  /* Set the motor speeds accordingly */
-  setMotorSpeeds(leftPID.output, rightPID.output);
+  /* Set the motor speeds accordingly (output is PWM * Ko) */
+  setMotorSpeeds((int)(leftPID.output / Ko), (int)(rightPID.output / Ko));
 }
 
 
