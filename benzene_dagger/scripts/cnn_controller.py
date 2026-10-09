@@ -333,22 +333,22 @@ class CNNController(Node):
     # Stop robot
     # ========================================================
 
-def stop_robot(self):
+    def stop_robot(self):
 
-    cmd = TwistStamped()
+        cmd = TwistStamped()
 
-    cmd.header.stamp = self.get_clock().now().to_msg()
-    cmd.header.frame_id = "base_link"
+        cmd.header.stamp = self.get_clock().now().to_msg()
+        cmd.header.frame_id = "base_link"
 
-    cmd.twist.linear.x = 0.0
-    cmd.twist.linear.y = 0.0
-    cmd.twist.linear.z = 0.0
+        cmd.twist.linear.x = 0.0    
+        cmd.twist.linear.y = 0.0
+        cmd.twist.linear.z = 0.0
 
-    cmd.twist.angular.x = 0.0
-    cmd.twist.angular.y = 0.0
-    cmd.twist.angular.z = 0.0
+        cmd.twist.angular.x = 0.0
+        cmd.twist.angular.y = 0.0
+        cmd.twist.angular.z = 0.0
 
-    self.cmd_pub.publish(cmd)
+        self.cmd_pub.publish(cmd)
 
 
 # ============================================================
