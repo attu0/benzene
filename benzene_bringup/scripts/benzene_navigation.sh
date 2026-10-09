@@ -18,13 +18,13 @@ fi
 # World
 if [ "$WORLD" = "cafe" ]; then
     WORLD_ARG="world_file:=cafe.world"
-    MAP_ARG="map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/cafe_world_map.yaml"
+    MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/cafe_world_map.yaml"
 elif [ "$WORLD" = "office" ]; then
     WORLD_ARG="world_file:=husarion_office.sdf"
-    MAP_ARG="map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/office_world_map.yaml"
+    MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/office_world_map.yaml"
 else
     WORLD_ARG="world_file:=warehouse.sdf"
-    MAP_ARG="map:=/home/atharv/ros2_ws/src/benzene/benzene_navigation/maps/warehouse_world_map.yaml"
+    MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/warehouse_world_map.yaml"
 fi
 export GZ_SIM_RESOURCE_PATH=$HOME/ros2_ws/install/benzene_description/share:$HOME/ros2_ws/src/benzene/benzene_gazebo/models:$HOME/ros2_ws/src/benzene/benzene_gazebo/worlds${GZ_SIM_RESOURCE_PATH:+:$GZ_SIM_RESOURCE_PATH}
 echo "Launching Gazebo simulation with Nav2..."
