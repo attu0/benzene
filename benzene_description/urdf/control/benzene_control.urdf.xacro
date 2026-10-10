@@ -14,7 +14,7 @@
                     <param name="loop_rate">30</param>
                     <param name="device">/dev/benzene_arduino</param>
                     <param name="baud_rate">57600</param>
-                    <param name="timeout_ms">1000</param>
+                    <param name="timeout_ms">40</param>
                     <param name="enc_counts_per_rev">1559</param>
                 </xacro:unless>
             </hardware>
