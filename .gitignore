@@ -1,8 +1,15 @@
+# Benzene DAgger
 benzene_dagger/dataset/
-.venv
 benzene_dagger/models/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE settings
 .vscode/
-benzene_ultrasonic/__pycache__/
+.idea/
 
 # Python cache files
 __pycache__/
@@ -16,24 +23,15 @@ __pycache__/
 .tox/
 .nox/
 
-# Virtual environments
-.venv/
-venv/
-env/
-
 # ROS 2 build artifacts
 build/
 install/
 log/
 
-# IDE settings
-.vscode/
-.idea/
+# Python packaging
+*.egg-info/
+dist/
 
 # OS-generated files
 .DS_Store
 Thumbs.db
-
-# Python packaging
-*.egg-info/
-dist/
