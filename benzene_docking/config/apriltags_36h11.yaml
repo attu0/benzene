@@ -16,6 +16,6 @@
 
         # optional list of tags
         tag:
-            ids: [0]                           # Which tag IDs to look for
+            ids: [0, 1, 2]                           # Which tag IDs to look for
             #frames: [charging_dock_apriltag]  # What to name each tag's coordinate frame
             #sizes: [0.25]                     # Individual size overrides for specific tags

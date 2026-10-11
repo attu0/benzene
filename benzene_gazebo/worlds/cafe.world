@@ -122,5 +122,19 @@
       <uri>model://Apriltag36_11_00000</uri>
     </include>
 
+    <include>
+      <name>Apriltag36_11_00001</name>
+      <pose>-4.96 -1 0.25 1.5708 0 1.5708</pose>
+      <static>true</static>
+      <uri>model://Apriltag36_11_00001</uri>
+    </include>
+
+    <include>
+      <name>Apriltag36_11_00002</name>
+      <pose>4.182 -5 0.25 1.5708 0 1.5708</pose>
+      <static>true</static>
+      <uri>model://Apriltag36_11_00002</uri>
+    </include>
+
   </world>
 </sdf>

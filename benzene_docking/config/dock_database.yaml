@@ -3,3 +3,7 @@ docks:
     type: 'benzene_dock'
     frame: map
     pose: [-4.96, 1.5, 0.0]
+  dock1:
+    type: 'benzene_dock'
+    frame: map
+    pose: [-4.5, -1.0, 0.0]

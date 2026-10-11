@@ -1,0 +1,19 @@
+digraph G {
+"cam_1_optical" -> "tag36h11:1"[label=" Broadcaster: default_authority\nAverage rate: 30.986\nBuffer length: 1.42\nMost recent transform: 342.739\nOldest transform: 341.319\n"];
+"cam_1_link" -> "cam_1_optical"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"odom" -> "base_footprint"[label=" Broadcaster: default_authority\nAverage rate: 16.154\nBuffer length: 1.3\nMost recent transform: 342.699\nOldest transform: 341.399\n"];
+"map" -> "odom"[label=" Broadcaster: default_authority\nAverage rate: 11.667\nBuffer length: 0.6\nMost recent transform: 343.6\nOldest transform: 343.0\n"];
+"base_link" -> "left_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 16.471\nBuffer length: 0.85\nMost recent transform: 342.749\nOldest transform: 341.899\n"];
+"base_footprint" -> "base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "right_wheel_link"[label=" Broadcaster: default_authority\nAverage rate: 16.471\nBuffer length: 0.85\nMost recent transform: 342.749\nOldest transform: 341.899\n"];
+"base_link" -> "back_caster_wheel"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "cam_1_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "front_caster_wheel"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "imu_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "laser_frame"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "ultrasonic"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1791742558.9526398"[ shape=plaintext ] ;
+}->"map";
+}

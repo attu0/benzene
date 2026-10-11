@@ -49,8 +49,8 @@ def generate_launch_description():
 
     declare_camera_frame_type_cmd = DeclareLaunchArgument(
         name='camera_frame_type',
-        default_value='_depth_optical_frame',
-        description='Type of camera frame to use (e.g., _depth_optical_frame, _optical_frame)'
+        default_value='_optical',
+        description='Suffix appended to the camera namespace to form the optical frame name (e.g., _optical -> cam_1_optical)'
     )
 
     declare_camera_namespace_cmd = DeclareLaunchArgument(
@@ -67,7 +67,7 @@ def generate_launch_description():
 
     declare_tag_id_cmd = DeclareLaunchArgument(
         name='tag_id',
-        default_value='0',
+        default_value='1',
         description='ID of the AprilTag being used'
     )
 
