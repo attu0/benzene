@@ -1,0 +1,29 @@
+# Joystick config for the benzene robot.
+# Place at: benzene_bringup/config/joystick.yaml
+# Defaults below suit an Xbox-style controller (xpad / xinput mode).
+
+joy_node:
+  ros__parameters:
+    device_id: 0          # /dev/input/js0 ; change if you have several
+    deadzone: 0.05
+    autorepeat_rate: 20.0 # resend /joy at 20 Hz while a button is held
+
+teleop_node:
+  ros__parameters:
+    require_enable_button: true
+    enable_button: 0          # A - HOLD this to drive
+    enable_turbo_button: 5    # RB - hold with A for turbo
+
+    axis_linear:
+      x: 1                    # left stick up/down
+    scale_linear:
+      x: 0.5                  # m/s (same as keyboard teleop)
+    scale_linear_turbo:
+      x: 1.0
+
+    axis_angular:
+      yaw: 0                  # left stick left/right
+    scale_angular:
+      yaw: 1.0                # rad/s (same as keyboard teleop)
+    scale_angular_turbo:
+      yaw: 2.0

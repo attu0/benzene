@@ -178,7 +178,7 @@ Visualization Manager:
         Min Value: -10
         Value: true
       Axis: Z
-      Channel Name: intensity
+      Channel Name: x
       Class: rviz_default_plugins/LaserScan
       Color: 255; 255; 255
       Color Transformer: Intensity
@@ -186,9 +186,9 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 0
+      Max Intensity: 9.753072738647461
       Min Color: 0; 0; 0
-      Min Intensity: 0
+      Min Intensity: -10.910090446472168
       Name: LaserScan
       Position Transformer: XYZ
       Selectable: true
@@ -234,25 +234,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 0.9432538151741028
+      Distance: 14.69884967803955
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.04098872095346451
-        Y: 0.007902724668383598
-        Z: 0.06305184215307236
+        X: 0.016817212104797363
+        Y: 0.03868316859006882
+        Z: 0.05614436790347099
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8347965478897095
+      Pitch: 1.3452022075653076
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.8618136048316956
+      Yaw: 1.30181884765625
     Saved: ~
 Window Geometry:
   Displays:
@@ -260,9 +260,9 @@ Window Geometry:
   Height: 1011
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000001cb00000395fc0200000002fb000000100044006900730070006c006100790073010000003f0000022b000000cc00fffffffb0000000a00560069006500770073010000027000000164000000a900ffffff0000056d0000039500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000100000000000001cb00000395fc0200000002fb000000100044006900730070006c006100790073010000003f0000022b000000cc00fffffffb0000000a00560069006500770073010000027000000164000000a900ffffff000005af0000039500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
-  Width: 1854
-  X: 66
+  Width: 1920
+  X: 0
   Y: 32
