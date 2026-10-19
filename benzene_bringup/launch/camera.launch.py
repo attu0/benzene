@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Launch the Pi Camera Module 3 (libcamera) driver on the real robot."""
+"""Pi Camera Module 3 publishing the same topics/frame as the sim cam_1."""
 
 import os
 
@@ -11,8 +11,6 @@ LIBCAMERA_LIB = '/usr/local/lib/aarch64-linux-gnu'
 
 
 def generate_launch_description():
-    # Make sure camera_node loads the Raspberry Pi libcamera fork,
-    # not any other libcamera on the system.
     existing = os.environ.get('LD_LIBRARY_PATH', '')
     ld_path = LIBCAMERA_LIB + (':' + existing if existing else '')
 
@@ -21,15 +19,20 @@ def generate_launch_description():
         Node(
             package='benzene_camera',
             executable='camera_node',
-            name='camera',
+            name='cam_1',
             output='screen',
+            remappings=[
+                ('~/image_raw', '/cam_1/color/image_raw'),
+                ('~/camera_info', '/cam_1/color/camera_info'),
+            ],
             parameters=[{
                 'camera': 0,
                 'width': 640,
                 'height': 480,
-                'format': 'RGB888',
-                'camera_frame_id': 'camera_optical',
+                'format': 'BGR888',   # should publish rgb8; verify below
+                'camera_frame_id': 'cam_1_optical',
                 'orientation': 180,
+                # 'camera_info_url': 'file:///home/<you>/cam_1.yaml',  # after calibration
             }],
         ),
     ])
