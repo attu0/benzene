@@ -22,6 +22,9 @@ if [ "$WORLD" = "cafe" ]; then
 elif [ "$WORLD" = "office" ]; then
     WORLD_ARG="world_file:=husarion_office.sdf"
     MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/office_world_map.yaml"
+elif [ "$WORLD" = "w" ]; then
+    WORLD_ARG="world_file:=warehouse.world"
+    MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/w_world_map.yaml"
 else
     WORLD_ARG="world_file:=warehouse.sdf"
     MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/warehouse_world_map.yaml"

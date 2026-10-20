@@ -71,11 +71,28 @@
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
-    <physics name='default_physics' default='0' type='ode'>
-      <max_step_size>0.004</max_step_size>
-      <real_time_factor>1</real_time_factor>
-      <real_time_update_rate>250</real_time_update_rate>
-    </physics>
+
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin
+      filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
     <scene>
       <ambient>0.4 0.4 0.4 1</ambient>
       <background>0.7 0.7 0.7 1</background>
@@ -1199,7 +1216,7 @@
       </link>
       <pose frame=''>4.95299 5.6442 0 0 -0 0</pose>
     </model>
-    <model name='workcell_bin_clone_1'> 
+    <model name='workcell_bin_clone_1'>
       <static>1</static>
       <link name='link'>
         <visual name='visual'>
@@ -2184,6 +2201,6 @@
         </script>
       </actor>
 
-      
+
   </world>
 </sdf>

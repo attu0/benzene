@@ -10,6 +10,8 @@ if [ "$1" = "cafe" ]; then
     WORLD_ARG="world_file:=cafe.world"
 elif [ "$1" = "office" ]; then
     WORLD_ARG="world_file:=husarion_office.sdf"
+elif [ "$1" = "w" ]; then
+    WORLD_ARG="world_file:=warehouse.world"
 else
     WORLD_ARG="world_file:=warehouse.sdf"
 fi
