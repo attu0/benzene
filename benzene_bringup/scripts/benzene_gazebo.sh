@@ -12,6 +12,8 @@ elif [ "$1" = "office" ]; then
     WORLD_ARG="world_file:=husarion_office.sdf"
 elif [ "$1" = "w" ]; then
     WORLD_ARG="world_file:=warehouse.world"
+elif [ "$1" = "house" ]; then
+    WORLD_ARG="world_file:=house.world"
 else
     WORLD_ARG="world_file:=warehouse.sdf"
 fi

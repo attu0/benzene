@@ -370,8 +370,8 @@ docking_server:
     wait_charge_timeout: 5.0
     dock_approach_timeout: 30.0
     undock_linear_tolerance: 0.05
-    undock_angular_tolerance: 0.05
-    max_retries: 3
+    undock_angular_tolerance: 0.01
+    max_retries: 5
     base_frame: "base_link"
     fixed_frame: "odom"
     dock_backwards: false

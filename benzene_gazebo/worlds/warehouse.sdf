@@ -255,5 +255,12 @@
       <pose>-12 15 0 0 0 0</pose>
     </include>
 
+    <include>
+      <name>Apriltag36_11_00000</name>
+      <pose>-14.95 -2.5 0.25 1.5708 0 1.5708</pose>
+      <static>true</static>
+      <uri>model://Apriltag36_11_00000</uri>
+    </include>
+
   </world>
 </sdf>

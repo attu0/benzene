@@ -25,6 +25,9 @@ elif [ "$WORLD" = "office" ]; then
 elif [ "$WORLD" = "w" ]; then
     WORLD_ARG="world_file:=warehouse.world"
     MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/w_world_map.yaml"
+elif [ "$WORLD" = "house" ]; then
+    WORLD_ARG="world_file:=house.world"
+    MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/house_world_map.yaml"
 else
     WORLD_ARG="world_file:=warehouse.sdf"
     MAP_ARG="map:=$HOME/ros2_ws/src/benzene/benzene_navigation/maps/warehouse_world_map.yaml"

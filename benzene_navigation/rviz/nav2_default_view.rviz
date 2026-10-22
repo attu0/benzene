@@ -149,10 +149,6 @@ Visualization Manager:
           Value: true
         laser_frame:
           Value: true
-        map:
-          Value: true
-        odom:
-          Value: true
         ultrasonic:
           Value: true
       Marker Scale: 1
@@ -161,23 +157,7 @@ Visualization Manager:
       Show Axes: false
       Show Names: false
       Tree:
-        map:
-          odom:
-            base_footprint:
-              base_link:
-                back_caster_wheel:
-                  {}
-                cam_1_link:
-                  cam_1_optical:
-                    {}
-                front_caster_wheel:
-                  {}
-                imu_link:
-                  {}
-                laser_frame:
-                  {}
-                ultrasonic:
-                  {}
+        {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -596,11 +576,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 43.68833923339844
+      Scale: 96.58100128173828
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz_default_plugins)
-      X: 4.451406955718994
-      Y: -4.884375095367432
+      X: -0.22524118423461914
+      Y: -0.23259907960891724
     Saved: ~
 Window Geometry:
   Displays:
