@@ -66,6 +66,9 @@ install(
     scripts/expert_controller.py
     scripts/line_detector.py
     scripts/data_collector.py
+    scripts/dagger_mixer.py
+    scripts/cnn_controller.py
+    scripts/train_behavioral_cloning.py
   DESTINATION
    lib/${PROJECT_NAME}
 )

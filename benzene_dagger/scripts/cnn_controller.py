@@ -7,6 +7,8 @@ Camera image -> CNN -> angular velocity -> robot
 
 The model was trained to predict angular_z from the
 camera image. Linear velocity remains fixed.
+
+Publishes to /learner/cmd_vel; dagger_mixer drives the robot.
 """
 
 import os
@@ -150,6 +152,9 @@ class CNNController(Node):
             checkpoint["model_state_dict"]
         )
 
+        # Same top-crop as used in training (0.0 for older checkpoints).
+        self.crop_top = float(checkpoint.get("crop_top", 0.0))
+
         self.model.to(self.device)
 
         self.model.eval()
@@ -178,7 +183,7 @@ class CNNController(Node):
 
         self.cmd_pub = self.create_publisher(
             TwistStamped,
-            "/diff_drive_controller/cmd_vel",
+            "/learner/cmd_vel",
             10
         )
 
@@ -234,6 +239,9 @@ class CNNController(Node):
             frame,
             cv2.COLOR_BGR2RGB
         )
+
+        top = int(image.shape[0] * self.crop_top)
+        image = image[top:, :]
 
         image = cv2.resize(
             image,
@@ -340,7 +348,7 @@ class CNNController(Node):
         cmd.header.stamp = self.get_clock().now().to_msg()
         cmd.header.frame_id = "base_link"
 
-        cmd.twist.linear.x = 0.0    
+        cmd.twist.linear.x = 0.0
         cmd.twist.linear.y = 0.0
         cmd.twist.linear.z = 0.0
 
