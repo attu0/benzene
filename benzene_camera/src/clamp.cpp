@@ -5,6 +5,7 @@
 #include <cassert>
 #include <cstddef>
 #include <libcamera/base/span.h>
+#include <span>
 #include <libcamera/controls.h>
 #include <libcamera/geometry.h>
 #include <stdexcept>
@@ -34,7 +35,7 @@ typename ControlTypeMap<T>::type
 min(const libcamera::ControlValue &value)
 {
   using A = typename ControlTypeMap<T>::type;
-  using S = libcamera::Span<const A>;
+  using S = std::span<const A>;
 
   if (value.isArray()) {
     const S v = value.get<S>();
@@ -50,7 +51,7 @@ typename ControlTypeMap<T>::type
 max(const libcamera::ControlValue &value)
 {
   using A = typename ControlTypeMap<T>::type;
-  using S = libcamera::Span<const A>;
+  using S = std::span<const A>;
 
   if (value.isArray()) {
     const S v = value.get<S>();
@@ -109,14 +110,14 @@ clamp_array(const libcamera::ControlValue &value, const libcamera::ControlValue 
   assert(min.isArray() == max.isArray());
   assert(min.numElements() == max.numElements());
 
-  const libcamera::Span<const T> v = value.get<libcamera::Span<const T>>();
+  const std::span<const T> v = value.get<std::span<const T>>();
 
   std::vector<T> vclamp(v.size());
 
   if (min.isArray() == true && max.isArray() == true) {
     // clamp individual elements with their individual min/max values
-    const libcamera::Span<const T> a = min.get<libcamera::Span<const T>>();
-    const libcamera::Span<const T> b = max.get<libcamera::Span<const T>>();
+    const std::span<const T> a = min.get<std::span<const T>>();
+    const std::span<const T> b = max.get<std::span<const T>>();
     for (size_t i = 0; i < v.size(); i++)
       vclamp[i] = std::clamp(v[i], a[i], b[i]);
   }
@@ -131,7 +132,7 @@ clamp_array(const libcamera::ControlValue &value, const libcamera::ControlValue 
     throw should_not_reach();
   }
 
-  return libcamera::ControlValue(libcamera::Span<const T>(vclamp));
+  return libcamera::ControlValue(std::span<const T>(vclamp));
 }
 
 template<typename T,
@@ -224,10 +225,10 @@ bool
 less(const libcamera::ControlValue &lhs, const libcamera::ControlValue &rhs)
 {
   if (lhs.isArray()) {
-    const libcamera::Span<const T> va = lhs.get<libcamera::Span<const T>>();
+    const std::span<const T> va = lhs.get<std::span<const T>>();
     if (rhs.isArray()) {
       // array-array comparison
-      const libcamera::Span<const T> vb = rhs.get<libcamera::Span<const T>>();
+      const std::span<const T> vb = rhs.get<std::span<const T>>();
       // check if any lhs element is less than its corresponding rhs element
       for (size_t i = 0; i < va.size(); i++)
         if (va[i] < vb[i])
@@ -245,7 +246,7 @@ less(const libcamera::ControlValue &lhs, const libcamera::ControlValue &rhs)
   }
   else if (rhs.isArray()) {
     // scalar-array comparison
-    const libcamera::Span<const T> vb = rhs.get<libcamera::Span<const T>>();
+    const std::span<const T> vb = rhs.get<std::span<const T>>();
     const T va = lhs.get<T>();
     for (size_t i = 0; i < vb.size(); i++)
       if (va < vb[i])
@@ -264,10 +265,10 @@ bool
 greater(const libcamera::ControlValue &lhs, const libcamera::ControlValue &rhs)
 {
   if (lhs.isArray()) {
-    const libcamera::Span<const T> va = lhs.get<libcamera::Span<const T>>();
+    const std::span<const T> va = lhs.get<std::span<const T>>();
     if (rhs.isArray()) {
       // array-array comparison
-      const libcamera::Span<const T> vb = rhs.get<libcamera::Span<const T>>();
+      const std::span<const T> vb = rhs.get<std::span<const T>>();
       // check if any lhs element is greater than its corresponding rhs element
       for (size_t i = 0; i < va.size(); i++)
         if (va[i] > vb[i])
@@ -285,7 +286,7 @@ greater(const libcamera::ControlValue &lhs, const libcamera::ControlValue &rhs)
   }
   else if (rhs.isArray()) {
     // scalar-array comparison
-    const libcamera::Span<const T> vb = rhs.get<libcamera::Span<const T>>();
+    const std::span<const T> vb = rhs.get<std::span<const T>>();
     const T va = lhs.get<T>();
     for (size_t i = 0; i < vb.size(); i++)
       if (va > vb[i])

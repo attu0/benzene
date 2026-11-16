@@ -18,6 +18,10 @@
 #include <rclcpp/parameter_value.hpp>
 
 
+// libcamera >= 0.5 uses std::span and no longer provides libcamera::dynamic_extent.
+// The value is size_t(-1) in std:: and in older libcamera, so define it locally.
+static constexpr std::size_t kDynamicExtent = static_cast<std::size_t>(-1);
+
 #define CASE_RANGE(T, RU, RL)                                      \
   case libcamera::ControlType##T:                                  \
   {                                                                \
@@ -107,7 +111,7 @@ ParameterHandler::declare(const libcamera::ControlInfoMap &controls)
     }
 
     const bool ctrl_scalar = (extent == 0);
-    const bool ctrl_dynamic = (extent == libcamera::dynamic_extent);
+    const bool ctrl_dynamic = (extent == kDynamicExtent);
     const bool ctrl_fixed = !(ctrl_scalar || ctrl_dynamic);
 
     if (ctrl_fixed && !cv_def.isArray() && !cv_def.isNone()) {
@@ -401,7 +405,7 @@ ParameterHandler::validate_new_parameters(const std::vector<rclcpp::Parameter> &
     // check array dimension
     const std::size_t extent = get_extent(id);
     if (value.isArray() &&
-        (extent != libcamera::dynamic_extent) &&
+        (extent != kDynamicExtent) &&
         (value.numElements() != extent)) {
       msgs_valid_check.push_back(
         parameter.get_name() + ": array dimensions mismatch, expected " +

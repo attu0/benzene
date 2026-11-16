@@ -56,12 +56,32 @@
 #include <sensor_msgs/msg/image.hpp>
 #include <std_msgs/msg/header.hpp>
 #include <stdexcept>
+#include <type_traits>
 #include <string>
 #include <sys/mman.h>
 #include <thread>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+
+// libcamera >= 0.5 returns std::optional<Orientation> from orientationFromRotation(),
+// older versions return Orientation directly. Overloads accept either.
+namespace
+{
+[[maybe_unused]] libcamera::Orientation
+unwrap_orientation(libcamera::Orientation o, int /*angle*/)
+{
+  return o;
+}
+
+[[maybe_unused]] libcamera::Orientation
+unwrap_orientation(const std::optional<libcamera::Orientation> &o, int angle)
+{
+  if (!o)
+    throw std::runtime_error("invalid camera orientation angle: " + std::to_string(angle));
+  return *o;
+}
+} // namespace
 
 namespace rclcpp
 {
@@ -306,7 +326,7 @@ CameraNode::CameraNode(const rclcpp::NodeOptions &options)
   constexpr int orientation_angle_default = 0;
   const int angle = declare_parameter<int>("orientation", orientation_angle_default, param_descr_orientation);
 #if LIBCAMERA_VER_GE(0, 2, 0)
-  const libcamera::Orientation orientation = libcamera::orientationFromRotation(angle);
+  const libcamera::Orientation orientation = unwrap_orientation(libcamera::orientationFromRotation(angle), angle);
 #else
   if (angle != orientation_angle_default) {
     RCLCPP_WARN_STREAM(get_logger(), "parameter 'orientation' not supported on libcamera " << LIBCAMERA_VERSION_MAJOR << "." << LIBCAMERA_VERSION_MINOR);

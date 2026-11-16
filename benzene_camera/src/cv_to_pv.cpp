@@ -1,3 +1,4 @@
+#include <span>
 #include "cv_to_pv.hpp"
 #include "libcamera_version_utils.hpp"
 #include "type_extent.hpp"
@@ -26,7 +27,7 @@ std::vector<T>
 extract_value(const libcamera::ControlValue &value)
 {
   if (value.isArray()) {
-    const libcamera::Span<const T> span = value.get<libcamera::Span<const T>>();
+    const std::span<const T> span = value.get<std::span<const T>>();
     return std::vector<T>(span.begin(), span.end());
   }
   else {
