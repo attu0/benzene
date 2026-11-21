@@ -48,7 +48,7 @@
                 <geometry>
 
                     <mesh
-                        filename="file://$(find benzene_description)/meshes/benzene/visual/${side}_wheel.stl"
+                        filename="package://benzene_description/meshes/benzene/visual/${side}_wheel.stl"
                         scale="0.001 0.001 0.001"/>
 
                 </geometry>
@@ -75,7 +75,7 @@
                 <geometry>
 
                     <mesh
-                        filename="file://$(find benzene_description)/meshes/benzene/visual/${side}_wheel.stl"
+                        filename="package://benzene_description/meshes/benzene/visual/${side}_wheel.stl"
                         scale="0.001 0.001 0.001"/>
                 </geometry>
 

@@ -31,7 +31,7 @@
 
         <geometry>
           <mesh
-            filename="file://$(find benzene_description)/meshes/benzene/visual/chassis.stl"
+            filename="package://benzene_description/meshes/benzene/visual/chassis.stl"
             scale="0.001 0.001 0.001"/>
         </geometry>
 
@@ -43,7 +43,7 @@
       <collision>
         <geometry>
           <mesh
-            filename="file://$(find benzene_description)/meshes/benzene/visual/chassis.stl"
+            filename="package://benzene_description/meshes/benzene/visual/chassis.stl"
             scale="0.001 0.001 0.001"/>
         </geometry>
 

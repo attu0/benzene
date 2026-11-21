@@ -10,7 +10,7 @@
       prefix:=''
       parent:='base_link'
       frame_id:='laser_frame'
-      mesh_file:='file://$(find benzene_description)/meshes/rplidar/lidar.stl'
+      mesh_file:='package://benzene_description/meshes/rplidar/lidar.stl'
       xyz_offset:='0 0 0'
       rpy_offset:='0 0 0'
       mesh_xyz_offset:='0 0 0'
