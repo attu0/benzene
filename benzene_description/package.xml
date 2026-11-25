@@ -28,7 +28,7 @@
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
 
   <!-- License -->
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
 
   <!-- Build Dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>

@@ -42,7 +42,7 @@ setup(
     maintainer='atharv',
     maintainer_email='atharvmudse@gmail.com',
     description='MPU6050 I2C IMU driver for the Benzene robot',
-    license='TODO: License declaration',
+    license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
