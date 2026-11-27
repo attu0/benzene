@@ -29,7 +29,7 @@
   <maintainer email="atharvmudse@gmail.com">atharv</maintainer>
 
   <!-- License -->
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
 
   <!-- Package Dependencies -->
   <depend>controller_manager</depend>
